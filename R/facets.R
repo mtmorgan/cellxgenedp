@@ -9,7 +9,7 @@
 #' @export
 FACETS <- c(
     "assay", "cell_type", "development_stage", "disease",
-    "ethnicity", "organism", "sex", "tissue"
+    "ethnicity", "organism", "processing_status", "sex", "tissue"
 )
 
 .facet <-

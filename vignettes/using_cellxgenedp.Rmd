@@ -1,0 +1,201 @@
+---
+title: "Discover and download datasets and files from the cellxgene data portal"
+author:
+- name: Martin Morgan
+  affiliation: Roswell Park Comprehensive Cancer Center
+  email: Martin.Morgan@RoswellPark.org
+package: cellxgenedp
+output:
+  BiocStyle::html_document
+abstract: |
+  Description of your vignette
+vignette: |
+  %\VignetteIndexEntry{Discover and download datasets and files from the cellxgene data portal}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+# Installation and use
+
+This package is not yet available on _Bioconductor_. Install from
+GitHub using the following commands
+
+```{r, eval = FALSE}
+pkgs <- c("remotes", "BiocManager")
+required_pkgs <- pkgs[!pkgs %in% rownames(installed.packages())]
+if (length(required_pkgs))
+    install.packages(pkgs, repos = "https://cloud.r-project.org")
+BiocManager::install("mtmorgan/cellxgenedp")
+```
+
+Load the package into your current _R_ session. We make extensive use
+of the dplyr and tidyr packages, so load those as well.
+
+```{r}
+suppressPackageStartupMessages({
+    library(cellxgenedp)
+    library(dplyr)
+    library(tidyr)
+})
+```
+
+# Collections, datasets and files
+
+Retrieve metadata about resources available at the cellxgene data
+portal using `db()`:
+
+```{r}
+db <- db()
+```
+
+Printing the `db` object provides a brief overview of the available
+data, as well as hints, in the form of functions like `collections()`,
+for further exploration.
+
+```{r}
+db
+```
+
+The portal organizes data hierarchically, with 'collections'
+(research studies, approximately), 'datasets', and 'files'. Discover
+data using the corresponding functions.
+
+```{r}
+collections(db)
+
+datasets(db)
+
+files(db)
+```
+
+Each of these resources has a unique primary identifier (e.g.,
+`file_id`) as well as an identifier describing the relationship of the
+resource to other components of the database (e.g.,
+`dataset_id`). These identifiers can be used to 'join' information
+across tables.
+
+## Using `dplyr` to navigate data
+
+A collection may have several datasets, and datasets may have several
+files. For instance, here is the collection with the most datasets
+
+```{r}
+collection_with_most_datasets <-
+    datasets(db) |>
+    count(collection_id, sort = TRUE) |>
+    slice(1)
+```
+
+We can find out about this collection by joining with the
+`collections()` table.
+
+```{r}
+left_join(collection_with_most_datasets, collections(db)) |>
+    glimpse()
+```
+
+We can take a similar strategy to identify all datasets belonging to
+this collection
+```{r}
+left_join(collection_with_most_datasets, datasets(db))
+```
+
+## `facets()` provides information on 'levels' present in specific columns
+
+Notice that some columns are 'lists' rather than atomic vectors like
+'character' or 'integer'.
+
+```{r}
+datasets(db) |>
+    select(where(is.list))
+```
+
+This indicates that at least some of the datasets had more than one
+type of `assay`, `cell_type`, etc. The `facets()` function provides a
+convenient way of discovering possible levels of each column, e.g.,
+`organism`, `ethnicity`, or `sex`, and the number of datasets with
+each label.
+
+```{r}
+facets(db, "organism")
+facets(db, "ethnicity")
+facets(db, "sex")
+```
+
+## Using `tidyr::unnest()` to expand columns and filter results
+
+Suppose that we were interested in finding datasets that contained
+individuals of African American ethnicity, and female sex. Let's
+simplify the datasets to make visualization a bit easier
+
+```{r}
+subset <-
+    datasets(db) |>
+    select(dataset_id, collection_id, organism, ethnicity, sex)
+```
+
+Note that there are `r nrow(subset)` datasets available. Unnest the
+data first using `tidyr::unnest()` so that each row represents a
+dataset perhaps separated by ethnicity, and then
+`tidyr::unnest_wider()` to separate the label and ontology components
+of ethnicity.
+
+```{r}
+subset |>
+    tidyr::unnest("ethnicity") |>
+    tidyr::unnest_wider("ethnicity", names_sep = ".")
+```
+
+Finally, filter datasets to those with African American ethnicity
+
+```{r}
+african_american <-
+    subset |>
+    tidyr::unnest("ethnicity") |>
+    tidyr::unnest_wider("ethnicity", names_sep = ".") |>
+    filter(ethnicity.label == "African American")
+```
+
+There are `r nrow(african_american)` datasets satsifying this
+criterion. Repeat to identify those datasets with female sex.
+
+```{r}
+african_american_female <-
+    african_american |>
+    unnest("sex") |>
+    unnest_wider("sex", names_sep = ".") |>
+    filter(sex.label == "female")
+```
+
+There are `r nrow(african_american_female)` datasets satisfying our
+criteria. Use `left_join` to identify the corresponding collections
+and datasets.
+
+```{r}
+## collections
+left_join(
+    african_american_female |> select(collection_id) |> distinct(),
+    collections(db)
+)
+
+## dataset details
+selected_datasets <-
+    left_join(
+        african_american_female |> select(dataset_id) |> distinct(),
+        datasets(db)
+    )
+selected_datasets
+```
+
+It looks like there are `r nrow(selected_datasets)` available, with up
+to `r sum(selected_datasets$cell_count)` cells sequenced (each dataset
+may contain cells from males as well as females, so we do not know the
+actual number of cells available without actually downloading files).
+
+# File download and use
+
+# Session info {.unnumbered}
+
+```{r sessionInfo, echo=FALSE}
+sessionInfo()
+```
