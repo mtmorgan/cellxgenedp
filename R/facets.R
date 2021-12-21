@@ -9,7 +9,7 @@
 #' @export
 FACETS <- c(
     "assay", "cell_type", "development_stage", "disease",
-    "ethnicity", "organism", "processing_status", "sex", "tissue"
+    "ethnicity", "organism", "sex", "tissue"
 )
 
 .facet <-
@@ -77,4 +77,67 @@ facets <-
     terms |>
         bind_rows() |>
         select("facet", "label", "ontology_term_id", "n")
+}
+
+#' @rdname facets
+#'
+#' @description `facets_filter()` provides a convenient way to filter
+#'     facets based on label or ontology term.
+#'
+#' @param facet the column containing faceted information, e.g., `sex`
+#'     in `datasets(db)`.
+#'
+#' @param key character(1) identifying whether `value` is a `label` or
+#'     `ontology_term_id`.
+#'
+#' @param value character() value of the label or ontology term to
+#'     filter on. The value may be a vector with `length(value) > 0`
+#'     for exact matchs (`exact = TRUE`, default), or a `character(1)`
+#'     regular expression.
+#'
+#' @param exact logical(1) whether values match exactly (default,
+#'     `TRUE`) or as a regular expression (`FALSE`).
+#'
+#' @return `facets_filter()` returns a logical vector with length
+#'     equal to the length (number of rows) of `facet`, with `TRUE`
+#'     indicating that the `value` of `key` is present in the dataset.
+#'
+#' @examples
+#' db <- db()
+#' ds <- datasets(db)
+#'
+#' ## datasets with African American females
+#' ds |>
+#'     dplyr::filter(
+#'         facets_filter(ethnicity, "label", "African American"),
+#'         facets_filter(sex, "label", "female")
+#'     )
+#'
+#' ## datasets with non-European, known ethnicity
+#' facets(db, "ethnicity")
+#' ds |>
+#'     dplyr::filter(
+#'         !facets_filter(ethnicity, "label", c("European", "na", "unknown"))
+#'     )
+#'
+#' @export
+facets_filter <-
+    function(facet, key = c("label", "ontology_term_id"), value, exact = TRUE)
+{
+    key <- match.arg(key)
+    stopifnot(
+        (exact && is.character(value)) ||
+             (!exact && .is_scalar_character(value)),
+        .is_scalar_logical(exact)
+    )
+
+    row_index <- rep(seq_along(facet), lengths(facet))
+    facet_kv <- unlist(facet, recursive = FALSE, use.names = FALSE)
+    values <- vapply(facet_kv, `[[`, character(1), key)
+    if (exact) {
+        found_index <- row_index[values %in% value]
+    } else {
+        found_index <- row_index[grepl(value, values)]
+    }
+    seq_along(facet) %in% found_index
 }

@@ -1,2 +1,4 @@
 .Rhistory
 src/*o
+vignettes/*R
+vignettes/*html

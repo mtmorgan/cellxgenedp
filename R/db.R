@@ -34,8 +34,8 @@ db <-
     db <- .db()
     details <- mclapply(db$id, .db_detail)
     details <- sprintf("[%s]", paste(details, collapse=","))
-    class(details) <- c("cellxgene_db", class(details))
 
+    class(details) <- c("cellxgene_db", class(details))
     details
 }
 

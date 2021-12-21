@@ -4,6 +4,7 @@
 \name{FACETS}
 \alias{FACETS}
 \alias{facets}
+\alias{facets_filter}
 \title{Facets available for querying cellxgene data}
 \format{
 \code{FACETS} is an object of class \code{character} of length 8.
@@ -12,6 +13,8 @@
 FACETS
 
 facets(cellxgene_db = db(), facets = FACETS)
+
+facets_filter(facet, key = c("label", "ontology_term_id"), value, exact = TRUE)
 }
 \arguments{
 \item{cellxgene_db}{an (optional) cellxgene_db object, as returned
@@ -19,11 +22,29 @@ by \code{db()}.}
 
 \item{facets}{a character() vector corersponding to one of the
 facets in \code{FACETS}.}
+
+\item{facet}{the column containing faceted information, e.g., \code{sex}
+in \code{datasets(db)}.}
+
+\item{key}{character(1) identifying whether \code{value} is a \code{label} or
+\code{ontology_term_id}.}
+
+\item{value}{character() value of the label or ontology term to
+filter on. The value may be a vector with \code{length(value) > 0}
+for exact matchs (\code{exact = TRUE}, default), or a \code{character(1)}
+regular expression.}
+
+\item{exact}{logical(1) whether values match exactly (default,
+\code{TRUE}) or as a regular expression (\code{FALSE}).}
 }
 \value{
 \code{facets()} returns a tibble with columns \code{facet}, \code{label},
 \code{ontology_term_id}, and \code{n}, the number of times the facet
 label is used in the database.
+
+\code{facets_filter()} returns a logical vector with length
+equal to the length (number of rows) of \code{facet}, with \code{TRUE}
+indicating that the \code{value} of \code{key} is present in the dataset.
 }
 \description{
 \code{FACETS} is a character vector of common fields used
@@ -31,6 +52,9 @@ to subset cellxgene data.
 
 \code{facets()} is used to query the cellxgene database for
 current values of one or all facets.
+
+\code{facets_filter()} provides a convenient way to filter
+facets based on label or ontology term.
 }
 \examples{
 f <- facets()
@@ -42,6 +66,23 @@ f |>
 ## same as facets(, facets = "organism")
 f |>
     dplyr::filter(facet == "organism")
+
+db <- db()
+ds <- datasets(db)
+
+## datasets with African American females
+ds |>
+    dplyr::filter(
+        facets_filter(ethnicity, "label", "African American"),
+        facets_filter(sex, "label", "female")
+    )
+
+## datasets with non-European, known ethnicity
+facets(db, "ethnicity")
+ds |>
+    dplyr::filter(
+        !facets_filter(ethnicity, "label", c("European", "na", "unknown"))
+    )
 
 }
 \keyword{datasets}

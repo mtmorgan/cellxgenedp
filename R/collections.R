@@ -15,23 +15,6 @@
 #' collections(db) |>
 #'     dplyr::glimpse()
 #'
-#' datasets(db)
-#'
-#' ## some datasets have more than one organism, so there are
-#' ## additional rows
-#' datasets(db) |>
-#'     dplyr::select(ends_with("_id"), "cell_count", "organism") |>
-#'     tidyr::unnest("organism")
-#'
-#' ## use unnest_wider (a second level of unnesting) to see the
-#' ## organisms in each dataset
-#' datasets(db) |>
-#'     dplyr::select(ends_with("_id"), "cell_count", "organism") |>
-#'     tidyr::unnest("organism") |>
-#'     tidyr::unnest_wider("organism", names_sep = ".")
-#'
-#' files(db)
-#'
 #' @export
 collections <-
     function(cellxgene_db = db())

@@ -3,25 +3,44 @@
 \name{collections}
 \alias{collections}
 \alias{datasets}
+\alias{datasets_visualize}
 \alias{files}
+\alias{files_download}
 \title{Query cellxgene collections, datasets, and files}
 \usage{
 collections(cellxgene_db = db())
 
 datasets(cellxgene_db = db)
 
+datasets_visualize(tbl)
+
 files(cellxgene_db = db())
+
+files_download(tbl, dry.run = TRUE)
 }
 \arguments{
 \item{cellxgene_db}{an optional 'cellxgene_db' object, as returned
 by \code{db()}.}
+
+\item{tbl}{a \code{tibble()} typically derived from \code{datasets(db)} or
+\code{files(db)} and containing columns \code{dataset_id} (for
+\code{datasets_visualize()}), or columns \code{dataset_id}, \code{file_id},
+and \code{filetype} (for \code{files_download()}).}
+
+\item{dry.run}{logical(1) indicating whether the (often large)
+file(s) in \code{tbl} should be downloaded to a local cache. Files
+are not downloaded when \code{dry.run = TRUE} (default).}
 }
 \value{
 Each function returns a tibble describing the corresponding
 component of the database.
+
+\code{files_download()} returns a character() vector of paths to
+the local files.
 }
 \description{
-Query cellxgene collections, datasets, and files
+\code{files_download()} retrieves one or more cellxgene
+files to a cache on the local system.
 }
 \examples{
 db <- db()
@@ -31,21 +50,22 @@ collections(db)
 collections(db) |>
     dplyr::glimpse()
 
-datasets(db)
-
-## some datasets have more than one organism, so there are
-## additional rows
 datasets(db) |>
-    dplyr::select(ends_with("_id"), "cell_count", "organism") |>
-    tidyr::unnest("organism")
+    dplyr::glimpse()
 
-## use unnest_wider (a second level of unnesting) to see the
-## organisms in each dataset
+\dontrun{
+## visualize the first dataset
 datasets(db) |>
-    dplyr::select(ends_with("_id"), "cell_count", "organism") |>
-    tidyr::unnest("organism") |>
-    tidyr::unnest_wider("organism", names_sep = ".")
+    slice(1) |>
+    datasets_visualize()
+}
+files(db) |>
+    dplyr::glimpse()
 
-files(db)
+\dontrun{
+files(db) |>
+    dplyr::slice(1) |>
+    files_download(dry.run = FALSE)
+}
 
 }

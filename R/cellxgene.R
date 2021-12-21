@@ -6,7 +6,10 @@
 
 .COLLECTIONS <- paste0(.CELLXGENE_PRODUCTION_ENDPOINT, "/dp/v1/collections/")
 
-#' @importFrom httr GET write_disk status_code stop_for_status content headers
+.CELLXGENE_EXPLORER <- "https://cellxgene.cziscience.com/e/"
+
+#' @importFrom httr GET write_disk progress status_code
+#'     stop_for_status content headers
 .cellxgene_GET <-
     function(uri)
 {
@@ -26,11 +29,15 @@
 }
 
 .cellxgene_cache_get <-
-    function(uri, overwrite = FALSE)
+    function(uri, file = basename(uri), progress = FALSE, overwrite = FALSE)
 {
-    path <- file.path(.cellxgene_cache_path(), basename(uri))
+    path <- file.path(.cellxgene_cache_path(), file)
     if (overwrite || !file.exists(path)) {
-        response <- GET(uri, write_disk(path, overwrite = overwrite))
+        response <- GET(
+            uri,
+            if (progress) progress(),
+            write_disk(path, overwrite = overwrite)
+        )
         if (status_code(response) >= 400L) {
             unlink(path)
             stop_for_status(response)

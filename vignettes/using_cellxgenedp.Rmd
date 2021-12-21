@@ -113,63 +113,44 @@ datasets(db) |>
 This indicates that at least some of the datasets had more than one
 type of `assay`, `cell_type`, etc. The `facets()` function provides a
 convenient way of discovering possible levels of each column, e.g.,
-`organism`, `ethnicity`, or `sex`, and the number of datasets with
+`assay`, `organism`, `ethnicity`, or `sex`, and the number of datasets with
 each label.
 
 ```{r}
-facets(db, "organism")
+facets(db, "assay")
 facets(db, "ethnicity")
 facets(db, "sex")
 ```
 
-## Using `tidyr::unnest()` to expand columns and filter results
+## Filtering faceted columns
 
-Suppose that we were interested in finding datasets that contained
-individuals of African American ethnicity, and female sex. Let's
-simplify the datasets to make visualization a bit easier
-
-```{r}
-subset <-
-    datasets(db) |>
-    select(dataset_id, collection_id, organism, ethnicity, sex)
-```
-
-Note that there are `r nrow(subset)` datasets available. Unnest the
-data first using `tidyr::unnest()` so that each row represents a
-dataset perhaps separated by ethnicity, and then
-`tidyr::unnest_wider()` to separate the label and ontology components
-of ethnicity.
-
-```{r}
-subset |>
-    tidyr::unnest("ethnicity") |>
-    tidyr::unnest_wider("ethnicity", names_sep = ".")
-```
-
-Finally, filter datasets to those with African American ethnicity
-
-```{r}
-african_american <-
-    subset |>
-    tidyr::unnest("ethnicity") |>
-    tidyr::unnest_wider("ethnicity", names_sep = ".") |>
-    filter(ethnicity.label == "African American")
-```
-
-There are `r nrow(african_american)` datasets satsifying this
-criterion. Repeat to identify those datasets with female sex.
+Suppose we were interested in finding datasets from the 10x 3' v3
+assay (`ontology_term_id` of `EFO:0009922`) containing individuals of
+African American ethnicity, and female sex. Use the `facets_filter()`
+utility function to filter data sets as needed
 
 ```{r}
 african_american_female <-
-    african_american |>
-    unnest("sex") |>
-    unnest_wider("sex", names_sep = ".") |>
-    filter(sex.label == "female")
+    datasets(db) |>
+    filter(
+        facets_filter(assay, "ontology_term_id", "EFO:0009922"),
+        facets_filter(ethnicity, "label", "African American"),
+        facets_filter(sex, "label", "female")
+    )
 ```
 
 There are `r nrow(african_american_female)` datasets satisfying our
-criteria. Use `left_join` to identify the corresponding collections
-and datasets.
+criteria. It looks like there are up to
+
+```r
+african_american_female |>
+    summarise(total_cell_count = sum(cell_count))
+```
+
+cells sequenced (each dataset may contain cells from several
+ethnicities, as well as males or individuals of unknown gender, so we
+do not know the actual number of cells available without downloading
+files). Use `left_join` to identify the corresponding collections:
 
 ```{r}
 ## collections
@@ -177,22 +158,91 @@ left_join(
     african_american_female |> select(collection_id) |> distinct(),
     collections(db)
 )
-
-## dataset details
-selected_datasets <-
-    left_join(
-        african_american_female |> select(dataset_id) |> distinct(),
-        datasets(db)
-    )
-selected_datasets
 ```
 
-It looks like there are `r nrow(selected_datasets)` available, with up
-to `r sum(selected_datasets$cell_count)` cells sequenced (each dataset
-may contain cells from males as well as females, so we do not know the
-actual number of cells available without actually downloading files).
+# Visualizing data in `cellxgene`
+
+Discover files associated with our first selected dataset
+
+```{r}
+selected_files <-
+    left_join(
+        african_american_female |> select(dataset_id),
+        files(db)
+    )
+selected_files
+```
+
+The `filetype` column lists the type of each file. The cellxgene service
+can be used to visualize *datasets* that have `CXG` files.
+
+```{r, eval = FALSE}
+selected_files |>
+    filter(filetype == "CXG") |>
+    slice(1) |> # visualize a single dataset
+    datasets_visualize()
+```
+
+Visualization is an interactive process, so `datasets_visualize()`
+will only open up to 5 browser tabs per call.
 
 # File download and use
+
+Datasets usually contain `CXG` (cellxgene visualization), `H5AD`
+(files produced by the python AnnData module), and `Rds` (serialized
+files produced by the _R_ Seurat package). There are no public parsers
+for `CXG`, and the `Rds` files may be unreadable if the version of
+Seurat used to create the file is different from the version used to
+read the file. We therefore focus on the `H5AD` files. For
+illustration, we download the first three of our selected files.
+
+```{r}
+local_files <-
+    selected_files |>
+    filter(filetype == "H5AD") |>
+    slice(1:3) |>
+    files_download(dry.run = FALSE)
+local_files
+```
+
+These are downloaded to a local cache (use the internal function
+`cellxgenedp:::.cellxgenedb_cache_path()` for the location of the
+cache), so the process is only time-consuming the first time.
+
+`H5AD` files can be converted to _R_ / _Bioconductor_ objects using
+the [zellkonverter][] package.
+
+```{r}
+suppressPackageStartupMessages({
+    library(zellkonverter)
+    library(SingleCellExperiment)
+})
+h5ad <- readH5AD(
+    local_files[[1]], reader = "R", use_hdf5 = TRUE, verbose = TRUE
+)
+h5ad
+```
+
+The `SingleCellExperiment` object is a matrix-like object with rows
+corresponding to genes and columns to cells. Thus we can easily
+explore the cells present in the data.
+
+```{r}
+h5ad |>
+    colData(h5ad) |>
+    as_tibble() |>
+    dplyr::count(sex, donor)
+```
+
+The [Orchestrating Single-Cell Analysis with Bioconductor][OSCA]
+online resource provides an excellent introduction to analysis and
+visualization of single-cell data in _R_ / _Bioconductor_. Extensive
+opportunities for working with AnnData objects in _R_ but using the
+native python interface are briefly described in, e.g., `?AnnData2SCE`
+help page of [zellkonverter][].
+
+[zellkonverter]: https://bioconductor.org/packages/zelkonverter
+[OSCA]: https://bioconductor.org/books/OSCA
 
 # Session info {.unnumbered}
 
