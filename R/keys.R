@@ -14,11 +14,10 @@
     key_paths
 }
 
-#' @importFrom dplyr across last_col everything
+#' @importFrom dplyr select across ends_with last_col everything
 keys <-
     function(cellxgene_db = db())
 {
-
     queries <- c(
         collections = "[0]",
         datasets = "[0].datasets[0]",

@@ -45,26 +45,3 @@
     }
     path
 }
-
-#' @importFrom dplyr select ends_with
-#' @rdname view
-#'
-#' @param x an object created by `collections_view()`,
-#'     `datasets_view()`, or `files_view()`.
-#'
-#' @param ... additional arguments required by `print()`, but ignored.
-#'
-#' @param with_ids logical(1) indicating whether collection, dataset,
-#'     and file ids should be displayed.
-#'
-#' @export
-print.cellxgene_view <-
-    function(x, ..., with_ids = FALSE)
-{
-    stopifnot(
-        .is_scalar_logical(with_ids)
-    )
-    if (!with_ids)
-        x <- dplyr::select(x, -ends_with("_id"))
-    NextMethod(x, ...)
-}

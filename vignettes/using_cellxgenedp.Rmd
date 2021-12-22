@@ -8,7 +8,11 @@ package: cellxgenedp
 output:
   BiocStyle::html_document
 abstract: |
-  Description of your vignette
+    The cellxgene data portal (https://cellxgene.cziscience.com/) provides a
+    graphical user interface to collections of single-cell sequence data 
+    processed in standard ways to 'count matrix' summaries. The cellxgenedp
+    package provides an alternative, R-based inteface, allowing flexible data
+    discovery, viewing, and downloading.
 vignette: |
   %\VignetteIndexEntry{Discover and download datasets and files from the cellxgene data portal}
   %\VignetteEngine{knitr::rmarkdown}
@@ -142,7 +146,7 @@ african_american_female <-
 There are `r nrow(african_american_female)` datasets satisfying our
 criteria. It looks like there are up to
 
-```r
+```{r}
 african_american_female |>
     summarise(total_cell_count = sum(cell_count))
 ```
@@ -217,9 +221,7 @@ suppressPackageStartupMessages({
     library(zellkonverter)
     library(SingleCellExperiment)
 })
-h5ad <- readH5AD(
-    local_files[[1]], reader = "R", use_hdf5 = TRUE, verbose = TRUE
-)
+h5ad <- readH5AD(local_files[[1]], reader = "R", use_hdf5 = TRUE)
 h5ad
 ```
 
