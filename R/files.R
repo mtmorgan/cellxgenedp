@@ -74,5 +74,5 @@ files_download <-
         MoreArgs = list(base_url = .DATASETS, dry.run = dry.run)
     )
 
-    result
+    unlist(result)
 }

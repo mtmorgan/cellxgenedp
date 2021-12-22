@@ -4,21 +4,31 @@ This package is not yet available on *Bioconductor*. Install from GitHub
 using the following commands
 
 ``` r
+installed_packages <- rownames(installed.packages())
+
+## packages required for installation
 pkgs <- c("remotes", "BiocManager")
-required_pkgs <- pkgs[!pkgs %in% rownames(installed.packages())]
-if (length(required_pkgs))
-    install.packages(pkgs, repos = "https://cloud.r-project.org")
-BiocManager::install("mtmorgan/cellxgenedp")
+required_pkgs <- pkgs[!pkgs %in% installed_packages]
+install.packages(required_pkgs, repos = "https://cloud.r-project.org")
+
+## the cellxgenedp package and dependencies
+vignette_dependencies <- c("zellkonverter", "SingleCellExperiment", "tidyr")
+required_pkgs <-
+    vignette_dependencies[!vignette_dependencies %in% installed_packages]
+BiocManager::install(c(required_pkgs, "mtmorgan/cellxgenedp"))
 ```
 
 Load the package into your current *R* session. We make extensive use of
-the dplyr and tidyr packages, so load those as well.
+the dplyr and tidyr packages, and at the end of the vignette use
+SingleCellExperiment and zellkonverter, so load those as well.
 
 ``` r
 suppressPackageStartupMessages({
-    library(cellxgenedp)
+    library(zellkonverter)
+    library(SingleCellExperiment) # load early to avoid masking dplyr::count()
     library(dplyr)
     library(tidyr)
+    library(cellxgenedp)
 })
 ```
 
@@ -135,16 +145,16 @@ We can find out about this collection by joining with the
 `collections()` table.
 
 ``` r
-left_join(collection_with_most_datasets, collections(db)) |>
-    glimpse()
+left_join(
+    collection_with_most_datasets |> select(collection_id),
+    collections(db),
+    by = "collection_id"
+) |> glimpse()
 ```
 
-    ## Joining, by = "collection_id"
-
     ## Rows: 1
-    ## Columns: 16
+    ## Columns: 15
     ## $ collection_id                  <chr> "8e880741-bf9a-4c8e-9227-934204631d2a"
-    ## $ n                              <int> 45
     ## $ access_type                    <chr> "READ"
     ## $ contact_email                  <chr> "jmarshal@broadinstitute.org"
     ## $ contact_name                   <chr> "Jamie L Marshall"
@@ -164,24 +174,26 @@ We can take a similar strategy to identify all datasets belonging to
 this collection
 
 ``` r
-left_join(collection_with_most_datasets, datasets(db))
+left_join(
+    collection_with_most_datasets |> select(collection_id),
+    datasets(db),
+    by = "collection_id"
+)
 ```
 
-    ## Joining, by = "collection_id"
-
-    ## # A tibble: 45 × 29
-    ##    collection_id       n dataset_id  assay cell_count cell_type collection_visi…
-    ##    <chr>           <int> <chr>       <lis>      <int> <list>    <chr>           
-    ##  1 8e880741-bf9a-…    45 4ebe33a1-c… <lis…      17909 <list [1… PUBLIC          
-    ##  2 8e880741-bf9a-…    45 a5ecb41a-d… <lis…      19029 <list [1… PUBLIC          
-    ##  3 8e880741-bf9a-…    45 88b7da92-1… <lis…      44588 <list [1… PUBLIC          
-    ##  4 8e880741-bf9a-…    45 5c451b91-e… <lis…      13147 <list [1… PUBLIC          
-    ##  5 8e880741-bf9a-…    45 3679ae7d-d… <lis…      10701 <list [1… PUBLIC          
-    ##  6 8e880741-bf9a-…    45 b627552d-c… <lis…      22502 <list [9… PUBLIC          
-    ##  7 8e880741-bf9a-…    45 ff77ee42-e… <lis…      38024 <list [1… PUBLIC          
-    ##  8 8e880741-bf9a-…    45 2d4998cf-b… <lis…      20866 <list [9… PUBLIC          
-    ##  9 8e880741-bf9a-…    45 0738f538-f… <lis…      14010 <list [1… PUBLIC          
-    ## 10 8e880741-bf9a-…    45 0737011b-4… <lis…      18377 <list [9… PUBLIC          
+    ## # A tibble: 45 × 28
+    ##    collection_id     dataset_id     assay  cell_count cell_type collection_visi…
+    ##    <chr>             <chr>          <list>      <int> <list>    <chr>           
+    ##  1 8e880741-bf9a-4c… 4ebe33a1-c8ba… <list…      17909 <list [1… PUBLIC          
+    ##  2 8e880741-bf9a-4c… a5ecb41a-d1e8… <list…      19029 <list [1… PUBLIC          
+    ##  3 8e880741-bf9a-4c… 88b7da92-178d… <list…      44588 <list [1… PUBLIC          
+    ##  4 8e880741-bf9a-4c… 5c451b91-eb50… <list…      13147 <list [1… PUBLIC          
+    ##  5 8e880741-bf9a-4c… 3679ae7d-d70e… <list…      10701 <list [1… PUBLIC          
+    ##  6 8e880741-bf9a-4c… b627552d-c205… <list…      22502 <list [9… PUBLIC          
+    ##  7 8e880741-bf9a-4c… ff77ee42-ed01… <list…      38024 <list [1… PUBLIC          
+    ##  8 8e880741-bf9a-4c… 2d4998cf-bd56… <list…      20866 <list [9… PUBLIC          
+    ##  9 8e880741-bf9a-4c… 0738f538-ff2f… <list…      14010 <list [1… PUBLIC          
+    ## 10 8e880741-bf9a-4c… 0737011b-45a6… <list…      18377 <list [9… PUBLIC          
     ## # … with 35 more rows, and 22 more variables: dataset_deployments <chr>,
     ## #   development_stage <list>, disease <list>, ethnicity <list>,
     ## #   is_primary_data <chr>, is_valid <lgl>, linked_genesets <lgl>,
@@ -311,11 +323,10 @@ files). Use `left_join` to identify the corresponding collections:
 ## collections
 left_join(
     african_american_female |> select(collection_id) |> distinct(),
-    collections(db)
+    collections(db),
+    by = "collection_id"
 )
 ```
-
-    ## Joining, by = "collection_id"
 
     ## # A tibble: 5 × 15
     ##   collection_id     access_type contact_email   contact_name  data_submission_p…
@@ -337,13 +348,9 @@ Discover files associated with our first selected dataset
 selected_files <-
     left_join(
         african_american_female |> select(dataset_id),
-        files(db)
+        files(db),
+        by = "dataset_id"
     )
-```
-
-    ## Joining, by = "dataset_id"
-
-``` r
 selected_files
 ```
 
@@ -391,17 +398,12 @@ local_files <-
     filter(filetype == "H5AD") |>
     slice(1:3) |>
     files_download(dry.run = FALSE)
-local_files
+basename(local_files)
 ```
 
-    ## $`3de0ad6d-4378-4f62-b37b-ec0b75a50d94`
-    ## [1] "/Users/ma38727/Library/Caches/org.R-project.R/R/cellxgenedp/119d5332-a639-4e9e-a158-3ca1f891f337.H5AD"
-    ## 
-    ## $`f72958f5-7f42-4ebb-98da-445b0c6de516`
-    ## [1] "/Users/ma38727/Library/Caches/org.R-project.R/R/cellxgenedp/09132373-0ea7-4d8b-add8-9b0717781109.H5AD"
-    ## 
-    ## $`85c60876-7f35-40c5-a256-7808d84c6ba5`
-    ## [1] "/Users/ma38727/Library/Caches/org.R-project.R/R/cellxgenedp/27e51147-93c7-40c5-a6a3-da4b203e05ba.H5AD"
+    ## [1] "119d5332-a639-4e9e-a158-3ca1f891f337.H5AD"
+    ## [2] "09132373-0ea7-4d8b-add8-9b0717781109.H5AD"
+    ## [3] "27e51147-93c7-40c5-a6a3-da4b203e05ba.H5AD"
 
 These are downloaded to a local cache (use the internal function
 `cellxgenedp:::.cellxgenedb_cache_path()` for the location of the
@@ -411,10 +413,6 @@ cache), so the process is only time-consuming the first time.
 [zellkonverter](https://bioconductor.org/packages/zelkonverter) package.
 
 ``` r
-suppressPackageStartupMessages({
-    library(zellkonverter)
-    library(SingleCellExperiment)
-})
 h5ad <- readH5AD(local_files[[1]], reader = "R", use_hdf5 = TRUE)
 h5ad
 ```
@@ -442,7 +440,7 @@ the cells present in the data.
 h5ad |>
     colData(h5ad) |>
     as_tibble() |>
-    dplyr::count(sex, donor)
+    count(sex, donor)
 ```
 
     ## # A tibble: 9 × 3
@@ -484,30 +482,30 @@ interface are briefly described in, e.g., `?AnnData2SCE` help page of
     ## [8] base     
     ## 
     ## other attached packages:
-    ##  [1] SingleCellExperiment_1.17.2 SummarizedExperiment_1.25.3
-    ##  [3] Biobase_2.55.0              GenomicRanges_1.47.5       
-    ##  [5] GenomeInfoDb_1.31.1         IRanges_2.29.1             
-    ##  [7] S4Vectors_0.33.8            BiocGenerics_0.41.2        
-    ##  [9] MatrixGenerics_1.7.0        matrixStats_0.61.0         
-    ## [11] zellkonverter_1.5.0         tidyr_1.1.4                
-    ## [13] dplyr_1.0.7                 cellxgenedp_0.0.3          
+    ##  [1] cellxgenedp_0.0.4           tidyr_1.1.4                
+    ##  [3] dplyr_1.0.7                 SingleCellExperiment_1.17.2
+    ##  [5] SummarizedExperiment_1.25.3 Biobase_2.55.0             
+    ##  [7] GenomicRanges_1.47.5        GenomeInfoDb_1.31.1        
+    ##  [9] IRanges_2.29.1              S4Vectors_0.33.8           
+    ## [11] BiocGenerics_0.41.2         MatrixGenerics_1.7.0       
+    ## [13] matrixStats_0.61.0          zellkonverter_1.5.0        
     ## 
     ## loaded via a namespace (and not attached):
-    ##  [1] Rcpp_1.0.7             dir.expiry_1.3.0       lattice_0.20-45       
-    ##  [4] png_0.1-7              digest_0.6.29          utf8_1.2.2            
-    ##  [7] R6_2.5.1               evaluate_0.14          httr_1.4.2            
-    ## [10] pillar_1.6.4           basilisk_1.7.0         zlibbioc_1.41.0       
-    ## [13] rlang_0.4.12           curl_4.3.2             Matrix_1.4-0          
-    ## [16] reticulate_1.22        rmarkdown_2.11         stringr_1.4.0         
-    ## [19] RCurl_1.98-1.5         DelayedArray_0.21.2    HDF5Array_1.23.2      
-    ## [22] compiler_4.2.0         xfun_0.29              pkgconfig_2.0.3       
-    ## [25] htmltools_0.5.2        tidyselect_1.1.1       tibble_3.1.6          
-    ## [28] GenomeInfoDbData_1.2.7 fansi_0.5.0            crayon_1.4.2          
-    ## [31] bitops_1.0-7           rhdf5filters_1.7.0     basilisk.utils_1.7.0  
-    ## [34] grid_4.2.0             jsonlite_1.7.2         lifecycle_1.0.1       
-    ## [37] magrittr_2.0.1         cli_3.1.0              stringi_1.7.6         
-    ## [40] XVector_0.35.0         ellipsis_0.3.2         filelock_1.0.2        
-    ## [43] generics_0.1.1         vctrs_0.3.8            Rhdf5lib_1.17.0       
-    ## [46] tools_4.2.0            glue_1.6.0             purrr_0.3.4           
-    ## [49] parallel_4.2.0         fastmap_1.1.0          yaml_2.2.1            
-    ## [52] rhdf5_2.39.2           BiocManager_1.30.16    knitr_1.37
+    ##  [1] reticulate_1.22        tidyselect_1.1.1       xfun_0.29             
+    ##  [4] HDF5Array_1.23.2       purrr_0.3.4            rhdf5_2.39.2          
+    ##  [7] lattice_0.20-45        basilisk.utils_1.7.0   vctrs_0.3.8           
+    ## [10] generics_0.1.1         htmltools_0.5.2        yaml_2.2.1            
+    ## [13] utf8_1.2.2             rlang_0.4.12           pillar_1.6.4          
+    ## [16] glue_1.6.0             GenomeInfoDbData_1.2.7 lifecycle_1.0.1       
+    ## [19] stringr_1.4.0          zlibbioc_1.41.0        evaluate_0.14         
+    ## [22] knitr_1.37             fastmap_1.1.0          curl_4.3.2            
+    ## [25] parallel_4.2.0         fansi_0.5.0            Rcpp_1.0.7            
+    ## [28] filelock_1.0.2         BiocManager_1.30.16    DelayedArray_0.21.2   
+    ## [31] jsonlite_1.7.2         XVector_0.35.0         basilisk_1.7.0        
+    ## [34] dir.expiry_1.3.0       png_0.1-7              digest_0.6.29         
+    ## [37] stringi_1.7.6          grid_4.2.0             rhdf5filters_1.7.0    
+    ## [40] cli_3.1.0              tools_4.2.0            bitops_1.0-7          
+    ## [43] magrittr_2.0.1         RCurl_1.98-1.5         tibble_3.1.6          
+    ## [46] crayon_1.4.2           pkgconfig_2.0.3        ellipsis_0.3.2        
+    ## [49] Matrix_1.4-0           httr_1.4.2             rmarkdown_2.11        
+    ## [52] Rhdf5lib_1.17.0        R6_2.5.1               compiler_4.2.0
