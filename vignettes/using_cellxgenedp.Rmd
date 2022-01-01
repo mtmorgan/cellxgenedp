@@ -32,15 +32,15 @@ pkgs <- c("remotes", "BiocManager")
 required_pkgs <- pkgs[!pkgs %in% installed_packages]
 install.packages(required_pkgs, repos = "https://cloud.r-project.org")
 
-## the cellxgenedp package and dependencies
-vignette_dependencies <- c("zellkonverter", "SingleCellExperiment", "tidyr")
+## the cellxgenedp package, and packages used in the vignette
+vignette_dependencies <- c("zellkonverter", "SingleCellExperiment")
 required_pkgs <-
     vignette_dependencies[!vignette_dependencies %in% installed_packages]
 BiocManager::install(c(required_pkgs, "mtmorgan/cellxgenedp"))
 ```
 
 Load the package into your current _R_ session. We make extensive use
-of the dplyr and tidyr packages, and at the end of the vignette use
+of the dplyr packages, and at the end of the vignette use
 SingleCellExperiment and zellkonverter, so load those as well.
 
 ```{r}
@@ -48,7 +48,6 @@ suppressPackageStartupMessages({
     library(zellkonverter)
     library(SingleCellExperiment) # load early to avoid masking dplyr::count()
     library(dplyr)
-    library(tidyr)
     library(cellxgenedp)
 })
 ```
@@ -251,6 +250,8 @@ h5ad |>
     count(sex, donor)
 ```
 
+# Next steps
+
 The [Orchestrating Single-Cell Analysis with Bioconductor][OSCA]
 online resource provides an excellent introduction to analysis and
 visualization of single-cell data in _R_ / _Bioconductor_. Extensive
@@ -260,6 +261,13 @@ help page of [zellkonverter][].
 
 [zellkonverter]: https://bioconductor.org/packages/zelkonverter
 [OSCA]: https://bioconductor.org/books/OSCA
+
+The [hca][] package provides programmatic access to the Human Cell
+Atlas [data portal][HCAportal], allowing retrieval of primary as well
+as derived single-cell data files.
+
+[hca]: https://bioconductor.org/packages/hca
+[HCAportal]: https://data.humancellatlas.org/explore
 
 # Session info {.unnumbered}
 
