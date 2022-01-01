@@ -14,20 +14,23 @@ files <-
 
 ## url <- "https://api.cellxgene.cziscience.com/dp/v1/datasets/86b37b3c-1e5e-46a9-aecc-2d95b6a38d4b/asset/e43c9f97-9d75-4a67-b62d-0170a597f914"
 
-.file_download <-
-    function(dataset_id, file_id, file_type, base_url, dry.run)
+.file_presigned_url <-
+    function(url)
 {
-    ## construct url
-    url <- paste0(base_url, dataset_id, "/asset/", file_id)
-
-    ## sign
     response <- httr::POST(url)
     stop_for_status(response)
     result <- content(response, as="text", encoding = "UTF-8")
+    jmespath(result, "presigned_url")
+}
 
+.file_download <-
+    function(dataset_id, file_id, file_type, base_url, dry.run)
+{
+    ## construct and sign url
+    url <- paste0(base_url, dataset_id, "/asset/", file_id)
+    signed_url <- .file_presigned_url(url)
 
     ## download
-    url <- jmespath(result, "presigned_url")
     file_name <- paste0(file_id, ".", file_type)
     if (dry.run) {
         message(
@@ -37,7 +40,7 @@ files <-
         )
         return(file_name)
     }
-    .cellxgene_cache_get(url, file_name, progress = TRUE)
+    .cellxgene_cache_get(signed_url, file_name, progress = TRUE)
 }
 
 #' @rdname query

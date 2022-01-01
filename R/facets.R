@@ -25,7 +25,7 @@ FACETS <- c(
     projection <-
         cellxgene_db |>
         jmespath(query) |>
-        fromJSON(simplifyVector = FALSE)
+        parse_json()
 
     projection |>
         bind_rows() |>
@@ -36,7 +36,7 @@ FACETS <- c(
 }
 
 #' @importFrom dplyr group_by ungroup count bind_cols tibble .data
-#' @importFrom jsonlite fromJSON
+#' @importFrom jsonlite parse_json
 #' @rdname facets
 #'
 #' @description `facets()` is used to query the cellxgene database for

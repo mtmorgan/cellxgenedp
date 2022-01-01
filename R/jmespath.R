@@ -35,7 +35,10 @@ NULL
 #' jmespath_version()
 #'
 #' @export
-jmespath_version <- cpp_version
+jmespath_version <- function() {
+    version <- cpp_version()
+    package_version(version)
+}
 
 #' @rdname jmespath
 #'

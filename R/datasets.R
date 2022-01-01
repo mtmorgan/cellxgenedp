@@ -7,7 +7,7 @@
 #'
 #' @export
 datasets <-
-    function(cellxgene_db = db)
+    function(cellxgene_db = db())
 {
     .keys_query(cellxgene_db, "[].datasets[]", "datasets") |>
         relocate(dataset_id = "id")

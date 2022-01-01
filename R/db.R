@@ -1,19 +1,28 @@
 #' @importFrom dplyr bind_rows mutate arrange desc
 .db <-
-    function()
+    function(overwrite)
 {
-    response <- .cellxgene_GET(.COLLECTIONS)
-    content <- content(response)
-
-    bind_rows(unname(content))
+    path <- .cellxgene_cache_get(
+        .COLLECTIONS, "collections", overwrite = overwrite
+    )
+    readLines(path) |>
+        parse_json(simplifyVector = TRUE) |>
+        bind_rows()
 }
 
 .db_detail <-
-    function(id, as)
+    function(id)
 {
     uri <- paste0(.COLLECTIONS, id)
     path <- .cellxgene_cache_get(uri)
     readLines(path)
+}
+
+.db_online <-
+    function()
+{
+    response <- curl::nslookup(.CELLXGENE_PRODUCTION_HOST, error = FALSE)
+    !is.null(response)
 }
 
 #' @importFrom parallel mclapply
@@ -24,14 +33,25 @@
 #'     web site. 'collections' metadata are retrieved on each call;
 #'     metadata on each collection is cached locally for re-use.
 #'
+#' @param overwrite logical(1) indicating whether the database of
+#'     collections should be updated from the internet (the default,
+#'     when internet is available), or read from disk (assuming
+#'     previous successful access to the internet). `overwrite =
+#'     FALSE` might be useful for reproducibility, testing, or when
+#'     working in an environment with restricted internet access.
+#'
 #' @examples
 #' db()
 #'
 #' @export
 db <-
-    function()
+    function(overwrite = .db_online())
 {
-    db <- .db()
+    stopifnot(
+        .is_scalar_logical(overwrite)
+    )
+
+    db <- .db(overwrite)
     details <- mclapply(db$id, .db_detail)
     details <- sprintf("[%s]", paste(details, collapse=","))
 

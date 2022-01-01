@@ -4,7 +4,14 @@
 \alias{db}
 \title{Retrieve updated cellxgene database metadata}
 \usage{
-db()
+db(overwrite = .db_online())
+}
+\arguments{
+\item{overwrite}{logical(1) indicating whether the database of
+collections should be updated from the internet (the default,
+when internet is available), or read from disk (assuming
+previous successful access to the internet). \code{overwrite = FALSE} might be useful for reproducibility, testing, or when
+working in an environment with restricted internet access.}
 }
 \description{
 Retrieve updated cellxgene database metadata

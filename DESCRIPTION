@@ -24,11 +24,17 @@ License: Artistic-2.0 | BSL-1.0 | file LICENSE
 Encoding: UTF-8
 Collate: db.R collections.R datasets.R files.R facets.R keys.R
     cellxgene.R utilities.R cpp11.R jmespath.R
-Imports: dplyr, tidyr, httr, jsonlite, utils
+Imports: dplyr, httr, jsonlite, utils
 LinkingTo: cpp11
-Suggests: zellkonverter, SingleCellExperiment, BiocStyle, knitr,
-    rmarkdown
+Suggests:
+    zellkonverter,
+    SingleCellExperiment,
+    BiocStyle,
+    knitr,
+    rmarkdown,
+    testthat (>= 3.0.0)
 SystemRequirements: C++14
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
 VignetteBuilder: knitr
+Config/testthat/edition: 3

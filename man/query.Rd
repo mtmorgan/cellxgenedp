@@ -10,7 +10,7 @@
 \usage{
 collections(cellxgene_db = db())
 
-datasets(cellxgene_db = db)
+datasets(cellxgene_db = db())
 
 datasets_visualize(tbl)
 

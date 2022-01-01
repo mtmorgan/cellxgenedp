@@ -2,3 +2,5 @@
 src/*o
 vignettes/*R
 vignettes/*html
+.Rproj.user
+*Rproj
