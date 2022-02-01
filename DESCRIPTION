@@ -24,7 +24,7 @@ License: Artistic-2.0 | BSL-1.0 | file LICENSE
 Encoding: UTF-8
 Collate: db.R collections.R datasets.R files.R facets.R keys.R
     cellxgene.R utilities.R cpp11.R jmespath.R
-Imports: dplyr, httr, jsonlite, utils
+Imports: dplyr, httr, jsonlite, utils, tools
 LinkingTo: cpp11
 Suggests:
     zellkonverter,

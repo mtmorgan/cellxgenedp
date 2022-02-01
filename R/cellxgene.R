@@ -29,6 +29,32 @@
     path
 }
 
+#' @importFrom tools file_path_sans_ext
+.cellxgene_cache_annotate <-
+    function(db = db())
+{
+    path <- .cellxgene_cache_path()
+    info <-
+        file.info(dir(path, full.names = TRUE)) |>
+        as_tibble(rownames = "path") |>
+        mutate(file = basename(path)) |>
+        select(-c("isdir", "mode"))
+
+    collections <- collections(db)
+    files <- files(db)
+    info |>
+        mutate(
+            type = ifelse(file == "collections", "collections", NA_character_),
+            type = ifelse(
+                file %in% collections$collection_id, "collection", type
+            ),
+            type = ifelse(
+                file_path_sans_ext(file) %in% files$file_id, "file", type
+            )
+        ) |>
+        select(file, type, everything())
+}
+
 .cellxgene_cache_get <-
     function(uri, file = basename(uri), progress = FALSE, overwrite = FALSE,
              cache_path = .cellxgene_cache_path())

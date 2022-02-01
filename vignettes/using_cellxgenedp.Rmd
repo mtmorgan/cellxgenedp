@@ -216,15 +216,17 @@ files produced by the _R_ Seurat package). There are no public parsers
 for `CXG`, and the `Rds` files may be unreadable if the version of
 Seurat used to create the file is different from the version used to
 read the file. We therefore focus on the `H5AD` files. For
-illustration, we download the first three of our selected files.
+illustration, we download one of our selected files.
 
 ```{r}
-local_files <-
+local_file <-
     selected_files |>
-    filter(filetype == "H5AD") |>
-    slice(1:3) |>
+    filter(
+        dataset_id == "3de0ad6d-4378-4f62-b37b-ec0b75a50d94",
+        filetype == "H5AD"
+    ) |>
     files_download(dry.run = FALSE)
-basename(local_files)
+basename(local_file)
 ```
 
 These are downloaded to a local cache (use the internal function
@@ -235,7 +237,7 @@ cache), so the process is only time-consuming the first time.
 the [zellkonverter][] package.
 
 ```{r}
-h5ad <- readH5AD(local_files[[1]], reader = "R", use_hdf5 = TRUE)
+h5ad <- readH5AD(local_file, reader = "R", use_hdf5 = TRUE)
 h5ad
 ```
 
