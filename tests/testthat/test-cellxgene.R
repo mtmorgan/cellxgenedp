@@ -6,8 +6,11 @@ test_that("endpoints exist", {
     expect_true(nzchar(.CELLXGENE_EXPLORER))
 
     skip_if_offline(.CELLXGENE_PRODUCTION_HOST)
-    expect_success(.cellxgene_GET(.COLLECTIONS))
-    expect_success(.cellxgene_GET(.DATASETS))
+    expect_identical(
+        status_code(.cellxgene_GET(.COLLECTIONS)),
+        200L
+    )
+    expect_error(.cellxgene_GET(.DATASETS))
 })
 
 test_that(".cellxgene_cache_path() works", {
@@ -29,8 +32,9 @@ test_that(".cellxgene_cache_get() works from existing cache", {
 
 test_that(".cellxgene_cache_get() works online", {
     skip_if_offline(.CELLXGENE_PRODUCTION_HOST)
-    cache_path <- tempfile()
-    expect_success(.cellxgene_cache_get(.COLLECTIONS, cache_path = cache_path))
+    cache_path <- tempfile(); dir.create(cache_path)
+    expect_identical(
+        .cellxgene_cache_get(.COLLECTIONS, cache_path = cache_path),
+        file.path(cache_path, "collections")
+    )
 })
-
-    

@@ -32,11 +32,9 @@ test_that("datasets_visualize() works", {
         head(2)
 
     object <- NULL
-    with_mock(
-        browseURL = \(x) object <<- c(object, x),
-        datasets_visualize(datasets)
-    )
+    mockery::stub(datasets_visualize, "browseURL", \(x) object <<- c(object, x))
+    datasets_visualize(datasets)
+
     expected <- paste0(.CELLXGENE_EXPLORER, datasets$dataset_id, ".cxg/")
     expect_identical(object, expected)
-
 })

@@ -30,8 +30,10 @@
 }
 
 #' @importFrom tools file_path_sans_ext
+#'
+#' @importFrom dplyr as_tibble .data
 .cellxgene_cache_annotate <-
-    function(db = db())
+    function(cellxgene_db = db())
 {
     path <- .cellxgene_cache_path()
     info <-
@@ -40,19 +42,19 @@
         mutate(file = basename(path)) |>
         select(-c("isdir", "mode"))
 
-    collections <- collections(db)
-    files <- files(db)
+    collections <- collections(cellxgene_db)
+    files <- files(cellxgene_db)
     info |>
         mutate(
             type = ifelse(file == "collections", "collections", NA_character_),
             type = ifelse(
-                file %in% collections$collection_id, "collection", type
+                file %in% collections$collection_id, "collection", .data$type
             ),
             type = ifelse(
-                file_path_sans_ext(file) %in% files$file_id, "file", type
+                file_path_sans_ext(file) %in% files$file_id, "file", .data$type
             )
         ) |>
-        select(file, type, everything())
+        select("file", "type", everything())
 }
 
 .cellxgene_cache_get <-
@@ -78,7 +80,7 @@
         success <- file.copy(path0, path, overwrite = TRUE)
         if (!success) {
             stop(
-                "failed to copy uri from local path tocache.\n",
+                "failed to copy uri from local path to cache.\n",
                 "  uri: '", uri, "\n",
                 "  local path: ", path0, "\n",
                 "  cache path: ", path

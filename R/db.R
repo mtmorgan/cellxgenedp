@@ -21,10 +21,11 @@
     }, error = identity)
 }
 
+#' @importFrom curl nslookup
 .db_online <-
     function()
 {
-    response <- curl::nslookup(.CELLXGENE_PRODUCTION_HOST, error = FALSE)
+    response <- nslookup(.CELLXGENE_PRODUCTION_HOST, error = FALSE)
     !is.null(response)
 }
 
