@@ -13,9 +13,12 @@
 .db_detail <-
     function(id)
 {
-    uri <- paste0(.COLLECTIONS, id)
-    path <- .cellxgene_cache_get(uri)
-    readLines(path)
+    ## called in parallel; be sure to return a result & check for errors
+    tryCatch({
+        uri <- paste0(.COLLECTIONS, id)
+        path <- .cellxgene_cache_get(uri)
+        readLines(path)
+    }, error = identity)
 }
 
 .db_online <-
@@ -53,6 +56,13 @@ db <-
 
     db <- .db(overwrite)
     details <- mclapply(db$id, .db_detail)
+    errors <- vapply(details, inherits, logical(1), "error")
+    if (any(errors)) {
+        stop(
+            sum(errors), " error(s) updating database; first error:\n",
+            "  ", conditionMessage(details[[head(which(errors), 1L)]])
+        )
+    }
     details <- sprintf("[%s]", paste(details, collapse=","))
 
     class(details) <- c("cellxgene_db", class(details))

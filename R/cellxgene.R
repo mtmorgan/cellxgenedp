@@ -49,7 +49,15 @@
             unlink(path0)
             stop_for_status(response)
         }
-        file.copy(path0, path, overwrite = TRUE)
+        success <- file.copy(path0, path, overwrite = TRUE)
+        if (!success) {
+            stop(
+                "failed to copy uri from local path tocache.\n",
+                "  uri: '", uri, "\n",
+                "  local path: ", path0, "\n",
+                "  cache path: ", path
+            )
+        }
         unlink(path0)
     }
     path
