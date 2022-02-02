@@ -44,13 +44,13 @@ jmespath_version <- function() {
 #'
 #' @examples
 #' json <- '{
-#'   "locations": [
-#'     {"name": "Seattle", "state": "WA"},
-#'     {"name": "New York", "state": "NY"},
-#'     {"name": "Bellevue", "state": "WA"},
-#'     {"name": "Olympia", "state": "WA"}
-#'   ]
-#'  }'
+#'     "locations": [
+#'         {"name": "Seattle", "state": "WA"},
+#'         {"name": "New York", "state": "NY"},
+#'         {"name": "Bellevue", "state": "WA"},
+#'         {"name": "Olympia", "state": "WA"}
+#'     ]
+#' }'
 #'
 #' jmespath(json, "locations[?state == 'WA'].name | sort(@)") |>
 #'     cat("\n")

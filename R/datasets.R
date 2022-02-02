@@ -23,7 +23,7 @@ datasets <-
 #'     and `filetype` (for `files_download()`).
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' ## visualize the first dataset
 #' datasets(db) |>
 #'     slice(1) |>

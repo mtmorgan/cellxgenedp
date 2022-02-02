@@ -12,8 +12,11 @@ files <-
         relocate(file_id = "id")
 }
 
-## url <- "https://api.cellxgene.cziscience.com/dp/v1/datasets/86b37b3c-1e5e-46a9-aecc-2d95b6a38d4b/asset/e43c9f97-9d75-4a67-b62d-0170a597f914"
-
+## url <- paste0(
+##     "https://api.cellxgene.cziscience.com/dp/v1/datasets/"
+##     "86b37b3c-1e5e-46a9-aecc-2d95b6a38d4b/asset/",
+##     "e43c9f97-9d75-4a67-b62d-0170a597f914"
+## )
 .file_presigned_url <-
     function(url)
 {

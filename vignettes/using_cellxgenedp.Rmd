@@ -6,7 +6,7 @@ author:
   email: Martin.Morgan@RoswellPark.org
 package: cellxgenedp
 output:
-  BiocStyle::html_document
+    BiocStyle::html_document
 abstract: |
     The cellxgene data portal (https://cellxgene.cziscience.com/) provides a
     graphical user interface to collections of single-cell sequence data 
@@ -14,9 +14,9 @@ abstract: |
     package provides an alternative, R-based inteface, allowing flexible data
     discovery, viewing, and downloading.
 vignette: |
-  %\VignetteIndexEntry{Discover and download datasets and files from the cellxgene data portal}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
+    %\VignetteIndexEntry{Discover and download datasets and files from the cellxgene data portal}
+    %\VignetteEngine{knitr::rmarkdown}
+    %\VignetteEncoding{UTF-8}
 ---
 
 # Installation and use

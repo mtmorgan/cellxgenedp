@@ -58,8 +58,9 @@
 }
 
 .cellxgene_cache_get <-
-    function(uri, file = basename(uri), progress = FALSE, overwrite = FALSE,
-             cache_path = .cellxgene_cache_path())
+    function(
+        uri, file = basename(uri), progress = FALSE, overwrite = FALSE,
+        cache_path = .cellxgene_cache_path())
 {
     path <- file.path(cache_path, file)
     if (overwrite || !file.exists(path)) {

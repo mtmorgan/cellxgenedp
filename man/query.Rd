@@ -53,7 +53,7 @@ collections(db) |>
 datasets(db) |>
     dplyr::glimpse()
 
-\dontrun{
+\donttest{
 ## visualize the first dataset
 datasets(db) |>
     slice(1) |>

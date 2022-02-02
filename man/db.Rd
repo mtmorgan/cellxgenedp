@@ -10,8 +10,14 @@ db(overwrite = .db_online())
 \item{overwrite}{logical(1) indicating whether the database of
 collections should be updated from the internet (the default,
 when internet is available), or read from disk (assuming
-previous successful access to the internet). \code{overwrite = FALSE} might be useful for reproducibility, testing, or when
-working in an environment with restricted internet access.}
+previous successful access to the internet).
+\code{overwrite = FALSE} might be useful for reproducibility,
+testing, or when working in an environment with restricted
+internet access.}
+}
+\value{
+\code{db()} returns an object of class 'cellxgene_db',
+summarizing available collections, datasets, and files.
 }
 \description{
 Retrieve updated cellxgene database metadata

@@ -1,12 +1,12 @@
 Package: cellxgenedp
 Title: Discover and Access Single Cell Data Sets in the cellxgene Data Portal
-Version: 0.0.8
+Version: 0.99.0
 Authors@R: 
     c(person(
         given = "Martin",
         family = "Morgan",
         role = c("aut", "cre"),
-        email = "martin.morgan@roswellpark.org",
+        email = "mtmorgan.bioc@gmail.com",
         comment = c(ORCID = "0000-0002-5874-8148")
     ),
     person(
@@ -24,7 +24,7 @@ License: Artistic-2.0 | BSL-1.0 | file LICENSE
 Encoding: UTF-8
 Collate: db.R collections.R datasets.R files.R facets.R keys.R
     cellxgene.R utilities.R cpp11.R jmespath.R
-Imports: dplyr, httr, curl, jsonlite, utils, tools
+Imports: dplyr, httr, curl, jsonlite, utils, tools, parallel
 LinkingTo: cpp11
 Suggests:
     zellkonverter,
@@ -34,6 +34,7 @@ Suggests:
     rmarkdown,
     testthat (>= 3.0.0),
     mockery
+biocViews: SingleCell, DataImport, ThirdPartyClient
 SystemRequirements: C++14
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2

@@ -18,8 +18,8 @@ FACETS <- c(
 
     query <- sprintf(
         "[].datasets[].%s[*].{
-             label: label, ontology_term_id: ontology_term_id
-         }[]",
+            label: label, ontology_term_id: ontology_term_id
+        }[]",
         facet
     )
     projection <-
@@ -127,7 +127,7 @@ facets_filter <-
     key <- match.arg(key)
     stopifnot(
         (exact && is.character(value)) ||
-             (!exact && .is_scalar_character(value)),
+            (!exact && .is_scalar_character(value)),
         .is_scalar_logical(exact)
     )
 
