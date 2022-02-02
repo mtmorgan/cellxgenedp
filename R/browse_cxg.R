@@ -3,7 +3,7 @@
 #' selection and conversion of cellxgene resources
 #' @import shiny
 #' @importFrom zellkonverter readH5AD
-#' @importFrom DT renderDataTable dataTableOutput
+#' @importFrom DT renderDT DTOutput
 #' @return list, possibly empty, of SingleCellExperiment instances, obtained on 
 #' interactive selections using `files_download()`
 #' @examples

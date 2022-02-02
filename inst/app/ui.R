@@ -69,7 +69,7 @@
      helpText(h4("Click on table row to add dataset request to cart.  If H5AD representations
 are available, they will be converted to SingleCellExperiments with HDF5 backing,
 cached, and returned as a list.")),
-     DT::dataTableOutput("curdat")
+     DT::DTOutput("curdat")
     )
    )
   )

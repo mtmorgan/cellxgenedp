@@ -4,7 +4,7 @@
   db = try(cellxgenedp::db())
   if (inherits(db, "try-error")) stop("can't get db")
 
-  accumDSIDS <<- NULL   # manage selected files
+  accumDSIDS <<- ""   # manage selected files
  
 #
 # collection names processing
@@ -29,7 +29,7 @@
 #
 # slimmed table of features of all datasets within a collection
 #
-   output$curdat = DT::renderDataTable({   # lists within data.frame are not well-handled by datatable()
+   output$curdat = DT::renderDT({   # lists within data.frame are not well-handled by datatable()
      tab0 = sds[[input$coll]]
      isl = sapply(tab0, is.list)
      tab1 = tab0[,-which(isl)]
@@ -43,9 +43,14 @@
 # build up selections
 #
    observeEvent(input$curdat_rows_selected, {
-     accumDSIDS <<- unique(c(accumDSIDS, sds[[input$coll]][ input$curdat_rows_selected, "dataset_id" ][[1]]))
+     inds = input$curdat_rows_selected
+     print(inds)
+     if (length(inds) == 0) {
+          accumDSIDS <<- ""
+          }
+     else accumDSIDS <<- sds[[input$coll]][ input$curdat_rows_selected, "dataset_id" ][[1]]
      updateSelectInput(session, "keep",  selected=accumDSIDS)
-    })
+    }, ignoreNULL=FALSE)  # crucial!
 #
 # return a list of converted H5AD on request, and shutdown
 #
