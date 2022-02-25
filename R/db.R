@@ -11,15 +11,33 @@
 }
 
 .db_detail <-
-    function(id)
+    function(id, overwrite)
 {
     ## called in parallel; be sure to return a result & check for errors
     tryCatch({
         uri <- paste0(.COLLECTIONS, id)
-        path <- .cellxgene_cache_get(uri)
+        path <- .cellxgene_cache_get(uri, overwrite = overwrite)
         readLines(path)
     }, error = identity)
 }
+
+.db_first <- local({
+    first <- TRUE
+    function() {
+        if (interactive()) {
+            repeat {
+                response <- readline("Update database and collections [yn]? ")
+                response <- tolower(response)
+                if (response %in% c("y", "n")) break
+            }
+            status <- identical(response, "y")
+        } else {
+            status <- FALSE
+        }
+        first <<- FALSE
+        status
+    }
+})
 
 #' @importFrom curl nslookup
 .db_online <-
@@ -53,14 +71,16 @@
 #'
 #' @export
 db <-
-    function(overwrite = .db_online())
+    function(overwrite = .db_online() && .db_first())
 {
     stopifnot(
         .is_scalar_logical(overwrite)
     )
 
+    if (overwrite)
+        message("updating database and collections...")
     db <- .db(overwrite)
-    details <- mclapply(db$id, .db_detail)
+    details <- mclapply(db$id, .db_detail, overwrite = overwrite)
     errors <- vapply(details, inherits, logical(1), "error")
     if (any(errors)) {
         stop(
