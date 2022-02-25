@@ -56,7 +56,7 @@ datasets(db) |>
 \donttest{
 ## visualize the first dataset
 datasets(db) |>
-    slice(1) |>
+    dplyr::slice(1) |>
     datasets_visualize()
 }
 files(db) |>
