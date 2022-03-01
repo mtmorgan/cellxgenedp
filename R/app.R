@@ -1,7 +1,9 @@
 library(shiny)
-library(shinyWidgets)
 library(DT)
 library(dplyr)
+
+collection_id <- name <- tissue <- assay <- disease <- organism <- cell_count <- 
+    dataset_id <- filetype <- NULL
 
 ui <- navbarPage(
     title = 'cellxgene data', id = 'tabs',
@@ -23,35 +25,35 @@ ui <- navbarPage(
         select(c(collection_id, tissue, assay, disease, organism, cell_count))
 
     labeledDat <- datasets |>
-        mutate_at(c("tissue", "assay", "disease", "organism"),
+        dplyr::mutate_at(c("tissue", "assay", "disease", "organism"),
             function(x) vapply(x, .pullLabels, character(1))
-        ) |> group_by(collection_id) |>
-        summarise_at(c("tissue", "assay", "disease", "organism"),
+        ) |> dplyr::group_by(collection_id) |>
+        dplyr::summarise_at(c("tissue", "assay", "disease", "organism"),
             function(x) paste(unique(x), collapse = ", ")
         )
 
     countDat <- datasets |>
-        group_by(collection_id) |>
-        summarise(cell_count = sum(cell_count))
+        dplyr::group_by(collection_id) |>
+        dplyr::summarise(cell_count = sum(cell_count))
 
-    allDat <- left_join(collections, labeledDat, by = "collection_id") |>
-        left_join(countDat, by = "collection_id")
+    allDat <- dplyr::left_join(collections, labeledDat, by = "collection_id") |>
+        dplyr::left_join(countDat, by = "collection_id")
     allDat
 }
 
 .shiny_datasets <- function(db, id) {
     tbl <- datasets(db) |>
-        select(c(dataset_id, collection_id, name, tissue, assay, disease,
+        dplyr::select(c(dataset_id, collection_id, name, tissue, assay, disease,
             organism, cell_count)) |>
-        mutate_at(c("tissue", "assay", "disease", "organism"),
+        dplyr::mutate_at(c("tissue", "assay", "disease", "organism"),
             function(x) vapply(x, .pullLabels, character(1))
         ) |>
-        mutate(Download = as.character(icon("cloud-download", lib = "glyphicon"))) |>
-        mutate(Visualize = as.character(icon("eye-open", lib = "glyphicon"))) |>
-        select(c(1, 2, 9, 10, 3, 4, 5, 6, 7, 8))
+        dplyr::mutate(Download = as.character(shiny::icon("cloud-download", lib = "glyphicon"))) |>
+        dplyr::mutate(Visualize = as.character(shiny::icon("eye-open", lib = "glyphicon"))) |>
+        dplyr::select(c(1, 2, 9, 10, 3, 4, 5, 6, 7, 8))
 
     if (!is.null(id))
-        tbl <- tbl |> filter(collection_id == id)
+        tbl <- tbl |> dplyr::filter(collection_id == id)
     tbl
 }
 
@@ -59,7 +61,7 @@ ui <- navbarPage(
     tbl <- files(db)
 
     if (!is.null(id))
-        tbl <- tbl |> filter(dataset_id == id)
+        tbl <- tbl |> dplyr::filter(dataset_id == id)
     tbl
 }
 
@@ -108,7 +110,7 @@ server <- function(input, output, session) {
         )
     })
 
-    observeEvent(input$collections_cell_clicked, {
+    shiny::observeEvent(input$collections_cell_clicked, {
         info <- input$collections_cell_clicked
         if (is.null(info$value)) return()
         id <- collections[input$collections_row_last_clicked, "collection_id"][[1]]
@@ -133,10 +135,10 @@ server <- function(input, output, session) {
                 )
             )
         })
-        updateTabsetPanel(session, 'tabs', selected = 'Datasets')
+        shiny::updateTabsetPanel(session, 'tabs', selected = 'Datasets')
     })
 
-    observeEvent(input$datasets_cell_clicked, {
+    shiny::observeEvent(input$datasets_cell_clicked, {
         info <- input$datasets_cell_clicked
         if (is.null(info$value)) return()
         id <- dataset[input$datasets_row_last_clicked, "dataset_id"][[1]]
@@ -144,14 +146,14 @@ server <- function(input, output, session) {
 
         if (info$col == 3) {
             local_files <- files |>
-            filter(filetype == "H5AD") |>
-            slice(1) |>
+            dplyr::filter(filetype == "H5AD") |>
+            dplyr::slice(1) |>
             files_download(dry.run = FALSE)
             
         } else if (info$col == 4) {
             files |>
-                filter(filetype == "CXG") |>
-                slice(1) |>
+                dplyr::filter(filetype == "CXG") |>
+                dplyr::slice(1) |>
                 datasets_visualize()
         } else 
             return()
