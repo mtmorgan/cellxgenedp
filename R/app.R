@@ -9,7 +9,8 @@ ui <- navbarPage(
     title = 'cellxgene data', id = 'tabs',
 
     tabPanel("Collections", DT::dataTableOutput("collections")),
-    tabPanel("Datasets", DT::dataTableOutput("datasets"))
+    tabPanel("Datasets", DT::dataTableOutput("datasets")),
+    tabPanel("Quit app", value = "stop", icon = shiny::icon("ban-circle", lib = "glyphicon"))
 )
 
 .pullLabels <- function(x) {
@@ -65,6 +66,24 @@ ui <- navbarPage(
     tbl
 }
 
+.shiny_download_cache <- local({
+    files <- new.env(parent = emptyenv())
+    list(reset = function() {
+        rm(list = ls(files), envir = files)
+    }, add = function(id, path) {
+        files[[id]] <- path
+    }, get = function(id) {
+        files[[id]]
+    }, as_tibble = function() {
+        dataset_id <- ls(files)
+        files <- mget(dataset_id, files)
+        tibble(
+            dataset_id = dataset_id,
+            local_path = as.character(unlist(files, use.names = FALSE))
+        )
+    })
+})
+
 server <- function(input, output, session) {
     db <- db()
     collections <- .shiny_collections(db)
@@ -94,17 +113,16 @@ server <- function(input, output, session) {
             colnames = c('rownames', 'dat_id', 'col_id', '', '', 'Datasets', 
                 'Tissue', 'Assay', 'Disease', 'Organism', 'Cell Count'),
             options = list(
-                dom = 'ft',
                 scrollX = TRUE,
                 scrollY = 400,
                 autoWidth = TRUE,
                 columnDefs = list(
                     list(orderable = FALSE, targets = c(3,4)),
                     list(searchable = FALSE, targets = c(3,4)),
-                    list(visible = FALSE, targets = c(0,1,2)),
                     list(width = '10px', targets = c(3,4)),
-                    list(width = '110px', targets = c(6,7,8,9,10)),
-                    list(className = 'dt-center', targets = c(3,4))
+                    list(className = 'dt-center', targets = c(3,4)),
+                    list(visible = FALSE, targets = c(0,1,2)),
+                    list(width = '110px', targets = c(6,7,8,9,10))
                 )
             )
         )
@@ -145,10 +163,12 @@ server <- function(input, output, session) {
         files <<- .shiny_files(db, id)
 
         if (info$col == 3) {
-            local_files <- files |>
-            dplyr::filter(filetype == "H5AD") |>
-            dplyr::slice(1) |>
-            files_download(dry.run = FALSE)
+            browser()
+            local_file <- files |>
+                dplyr::filter(filetype == "H5AD") |>
+                dplyr::slice(1) |>
+                files_download(dry.run = FALSE)
+            .shiny_download_cache$add(id, local_file)
             
         } else if (info$col == 4) {
             files |>
@@ -158,4 +178,17 @@ server <- function(input, output, session) {
         } else 
             return()
     })
+
+    shiny::observe({
+        if (input$tabs == "stop") {
+            .shiny_download_cache$as_tibble()
+            stopApp()
+        }
+    })
+}
+
+shiny_cxg <- function() {
+.shiny_download_cache$reset()
+
+shinyApp(ui, server)
 }
