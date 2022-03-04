@@ -5,12 +5,25 @@ library(dplyr)
 collection_id <- name <- tissue <- assay <- disease <- organism <- cell_count <- 
     dataset_id <- filetype <- NULL
 
-ui <- navbarPage(
-    title = 'cellxgene data', id = 'tabs',
+ui <- fluidPage(
+    titlePanel('cellxgene data'),
 
-    tabPanel("Collections", DT::dataTableOutput("collections")),
-    tabPanel("Datasets", DT::dataTableOutput("datasets")),
-    tabPanel("Quit app", value = "stop", icon = shiny::icon("ban-circle", lib = "glyphicon"))
+    sidebarLayout(
+        sidebarPanel(
+            helpText(h4("Number of selected datasets:")), 
+            textOutput("rowSum"),
+            
+            actionButton("quit", "Convert and quit")
+        ),
+
+        mainPanel(
+            tabsetPanel(
+                id = 'tabs',
+                tabPanel("Collections", DT::dataTableOutput("collections")),
+                tabPanel("Datasets", DT::dataTableOutput("datasets"))
+            )
+        )
+    )
 )
 
 .pullLabels <- function(x) {
@@ -80,8 +93,8 @@ ui <- navbarPage(
         tibble(
             dataset_id = dataset_id,
             local_path = as.character(unlist(files, use.names = FALSE))
-        )
-    })
+        )}
+    )
 })
 
 server <- function(input, output, session) {
@@ -89,6 +102,11 @@ server <- function(input, output, session) {
     collections <- .shiny_collections(db)
     dataset <- .shiny_datasets(db, id = NULL)
     files <- .shiny_files(db, id = NULL)
+
+    output$rowSum <- renderText({
+        length(input$datasets_rows_selected)
+    })
+
     output$collections <- DT::renderDataTable({
         DT::datatable(collections,
             selection = 'single',
@@ -135,7 +153,7 @@ server <- function(input, output, session) {
         dataset <<- .shiny_datasets(db, id)
         output$datasets <- DT::renderDataTable({
             DT::datatable(dataset,
-                selection = 'single',
+                selection = 'multiple',
                 filter = 'top',
                 escape = FALSE,
                 colnames = c('rownames', 'dat_id', 'col_id', '', '', 'Datasets', 
@@ -163,12 +181,7 @@ server <- function(input, output, session) {
         files <<- .shiny_files(db, id)
 
         if (info$col == 3) {
-            browser()
-            local_file <- files |>
-                dplyr::filter(filetype == "H5AD") |>
-                dplyr::slice(1) |>
-                files_download(dry.run = FALSE)
-            .shiny_download_cache$add(id, local_file)
+            .shiny_download_cache$add(id, "")
             
         } else if (info$col == 4) {
             files |>
@@ -179,16 +192,43 @@ server <- function(input, output, session) {
             return()
     })
 
-    shiny::observe({
-        if (input$tabs == "stop") {
-            .shiny_download_cache$as_tibble()
-            stopApp()
-        }
+    #shiny::observe({
+    #    if (input$tabs == "stop") {
+    #        ids <- .shiny_download_cache$as_tibble()
+    #        stopApp(ids)
+    #    }
+    #})
+
+    shiny::observeEvent(input$quit, {
+        ids <- .shiny_download_cache$as_tibble()
+        stopApp(ids)
     })
 }
 
-shiny_cxg <- function() {
-.shiny_download_cache$reset()
+.shiny_cxg_as_tibble <- function(x) {
+    db <- db()
+    left_join(x, datasets(db), by = "dataset_id")
+}
 
-shinyApp(ui, server)
+.shiny_cxg_list <- function(x) {
+    lapply(x$local_path, function(local_path, ...) {
+        message("Converting ", basename(local_path))
+        zellkonverter::readH5AD(local_path, reader = "R", use_hdf5 = TRUE)
+    })
+}
+
+.shiny_cxg_download <- function(dataset_ids) {
+    message("Downloading ", length(dataset_ids), " files")
+    db <- db()
+    files(db) |> filter(dataset_id %in% dataset_ids, filetype == "H5AD") |>
+        files_download(dry.run = FALSE)
+}
+
+shiny_cxg <- function(as = c('tibble', 'list')) {
+    as = match.arg(as)
+    .shiny_download_cache$reset()
+
+    res <- runGadget(ui, server)
+    res$local_path <- .shiny_cxg_download(res$dataset_id)
+    switch(as, tibble = .shiny_cxg_as_tibble(res), list = .shiny_cxg_list(res))
 }
