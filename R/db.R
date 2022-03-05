@@ -24,7 +24,7 @@
 .db_first <- local({
     first <- TRUE
     function() {
-        if (interactive()) {
+        if (first && interactive()) {
             repeat {
                 response <- readline("Update database and collections [yn]? ")
                 response <- tolower(response)
