@@ -1,234 +1,309 @@
-library(shiny)
-library(DT)
-library(dplyr)
+#' @importFrom dplyr filter slice summarize left_join
+#'
+#' @importFrom shiny actionButton hr icon navbarPage observeEvent
+#'     renderText runGadget stopApp tabPanel textOutput
+#'     updateNavbarPage
+#'
+#' @importFrom DT renderDataTable datatable formatStyle
 
-collection_id <- name <- tissue <- assay <- disease <- organism <- cell_count <- 
-    dataset_id <- filetype <- NULL
+##
+## utilities
+##
 
-ui <- fluidPage(
-    titlePanel('cellxgene data'),
-
-    sidebarLayout(
-        sidebarPanel(
-            helpText(h4("Number of selected datasets:")), 
-            textOutput("rowSum"),
-            
-            actionButton("quit", "Convert and quit")
-        ),
-
-        mainPanel(
-            tabsetPanel(
-                id = 'tabs',
-                tabPanel("Collections", DT::dataTableOutput("collections")),
-                tabPanel("Datasets", DT::dataTableOutput("datasets"))
-            )
-        )
-    )
-)
-
-.pullLabels <- function(x) {
-    labels <- vapply(x, `[[`, character(1), "label")
-    paste(labels, collapse = ", ")
-}
-
-.shiny_collections <- function(db) {
-    collections <- collections(db) |>
-        select(c(collection_id, name))
-
-    datasets <- datasets(db) |>
-        select(c(collection_id, tissue, assay, disease, organism, cell_count))
-
-    labeledDat <- datasets |>
-        dplyr::mutate_at(c("tissue", "assay", "disease", "organism"),
-            function(x) vapply(x, .pullLabels, character(1))
-        ) |> dplyr::group_by(collection_id) |>
-        dplyr::summarise_at(c("tissue", "assay", "disease", "organism"),
-            function(x) paste(unique(x), collapse = ", ")
-        )
-
-    countDat <- datasets |>
-        dplyr::group_by(collection_id) |>
-        dplyr::summarise(cell_count = sum(cell_count))
-
-    allDat <- dplyr::left_join(collections, labeledDat, by = "collection_id") |>
-        dplyr::left_join(countDat, by = "collection_id")
-    allDat
-}
-
-.shiny_datasets <- function(db, id) {
-    tbl <- datasets(db) |>
-        dplyr::select(c(dataset_id, collection_id, name, tissue, assay, disease,
-            organism, cell_count)) |>
-        dplyr::mutate_at(c("tissue", "assay", "disease", "organism"),
-            function(x) vapply(x, .pullLabels, character(1))
-        ) |>
-        dplyr::mutate(Download = as.character(shiny::icon("cloud-download", lib = "glyphicon"))) |>
-        dplyr::mutate(Visualize = as.character(shiny::icon("eye-open", lib = "glyphicon"))) |>
-        dplyr::select(c(1, 2, 9, 10, 3, 4, 5, 6, 7, 8))
-
-    if (!is.null(id))
-        tbl <- tbl |> dplyr::filter(collection_id == id)
-    tbl
-}
-
-.shiny_files <- function(db, id) {
-    tbl <- files(db)
-
-    if (!is.null(id))
-        tbl <- tbl |> dplyr::filter(dataset_id == id)
-    tbl
-}
-
-.shiny_download_cache <- local({
+.cxg_download_cache <- local({
     files <- new.env(parent = emptyenv())
     list(reset = function() {
         rm(list = ls(files), envir = files)
-    }, add = function(id, path) {
-        files[[id]] <- path
-    }, get = function(id) {
-        files[[id]]
-    }, as_tibble = function() {
-        dataset_id <- ls(files)
-        files <- mget(dataset_id, files)
-        tibble(
-            dataset_id = dataset_id,
-            local_path = as.character(unlist(files, use.names = FALSE))
-        )}
-    )
+    }, toggle = function(id) {
+        if (exists(id, envir = files)) {
+            rm(list = id, envir = files)
+        } else {
+            assign(id, TRUE, envir = files)
+        }
+    }, ls = function() {
+        ls(files)
+    })
 })
 
-server <- function(input, output, session) {
-    db <- db()
-    collections <- .shiny_collections(db)
-    dataset <- .shiny_datasets(db, id = NULL)
-    files <- .shiny_files(db, id = NULL)
-
-    output$rowSum <- renderText({
-        length(input$datasets_rows_selected)
-    })
-
-    output$collections <- DT::renderDataTable({
-        DT::datatable(collections,
-            selection = 'single',
-            filter = 'top',
-            colnames = c('rownames', 'id', 'Collections', 'Tissue', 'Assay', 
-                'Disease', 'Organism', 'Cell Count'),
-            options = list(
-                scrollY = 400,
-                columnDefs = list(
-                    list(visible = FALSE, targets = c(0,1)),
-                    list(width = '110px', targets = c(3,4,5,6,7))
-                )
-            )
-        )
-    })
-
-    output$datasets <- DT::renderDataTable({
-        DT::datatable(dataset,
-            selection = 'single',
-            filter = 'top',
-            escape = FALSE,
-            colnames = c('rownames', 'dat_id', 'col_id', '', '', 'Datasets', 
-                'Tissue', 'Assay', 'Disease', 'Organism', 'Cell Count'),
-            options = list(
-                scrollX = TRUE,
-                scrollY = 400,
-                autoWidth = TRUE,
-                columnDefs = list(
-                    list(orderable = FALSE, targets = c(3,4)),
-                    list(searchable = FALSE, targets = c(3,4)),
-                    list(width = '10px', targets = c(3,4)),
-                    list(className = 'dt-center', targets = c(3,4)),
-                    list(visible = FALSE, targets = c(0,1,2)),
-                    list(width = '110px', targets = c(6,7,8,9,10))
-                )
-            )
-        )
-    })
-
-    shiny::observeEvent(input$collections_cell_clicked, {
-        info <- input$collections_cell_clicked
-        if (is.null(info$value)) return()
-        id <- collections[input$collections_row_last_clicked, "collection_id"][[1]]
-        dataset <<- .shiny_datasets(db, id)
-        output$datasets <- DT::renderDataTable({
-            DT::datatable(dataset,
-                selection = 'multiple',
-                filter = 'top',
-                escape = FALSE,
-                colnames = c('rownames', 'dat_id', 'col_id', '', '', 'Datasets', 
-                    'Tissue', 'Assay', 'Disease', 'Organism', 'Cell Count'),
-                options = list(
-                    dom = 'ft',
-                    scrollY = 400,
-                    autoWidth = TRUE,
-                    columnDefs = list(
-                        list(visible = FALSE, targets = c(0,1,2)),
-                        list(width = '10px', targets = c(3,4)),
-                        list(width = '110px', targets = c(6,7,8,9,10)),
-                        list(className = 'dt-center', targets = c(3,4))
-                    )
-                )
-            )
-        })
-        shiny::updateTabsetPanel(session, 'tabs', selected = 'Datasets')
-    })
-
-    shiny::observeEvent(input$datasets_cell_clicked, {
-        info <- input$datasets_cell_clicked
-        if (is.null(info$value)) return()
-        id <- dataset[input$datasets_row_last_clicked, "dataset_id"][[1]]
-        files <<- .shiny_files(db, id)
-
-        if (info$col == 3) {
-            .shiny_download_cache$add(id, "")
-            
-        } else if (info$col == 4) {
-            files |>
-                dplyr::filter(filetype == "CXG") |>
-                dplyr::slice(1) |>
-                datasets_visualize()
-        } else 
-            return()
-    })
-
-    #shiny::observe({
-    #    if (input$tabs == "stop") {
-    #        ids <- .shiny_download_cache$as_tibble()
-    #        stopApp(ids)
-    #    }
-    #})
-
-    shiny::observeEvent(input$quit, {
-        ids <- .shiny_download_cache$as_tibble()
-        stopApp(ids)
-    })
+.cxg_labels <-
+    function(x)
+{
+    vapply(x, function(elt) {
+        labels <- vapply(elt, `[[`, character(1), "label")
+        paste(labels, collapse = ", ")
+    }, character(1))
 }
 
-.shiny_cxg_as_tibble <- function(x) {
-    db <- db()
+## collections() / datasets() / files()
+
+.cxg_collections <-
+    function(db)
+{
+    collections <- collections(db) |>
+        select(c("collection_id", "name"))
+
+    datasets <-
+        datasets(db) |>
+        select(
+            "collection_id", "tissue", "assay", "disease", "organism",
+            "cell_count"
+        )
+
+    labeledDat <-
+        datasets |>
+        mutate(
+            across(c("tissue", "assay", "disease", "organism"), .cxg_labels)
+        ) |>
+        group_by(.data$collection_id) |>
+        summarize(across(
+            c("tissue", "assay", "disease", "organism"),
+            function(x) paste(unique(x), collapse = ", ")
+        ))
+
+    countDat <- datasets |>
+        group_by(.data$collection_id) |>
+        summarize(cell_count = sum(.data$cell_count))
+
+    allDat <-
+        left_join(collections, labeledDat, by = "collection_id") |>
+        left_join(countDat, by = "collection_id")
+
+    allDat
+}
+
+.cxg_datasets <-
+    function(db)
+{
+    ## select tbl
+    datasets(db) |>
+        mutate(
+            across(c("tissue", "assay", "disease", "organism"), .cxg_labels),
+            view = as.character(icon("eye-open", lib = "glyphicon"))
+        ) |>
+        select(
+            "dataset_id", "collection_id", "view", "name", "tissue", "assay",
+            "disease", "organism", "cell_count"
+        )
+}
+
+.cxg_files <-
+    function(db, id)
+{
+    tbl <- files(db)
+
+    if (!is.null(id))
+        tbl <- tbl |> dplyr::filter(.data$dataset_id == id)
+    tbl
+}
+
+## *_format() for display
+
+.cxg_collections_format <-
+    function(tbl)
+{
+    dt <- datatable(
+        tbl,
+        selection = 'single',
+        filter = 'top',
+        colnames = c(
+            'rownames', 'id', 'Collection', 'Tissue', 'Assay',
+            'Disease', 'Organism', 'Cells'
+        ),
+        options = list(
+            scrollY = 400,
+            columnDefs = list(
+                list(visible = FALSE, targets = 0:1),
+                list(width = '20px', targets = 4:7)
+            )
+        )
+    )
+    formatStyle(dt, 2:7, 'vertical-align' = 'top')
+}
+
+.cxg_datasets_format <-
+    function(tbl)
+{
+    dt <- datatable(
+        tbl,
+        selection = 'multiple',
+        filter = 'top',
+        escape = FALSE,
+        colnames = c(
+            'rownames', 'dataset_id', 'collection_id', 'View', 'Dataset',
+            'Tissue', 'Assay', 'Disease', 'Organism',
+            'Cells'
+        ),
+        options = list(
+            scrollX = TRUE,
+            scrollY = 400,
+            columnDefs = list(
+                list(visible = FALSE, targets = 0:2),
+                list(className = 'dt-center', width = "10px", targets = 3)
+            )
+        )
+    )
+    formatStyle(dt, 3:9, 'vertical-align' = "top")
+
+}
+
+## download helpers
+
+.cxg_download <-
+    function(dataset_ids)
+{
+    if (!length(dataset_ids))
+        return(character(0))
+
+    message("Downloading ", length(dataset_ids), " datasets")
+    db <- db(overwrite = FALSE)
+    files(db) |>
+        filter(
+            .data$dataset_id %in% dataset_ids,
+            .data$filetype == "H5AD"
+        ) |>
+        files_download(dry.run = FALSE)
+}
+
+.cxg_as_tibble <-
+    function(dataset_ids, local_paths)
+{
+    db <- db(overwrite = FALSE)
+    x <- tibble(dataset_id = dataset_ids, local_path = local_paths)
     left_join(x, datasets(db), by = "dataset_id")
 }
 
-.shiny_cxg_list <- function(x) {
-    lapply(x$local_path, function(local_path, ...) {
+.cxg_list <-
+    function(dataset_ids, local_paths)
+{
+    lapply(local_paths, function(local_path) {
         message("Converting ", basename(local_path))
         zellkonverter::readH5AD(local_path, reader = "R", use_hdf5 = TRUE)
     })
 }
 
-.shiny_cxg_download <- function(dataset_ids) {
-    message("Downloading ", length(dataset_ids), " files")
-    db <- db()
-    files(db) |> filter(dataset_id %in% dataset_ids, filetype == "H5AD") |>
-        files_download(dry.run = FALSE)
+##
+## ui / server / app
+##
+
+.cxg_ui <-
+    function()
+{
+    navbarPage(
+        'cellxgenedp',
+
+        tabPanel(
+            "Collections",
+            DT::dataTableOutput("collections")
+        ),
+        tabPanel(
+            "Datasets",
+            textOutput("datasets_selected", inline = TRUE),
+            actionButton("quit_and_download", "Quit and download"),
+            actionButton("quit", "Quit"),
+            hr(),
+            DT::dataTableOutput("datasets")
+        ),
+
+        id = "navbar"
+
+    )
 }
 
-shiny_cxg <- function(as = c('tibble', 'list')) {
-    as = match.arg(as)
-    .shiny_download_cache$reset()
+.cxg_server <-
+    function(input, output, session)
+{
+    db <- db(overwrite = FALSE)
+    collections <- .cxg_collections(db)
+    datasets <- .cxg_datasets(db)
+    dataset <- datasets # current dataset(s)
+    files <- .cxg_files(db, id = NULL)
 
-    res <- runGadget(ui, server)
-    res$local_path <- .shiny_cxg_download(res$dataset_id)
-    switch(as, tibble = .shiny_cxg_as_tibble(res), list = .shiny_cxg_list(res))
+    output$datasets_selected <- renderText({
+        paste(
+            "Datasets selected:",
+            length(.cxg_download_cache$ls())
+        )
+    })
+
+    output$collections <- renderDataTable({
+        .cxg_collections_format(collections)
+    })
+
+    output$datasets <- renderDataTable({
+        .cxg_datasets_format(dataset)
+    })
+
+    observeEvent(input$collections_cell_clicked, {
+        info <- input$collections_cell_clicked
+        if (is.null(info$value))
+            return()
+        row_idx <- input$collections_row_last_clicked
+        id <- collections[row_idx, "collection_id"][[1]]
+        dataset <<- datasets |> dplyr::filter(.data$collection_id %in% id)
+        output$datasets <- renderDataTable(.cxg_datasets_format(dataset))
+        updateNavbarPage(session, 'navbar', selected = 'Datasets')
+    })
+
+    observeEvent(input$datasets_cell_clicked, {
+        info <- input$datasets_cell_clicked
+        if (is.null(info$value))
+            return()
+        id <- dataset[input$datasets_row_last_clicked, "dataset_id"][[1]]
+
+        if (info$col == 3) {
+            files <<- .cxg_files(db, id)
+            files |>
+                filter(.data$filetype == "CXG") |>
+                slice(1) |>
+                datasets_visualize()
+        } else
+            .cxg_download_cache$toggle(id)
+    })
+
+    ## quit
+
+    observeEvent(input$quit_and_download, {
+        ids <- .cxg_download_cache$ls()
+        stopApp(ids)
+    })
+
+    observeEvent(input$quit, {
+        stopApp(character(0))
+    })
+}
+
+#' @name cxg
+#' @title Shiny application for discovering, viewing, and downloading
+#'     cellxgene data
+#'
+#' @param as character(1) Return value when quiting the shiny
+#'     application. Either a tibble describing selected datasets
+#'     (including the location on disk of the downloaded file) or a
+#'     list of dataset files imported to R as SingleCellExperiment
+#'     objects.
+#'
+#' @return `cxg()` returns either a tibble describing datasets
+#'     selected in the shiny application, or a list of datasets
+#'     imported into R as SingleCellExperiment objects.
+#'
+#' @examples
+#' \donttest{
+#' cxg()
+#' }
+#'
+#' @export
+cxg <-
+    function(as = c('tibble', 'list'))
+{
+    as <- match.arg(as)
+
+    .cxg_download_cache$reset()
+    dataset_ids <- runGadget(.cxg_ui(), .cxg_server)
+    local_paths <- .cxg_download(dataset_ids)
+
+    switch(
+        as,
+        tibble = .cxg_as_tibble(dataset_ids, local_paths),
+        list = .cxg_list(dataset_ids, local_paths)
+    )
 }
