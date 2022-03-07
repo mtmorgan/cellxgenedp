@@ -225,11 +225,11 @@
         )
     })
 
-    output$collections <- renderDataTable({
+    output$collections <- DT::renderDataTable({
         .cxg_collections_format(collections)
     })
 
-    output$datasets <- renderDataTable({
+    output$datasets <- DT::renderDataTable({
         .cxg_datasets_format(dataset)
     })
 
@@ -240,7 +240,7 @@
         row_idx <- input$collections_row_last_clicked
         id <- collections[row_idx, "collection_id"][[1]]
         dataset <<- datasets |> dplyr::filter(.data$collection_id %in% id)
-        output$datasets <- renderDataTable(.cxg_datasets_format(dataset))
+        output$datasets <- DT::renderDataTable(.cxg_datasets_format(dataset))
         updateNavbarPage(session, 'navbar', selected = 'Datasets')
     })
 
@@ -256,8 +256,15 @@
                 filter(.data$filetype == "CXG") |>
                 slice(1) |>
                 datasets_visualize()
-        } else
+        } else {
             .cxg_download_cache$toggle(id)
+            output$datasets_selected <- renderText({
+                paste(
+                    "Datasets selected:",
+                    length(.cxg_download_cache$ls())
+                )
+            })
+        }
     })
 
     ## quit
