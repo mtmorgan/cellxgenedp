@@ -3,6 +3,7 @@
 S3method(print,cellxgene_db)
 export(FACETS)
 export(collections)
+export(cxg)
 export(datasets)
 export(datasets_visualize)
 export(db)
