@@ -1,6 +1,6 @@
 Package: cellxgenedp
 Title: Discover and Access Single Cell Data Sets in the cellxgene Data Portal
-Version: 0.99.6
+Version: 0.99.7
 Authors@R: 
     c(person(
         given = "Martin",
@@ -9,6 +9,7 @@ Authors@R:
         email = "mtmorgan.bioc@gmail.com",
         comment = c(ORCID = "0000-0002-5874-8148")
     ),
+    person("Kayla", "Interdonato", role = "aut"),
     person(
         "Daniel", "Parker", role = c("aut", "cph"),
         email = "danielaparker@yahoo.com",
@@ -29,6 +30,7 @@ LinkingTo: cpp11
 Suggests:
     zellkonverter,
     SingleCellExperiment,
+    HDF5Array,
     BiocStyle,
     knitr,
     rmarkdown,

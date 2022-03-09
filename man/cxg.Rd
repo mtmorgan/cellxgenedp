@@ -5,14 +5,14 @@
 \title{Shiny application for discovering, viewing, and downloading
 cellxgene data}
 \usage{
-cxg(as = c("tibble", "list"))
+cxg(as = c("tibble", "sce"))
 }
 \arguments{
 \item{as}{character(1) Return value when quiting the shiny
-application. Either a tibble describing selected datasets
-(including the location on disk of the downloaded file) or a
-list of dataset files imported to R as SingleCellExperiment
-objects.}
+application. \code{"tibble"} returns a tibble describing selected
+datasets (including the location on disk of the downloaded
+file). \code{"sce"} returns a list of dataset files imported to R as
+SingleCellExperiment objects.}
 }
 \value{
 \code{cxg()} returns either a tibble describing datasets
