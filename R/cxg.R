@@ -149,12 +149,15 @@
 ## download helpers
 
 .cxg_download <-
-    function(dataset_ids)
+    function(dataset_ids, convert)
 {
     if (!length(dataset_ids))
         return(character(0))
 
-    message("Downloading ", length(dataset_ids), " datasets")
+    message(
+        "Downloading ", if (convert) "& converting ",
+        length(dataset_ids), " datasets"
+    )
     db <- db(overwrite = FALSE)
     files(db) |>
         filter(
@@ -172,7 +175,21 @@
     left_join(x, datasets(db), by = "dataset_id")
 }
 
-.cxg_list <-
+.cxg_sce_validate_software_requirements <-
+    function()
+{
+    pkgs <- c("SingleCellExperiment", "zellkonverter", "HDF5Array")
+    need <- pkgs[!pkgs %in% rownames(installed.packages())]
+    if (length(need)) {
+        need <- paste(need, collapse = '", "')
+        stop(
+            "'cxg(as = \"sce\")' requires additional packages; use\n",
+            "    BiocManager::install(c(\"", need, "\"))"
+        )
+    }
+}
+
+.cxg_sce <-
     function(dataset_ids, local_paths)
 {
     lapply(local_paths, function(local_path) {
@@ -256,15 +273,16 @@
                 filter(.data$filetype == "CXG") |>
                 slice(1) |>
                 datasets_visualize()
-        } else {
-            .cxg_download_cache$toggle(id)
-            output$datasets_selected <- renderText({
-                paste(
-                    "Datasets selected:",
-                    length(.cxg_download_cache$ls())
-                )
-            })
         }
+
+        ## all selections, including `info$col == 3` toggle download status
+        .cxg_download_cache$toggle(id)
+        output$datasets_selected <- renderText({
+            paste(
+                "Datasets selected:",
+                length(.cxg_download_cache$ls())
+            )
+        })
     })
 
     ## quit
@@ -284,10 +302,10 @@
 #'     cellxgene data
 #'
 #' @param as character(1) Return value when quiting the shiny
-#'     application. Either a tibble describing selected datasets
-#'     (including the location on disk of the downloaded file) or a
-#'     list of dataset files imported to R as SingleCellExperiment
-#'     objects.
+#'     application. `"tibble"` returns a tibble describing selected
+#'     datasets (including the location on disk of the downloaded
+#'     file). `"sce"` returns a list of dataset files imported to R as
+#'     SingleCellExperiment objects.
 #'
 #' @return `cxg()` returns either a tibble describing datasets
 #'     selected in the shiny application, or a list of datasets
@@ -300,17 +318,19 @@
 #'
 #' @export
 cxg <-
-    function(as = c('tibble', 'list'))
+    function(as = c('tibble', 'sce'))
 {
     as <- match.arg(as)
+    if (identical(as, "sce"))
+        .cxg_sce_validate_software_requirements()
 
     .cxg_download_cache$reset()
     dataset_ids <- runGadget(.cxg_ui(), .cxg_server)
-    local_paths <- .cxg_download(dataset_ids)
+    local_paths <- .cxg_download(dataset_ids, identical(as, "sce"))
 
     switch(
         as,
         tibble = .cxg_as_tibble(dataset_ids, local_paths),
-        list = .cxg_list(dataset_ids, local_paths)
+        sce = .cxg_sce(dataset_ids, local_paths)
     )
 }

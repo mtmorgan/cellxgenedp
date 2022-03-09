@@ -54,6 +54,20 @@ suppressPackageStartupMessages({
 })
 ```
 
+# `cxg()` Provides a 'shiny' interface
+
+The following sections outline how to use the [cellxgenedp][] package
+in an _R_ script; most functionality is also available in the `cxg()`
+shiny application, providing an easy way to identify, download, and
+visualize one or several datasets. Start the app
+
+```{r, eval = FALSE}
+cxg()
+```
+
+choose a project on the first tab, and a dataset for visualization, or
+one or more datasets for download!
+
 # Collections, datasets and files
 
 Retrieve metadata about resources available at the cellxgene data
