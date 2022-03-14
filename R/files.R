@@ -43,7 +43,7 @@ files <-
         )
         return(file_name)
     }
-    .cellxgene_cache_get(signed_url, file_name, progress = TRUE)
+    .cellxgene_cache_get(signed_url, file_name, progress = interactive())
 }
 
 #' @rdname query

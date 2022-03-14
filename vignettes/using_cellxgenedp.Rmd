@@ -21,22 +21,24 @@ vignette: |
 
 # Installation and use
 
-This package is not yet available on _Bioconductor_. Install from
-GitHub using the following commands
+This package is available in _Bioconductor_ version 3.15 and
+later. The following code installs [cellxgenedp][] as well as other
+packages required for this vignette.
+
+[cellxgenedp]: https://bioconductor.org/packages/cellxgenedp
 
 ```{r, eval = FALSE}
-installed_packages <- rownames(installed.packages())
+pkgs <- c("cellxgenedp", "zellkonverter", "SingleCellExperiment", "HDF5Array")
+required_pkgs <- pkgs[!pkgs %in% rownames(installed.packages())]
+BiocManager::install(required_pkgs)
+```
 
-## packages required for installation
-pkgs <- c("remotes", "BiocManager")
-required_pkgs <- pkgs[!pkgs %in% installed_packages]
-install.packages(required_pkgs, repos = "https://cloud.r-project.org")
-
-## the cellxgenedp package, and packages used in the vignette
-vignette_dependencies <- c("zellkonverter", "SingleCellExperiment")
-required_pkgs <-
-    vignette_dependencies[!vignette_dependencies %in% installed_packages]
-BiocManager::install(c(required_pkgs, "mtmorgan/cellxgenedp"))
+Use the following `pkgs` vector to install from GitHub (latest,
+unchecked, development version) instead
+```{r, eval = FALSE}
+pkgs <- c(
+    "mtmorgan/cellxgenedp", "zellkonverter", "SingleCellExperiment", "HDF5Array"
+)
 ```
 
 Load the package into your current _R_ session. We make extensive use
