@@ -9,7 +9,7 @@ test_that("collections() works", {
         contact_email="character", 
         contact_name="character", data_submission_policy_version="character", 
         description="character", genesets="logical", links="list", 
-        name="character", obfuscated_uuid="character", visibility="character", 
+        name="character", visibility="character",
         created_at="Date", published_at="Date", revised_at="Date", 
         updated_at="Date"
     )
