@@ -209,16 +209,16 @@
         'cellxgenedp',
 
         tabPanel(
-            "Collections",
-            DT::dataTableOutput("collections")
-        ),
-        tabPanel(
             "Datasets",
             textOutput("datasets_selected", inline = TRUE),
             actionButton("quit_and_download", "Quit and download"),
             actionButton("quit", "Quit"),
             hr(),
             DT::dataTableOutput("datasets")
+        ),
+        tabPanel(
+            "Collections",
+            DT::dataTableOutput("collections")
         ),
 
         id = "navbar"
