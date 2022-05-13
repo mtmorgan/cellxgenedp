@@ -1,6 +1,6 @@
 Package: cellxgenedp
 Title: Discover and Access Single Cell Data Sets in the cellxgene Data Portal
-Version: 1.1.0
+Version: 1.1.1
 Authors@R: 
     c(person(
         given = "Martin",
@@ -11,7 +11,7 @@ Authors@R:
     ),
     person("Kayla", "Interdonato", role = "aut"),
     person(
-        "Daniel", "Parker", role = c("aut", "cph"),
+        "Daniel", "Parker", role = "cph",
         email = "danielaparker@yahoo.com",
         comment = "jsoncons C++ library creator"
     ))
