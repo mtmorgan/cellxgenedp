@@ -40,23 +40,26 @@
     function(db)
 {
     collections <- collections(db) |>
-        select(c("collection_id", "name"))
+        select(c("collection_id", "name", "contact_name", "publisher_metadata"))
 
     datasets <-
         datasets(db) |>
         select(
             "collection_id", "tissue", "assay", "disease", "organism",
-            "cell_count"
+            "cell_count", "cell_type", "development_stage", "ethnicity",
+            "mean_genes_per_cell", "sex"
         )
 
     labeledDat <-
         datasets |>
         mutate(
-            across(c("tissue", "assay", "disease", "organism"), .cxg_labels)
+            across(c("tissue", "assay", "disease", "organism", "cell_type",
+                "development_stage", "ethnicity", "sex"), .cxg_labels)
         ) |>
         group_by(.data$collection_id) |>
         summarize(across(
-            c("tissue", "assay", "disease", "organism"),
+            c("tissue", "assay", "disease", "organism", "cell_type",
+                "development_stage", "ethnicity", "sex"),
             function(x) paste(unique(x), collapse = ", ")
         ))
 
@@ -75,15 +78,20 @@
     function(db)
 {
     ## select tbl
-    datasets(db) |>
+    datasets <- datasets(db) |>
         mutate(
-            across(c("tissue", "assay", "disease", "organism"), .cxg_labels),
+            across(c("tissue", "assay", "disease", "organism", "cell_type",
+                "development_stage", "ethnicity", "sex"), .cxg_labels),
+            cell_count = as.numeric(.data$cell_count),
             view = as.character(icon("eye-open", lib = "glyphicon"))
         ) |>
         select(
             "dataset_id", "collection_id", "view", "name", "tissue", "assay",
-            "disease", "organism", "cell_count"
+            "disease", "organism", "cell_count", "cell_type", "development_stage",
+            "ethnicity", "mean_genes_per_cell", "sex"
         )
+
+    datasets
 }
 
 .cxg_files <-
@@ -112,8 +120,8 @@
         options = list(
             scrollY = 400,
             columnDefs = list(
-                list(visible = FALSE, targets = 0:1),
-                list(width = '20px', targets = 4:7)
+                list(visible = FALSE, targets = c(0:4, 9:12)),
+                list(width = '20px', targets = 5:8)
             )
         )
     )
@@ -123,21 +131,55 @@
 .cxg_datasets_format <-
     function(tbl)
 {
+    db <- db()
+    
+    .cxg_search_panes <- 
+        function(db, type, col)
+    {
+    data_labels <- facets(db, type)$label
+    data_select <- lapply(data_labels, function(data_label) {
+        list(label = data_label,
+            value = JS(paste0("function(rowData, rowIdx) { return /", data_label, "/.test(rowData[", col, "]); }"))
+        )
+    })
+    list(
+        searchPanes = list(
+            show = TRUE,
+            options = data_select,
+            initCollapsed = TRUE
+        ),
+        targets = col
+    )
+    }
+
     dt <- datatable(
         tbl,
-        selection = 'multiple',
-        filter = 'top',
+        selection = 'none',
+        extensions = c('Select', 'SearchPanes'),
         escape = FALSE,
         colnames = c(
             'rownames', 'dataset_id', 'collection_id', 'View', 'Dataset',
             'Tissue', 'Assay', 'Disease', 'Organism',
-            'Cells'
+            'Cells', 'Cell Type', 'Development Stage', 'Ethnicity', 'Gene Count',
+            'Sex'
         ),
         options = list(
             scrollX = TRUE,
             scrollY = 400,
+            dom = 'Pfrtip',
             columnDefs = list(
-                list(visible = FALSE, targets = 0:2),
+                .cxg_search_panes(db, "organism", 8),
+                .cxg_search_panes(db, "disease", 7),
+                .cxg_search_panes(db, "assay", 6),
+                .cxg_search_panes(db, "tissue", 5),
+                .cxg_search_panes(db, "cell_type", 10),
+                .cxg_search_panes(db, "development_stage", 11),
+                .cxg_search_panes(db, "ethnicity", 12),
+                .cxg_search_panes(db, "sex", 14),
+                list(
+                    searchPanes = list(show = FALSE), targets = c(0:4, 9, 13)
+                ),
+                list(visible = FALSE, targets = c(0:2, 10:14)),
                 list(className = 'dt-center', width = "10px", targets = 3)
             )
         )
@@ -246,9 +288,9 @@
         .cxg_collections_format(collections)
     })
 
-    output$datasets <- DT::renderDataTable({
+    output$datasets <- DT::renderDT({
         .cxg_datasets_format(dataset)
-    })
+    }, server = FALSE)
 
     observeEvent(input$collections_cell_clicked, {
         info <- input$collections_cell_clicked
