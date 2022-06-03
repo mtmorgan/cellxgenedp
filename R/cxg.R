@@ -45,7 +45,7 @@
     datasets <-
         datasets(db) |>
         select(
-            "collection_id", "tissue", "assay", "disease", "organism",
+            "collection_id", "organism", "tissue", "disease", "assay",
             "cell_count", "cell_type", "development_stage", "ethnicity",
             "mean_genes_per_cell", "sex"
         )
@@ -53,12 +53,12 @@
     labeledDat <-
         datasets |>
         mutate(
-            across(c("tissue", "assay", "disease", "organism", "cell_type",
+            across(c("organism", "tissue", "disease", "assay", "cell_type",
                 "development_stage", "ethnicity", "sex"), .cxg_labels)
         ) |>
         group_by(.data$collection_id) |>
         summarize(across(
-            c("tissue", "assay", "disease", "organism", "cell_type",
+            c("organism", "tissue", "disease", "assay", "cell_type",
                 "development_stage", "ethnicity", "sex"),
             function(x) paste(unique(x), collapse = ", ")
         ))
@@ -80,14 +80,14 @@
     ## select tbl
     datasets <- datasets(db) |>
         mutate(
-            across(c("tissue", "assay", "disease", "organism", "cell_type",
+            across(c("organism", "tissue", "disease", "assay", "cell_type",
                 "development_stage", "ethnicity", "sex"), .cxg_labels),
             cell_count = as.numeric(.data$cell_count),
             view = as.character(icon("eye-open", lib = "glyphicon"))
         ) |>
         select(
-            "dataset_id", "collection_id", "view", "name", "tissue", "assay",
-            "disease", "organism", "cell_count", "cell_type", "development_stage",
+            "dataset_id", "collection_id", "view", "name", "organism", "tissue",
+            "disease", "assay", "cell_count", "cell_type", "development_stage",
             "ethnicity", "mean_genes_per_cell", "sex"
         )
 
@@ -109,18 +109,42 @@
 .cxg_collections_format <-
     function(tbl)
 {
+    db <- db()
+
     dt <- datatable(
         tbl,
         selection = 'single',
-        filter = 'top',
+        extensions = c('SearchPanes'),
+        escape = FALSE,
         colnames = c(
-            'rownames', 'id', 'Collection', 'Tissue', 'Assay',
-            'Disease', 'Organism', 'Cells'
+            'rownames', 'id', 'Collection', 'Authors', 'Publication Date',
+            'Organism', 'Tissue', 'Disease', 'Assay', 'Cell Type',
+            'Development Stage', 'Ethnicity', 'Sex', 'Cells'
         ),
         options = list(
+            scrollX = TRUE,
             scrollY = 400,
+            dom = 'Pfrtip',
+            searchPanes = list(
+                order = c('Assay', 'Authors', 'Cell Type', 'Development Stage',
+                    'Disease', 'Ethnicity', 'Organism', 'Publication Date',
+                    'Sex', 'Tissue')
+            ),
             columnDefs = list(
-                list(visible = FALSE, targets = c(0:4, 9:12)),
+                .cxg_search_panes(db, "organism", 5),
+                .cxg_search_panes(db, "disease", 7),
+                .cxg_search_panes(db, "tissue", 6),
+                .cxg_search_panes(db, "assay", 8),
+                #.cxg_search_panes(db, "contact_name", 3),
+                .cxg_search_panes(db, "cell_type", 9),
+                .cxg_search_panes(db, "development_stage", 10),
+                .cxg_search_panes(db, "ethnicity", 11),
+                #.cxg_search_panes(db, "publisher_metadata", 4),
+                .cxg_search_panes(db, "sex", 12),
+                list(
+                    searchPanes = list(show = FALSE), targets = c(0:4, 13)
+                ),
+                list(visible = FALSE, targets = c(0:1, 3:4, 9:12)),
                 list(width = '20px', targets = 5:8)
             )
         )
@@ -128,18 +152,14 @@
     formatStyle(dt, 2:7, 'vertical-align' = 'top')
 }
 
-.cxg_datasets_format <-
-    function(tbl)
+.cxg_search_panes <-
+    function(db, type, col)
 {
-    db <- db()
-    
-    .cxg_search_panes <- 
-        function(db, type, col)
-    {
     data_labels <- facets(db, type)$label
     data_select <- lapply(data_labels, function(data_label) {
         list(label = data_label,
-            value = JS(paste0("function(rowData, rowIdx) { return /", data_label, "/.test(rowData[", col, "]); }"))
+            value = JS(paste0("function(rowData, rowIdx) { return /", data_label,
+                "/.test(rowData[", col, "]); }"))
         )
     })
     list(
@@ -150,8 +170,13 @@
         ),
         targets = col
     )
-    }
+}
 
+.cxg_datasets_format <-
+    function(tbl)
+{
+    db <- db()
+    
     dt <- datatable(
         tbl,
         selection = 'none',
@@ -159,7 +184,7 @@
         escape = FALSE,
         colnames = c(
             'rownames', 'dataset_id', 'collection_id', 'View', 'Dataset',
-            'Tissue', 'Assay', 'Disease', 'Organism',
+            'Organism', 'Tissue', 'Disease', 'Assay',
             'Cells', 'Cell Type', 'Development Stage', 'Ethnicity', 'Gene Count',
             'Sex'
         ),
@@ -167,11 +192,16 @@
             scrollX = TRUE,
             scrollY = 400,
             dom = 'Pfrtip',
+            searchPanes = list(
+                #layout = 'columns-1',
+                order = c('Assay', 'Cell Type', 'Development Stage', 'Disease',
+                    'Ethnicity', 'Organism', 'Tissue', 'Sex')
+            ),
             columnDefs = list(
-                .cxg_search_panes(db, "organism", 8),
+                .cxg_search_panes(db, "organism", 5),
                 .cxg_search_panes(db, "disease", 7),
-                .cxg_search_panes(db, "assay", 6),
-                .cxg_search_panes(db, "tissue", 5),
+                .cxg_search_panes(db, "tissue", 6),
+                .cxg_search_panes(db, "assay", 8),
                 .cxg_search_panes(db, "cell_type", 10),
                 .cxg_search_panes(db, "development_stage", 11),
                 .cxg_search_panes(db, "ethnicity", 12),
@@ -182,6 +212,7 @@
                 list(visible = FALSE, targets = c(0:2, 10:14)),
                 list(className = 'dt-center', width = "10px", targets = 3)
             )
+            #dom = '<"dtsp-dataTable"frtip>'
         )
     )
     formatStyle(dt, 3:9, 'vertical-align' = "top")
@@ -284,9 +315,9 @@
         )
     })
 
-    output$collections <- DT::renderDataTable({
+    output$collections <- DT::renderDT({
         .cxg_collections_format(collections)
-    })
+    }, server = FALSE)
 
     output$datasets <- DT::renderDT({
         .cxg_datasets_format(dataset)
