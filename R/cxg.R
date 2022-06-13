@@ -40,7 +40,18 @@
     function(db)
 {
     collections <- collections(db) |>
-        select(c("collection_id", "name", "contact_name", "publisher_metadata"))
+        select(c("collection_id", "name", "publisher_metadata")) |>
+        mutate(authors = vapply(publisher_metadata, function(x) {
+            if (length(x)==1)
+                return(NA_character_)
+            author_list <- x$authors
+            family <- unlist(lapply(author_list, `[[`, "family"))
+            given <- unlist(lapply(author_list, `[[`, "given"))
+            paste(family, given, sep = ", ", collapse = "; ")
+        }, character(1))) |>
+        mutate(publication_date = vapply(publisher_metadata, function(x) {
+            unlist(x["published_year"])
+        }, integer(1)))
 
     datasets <-
         datasets(db) |>
@@ -117,7 +128,7 @@
         extensions = c('SearchPanes'),
         escape = FALSE,
         colnames = c(
-            'rownames', 'id', 'Collection', 'Authors', 'Publication Date',
+            'rownames', 'id', 'Collection', 'metadata', 'Authors', 'Publication Date',
             'Organism', 'Tissue', 'Disease', 'Assay', 'Cell Type',
             'Development Stage', 'Ethnicity', 'Sex', 'Cells'
         ),
@@ -131,20 +142,20 @@
                     'Sex', 'Tissue')
             ),
             columnDefs = list(
-                .cxg_search_panes(db, "organism", 5),
-                .cxg_search_panes(db, "disease", 7),
-                .cxg_search_panes(db, "tissue", 6),
-                .cxg_search_panes(db, "assay", 8),
-                #.cxg_search_panes(db, "contact_name", 3),
-                .cxg_search_panes(db, "cell_type", 9),
-                .cxg_search_panes(db, "development_stage", 10),
-                .cxg_search_panes(db, "ethnicity", 11),
-                #.cxg_search_panes(db, "publisher_metadata", 4),
-                .cxg_search_panes(db, "sex", 12),
+                .cxg_search_panes(db, "organism", 6),
+                .cxg_search_panes(db, "disease", 8),
+                .cxg_search_panes(db, "tissue", 7),
+                .cxg_search_panes(db, "assay", 9),
+                .cxg_search_panes(db, "authors", 4, .cxg_search_panes_author),
+                .cxg_search_panes(db, "cell_type", 10),
+                .cxg_search_panes(db, "development_stage", 11),
+                .cxg_search_panes(db, "ethnicity", 12),
+                .cxg_search_panes(db, "publication_date", 5, .cxg_search_panes_publication_date),
+                .cxg_search_panes(db, "sex", 13),
                 list(
-                    searchPanes = list(show = FALSE), targets = c(0:4, 13)
+                    searchPanes = list(show = FALSE), targets = c(0:4, 14)
                 ),
-                list(visible = FALSE, targets = c(0:1, 3:4, 9:12)),
+                list(visible = FALSE, targets = c(0:1, 3:5, 10:13)),
                 list(width = '20px', targets = 5:8)
             )
         )
@@ -152,10 +163,27 @@
     formatStyle(dt, 2:7, 'vertical-align' = 'top')
 }
 
-.cxg_search_panes <-
-    function(db, type, col)
+.cxg_search_panes_publication_date <-
+    function(db, type)
 {
-    data_labels <- facets(db, type)$label
+    year <- sort(unlist(unique(jmespath(db, "[].publisher_metadata.published_year") |> parse_json())))
+}
+
+.cxg_search_panes_author <- 
+    function(db, type)
+{
+     family <- unlist(jmespath(db, "[].publisher_metadata.authors[].family") |> parse_json())
+     given <- unlist((jmespath(db, "[].publisher_metadata.authors[].given") |> parse_json()))
+     unique(paste(family, given, sep = ", "))
+}
+
+.cxg_search_panes <-
+    function(db, type, col, label_fun = NULL)
+{
+    if (is.null(label_fun))
+        data_labels <- facets(db, type)$label
+    else
+        data_labels <- label_fun(db, type)
     data_select <- lapply(data_labels, function(data_label) {
         list(label = data_label,
             value = JS(paste0("function(rowData, rowIdx) { return /", data_label,
@@ -166,7 +194,8 @@
         searchPanes = list(
             show = TRUE,
             options = data_select,
-            initCollapsed = TRUE
+            initCollapsed = TRUE,
+            cascadePanes = TRUE
         ),
         targets = col
     )
