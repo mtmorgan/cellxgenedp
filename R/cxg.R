@@ -110,7 +110,7 @@
     dt <- datatable(
         tbl,
         selection = 'single',
-        extensions = c('SearchPanes'),
+        extensions = c('SearchPanes', 'Select', 'Buttons'),
         escape = FALSE,
         colnames = c(
             'rownames', 'Collection_id', 'Dataset_id', 'Collection', 'Authors',
@@ -121,7 +121,9 @@
         options = list(
             scrollX = TRUE,
             scrollY = 400,
-            dom = 'Pfrtip',
+            dom = 'Btip',
+            buttons = list("searchPanes"),
+            language = list(searchPanes = list(collapse = "Filter Rows")),
             searchPanes = list(
                 order = c('Assay', 'Authors', 'Cell Type', 'Development Stage',
                     'Disease', 'Ethnicity', 'Organism', 'Publication Date',
@@ -195,7 +197,7 @@
     dt <- datatable(
         tbl,
         selection = 'multiple',
-        extensions = c('Select', 'SearchPanes'),
+        extensions = c('Select', 'SearchPanes', 'Buttons'),
         escape = FALSE,
         colnames = c(
             'rownames', 'collection_id', 'dataset_id', 'View', 'Authors',
@@ -206,9 +208,10 @@
         options = list(
             scrollX = TRUE,
             scrollY = 400,
-            dom = 'Pfrtip',
+            dom = 'Btip',
+            buttons = list("searchPanes"),
+            language = list(searchPanes = list(collapse = "Filter Rows")),
             searchPanes = list(
-                #layout = 'columns-1',
                 order = c('Assay', 'Authors', 'Cell Type', 'Development Stage',
                     'Disease', 'Ethnicity', 'Organism', 'Publication Date',
                     'Tissue', 'Sex')
@@ -232,7 +235,6 @@
                 list(visible = FALSE, targets = c(0:2, 4:5, 12:17)),
                 list(className = 'dt-center', width = "10px", targets = 3)
             )
-            #dom = '<"dtsp-dataTable"frtip>'
         )
     )
     formatStyle(dt, 3:9, 'vertical-align' = "top")
@@ -315,7 +317,6 @@
         ),
 
         id = "navbar"
-
     )
 }
 
