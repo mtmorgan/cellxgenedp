@@ -77,7 +77,10 @@
             cell_count = sum(.data$cell_count)) |>
         ungroup() |> 
         distinct(collection_id, .keep_all = TRUE) |>
-        select(1:2, 14:16, 4:13, 3)
+        select("collection_id", "dataset_id", "collection_name", "authors",
+            "publication_date", "organism", "tissue", "disease", "assay",
+            "cell_count", "cell_type", "development_stage", "ethnicity",
+            "mean_genes_per_cell", "sex", "dataset_name")
 
 }
 
@@ -87,7 +90,10 @@
     .cxg_allDat(db) |>
         distinct(dataset_id, .keep_all = TRUE) |>
         mutate(view = as.character(icon("eye-open", lib = "glyphicon"))) |>
-        select(1:2, 17, 15:16, 3:14)
+        select("collection_id", "dataset_id", "view", "authors",
+            "publication_date", "dataset_name", "organism", "tissue", "disease",
+            "assay", "cell_count", "cell_type", "development_stage", "ethnicity",
+            "mean_genes_per_cell", "sex", "collection_name")
 }
 
 .cxg_files <-
@@ -105,12 +111,12 @@
 .cxg_collections_format <-
     function(tbl)
 {
-    db <- db()
+    db <- db(overwrite = FALSE)
 
     dt <- datatable(
         tbl,
         selection = 'single',
-        extensions = c('SearchPanes', 'Select', 'Buttons'),
+        extensions = c('Select', 'SearchPanes', 'Buttons'),
         escape = FALSE,
         colnames = c(
             'rownames', 'Collection_id', 'Dataset_id', 'Collection', 'Authors',
@@ -182,8 +188,7 @@
         searchPanes = list(
             show = TRUE,
             options = data_select,
-            initCollapsed = TRUE,
-            cascadePanes = TRUE
+            initCollapsed = TRUE
         ),
         targets = col
     )
@@ -192,7 +197,7 @@
 .cxg_datasets_format <-
     function(tbl)
 {
-    db <- db()
+    db <- db(overwrite = FALSE)
     
     dt <- datatable(
         tbl,
@@ -226,8 +231,6 @@
                 .cxg_search_panes(db, "ethnicity", 14),
                 .cxg_search_panes(db, "sex", 16),
                 .cxg_search_panes(db, "authors", 4, .cxg_search_panes_author),
-#                .cxg_search_panes(db, "cell_count", 11),
-#                .cxg_search_panes(db, "mean_genes_per_cell", 15),
                 .cxg_search_panes(db, "publication_date", 5, .cxg_search_panes_publication_date),
                 list(
                     searchPanes = list(show = FALSE), targets = c(0:3, 6, 11, 15, 17)
@@ -351,7 +354,7 @@
         row_idx <- input$collections_row_last_clicked
         id <- collections[row_idx, "collection_id"][[1]]
         dataset <<- datasets |> dplyr::filter(.data$collection_id %in% id)
-        output$datasets <- DT::renderDataTable(.cxg_datasets_format(dataset))
+        output$datasets <- DT::renderDT(.cxg_datasets_format(dataset), server = FALSE)
         updateNavbarPage(session, 'navbar', selected = 'Datasets')
     })
 
