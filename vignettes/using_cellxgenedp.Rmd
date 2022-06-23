@@ -9,7 +9,7 @@ output:
     BiocStyle::html_document
 abstract: |
     The cellxgene data portal (https://cellxgene.cziscience.com/) provides a
-    graphical user interface to collections of single-cell sequence data 
+    graphical user interface to collections of single-cell sequence data
     processed in standard ways to 'count matrix' summaries. The cellxgenedp
     package provides an alternative, R-based inteface, allowing flexible data
     discovery, viewing, and downloading.
@@ -152,7 +152,7 @@ convenient way of discovering possible levels of each column, e.g.,
 `assay`, `organism`, `ethnicity`, or `sex`, and the number of datasets with
 each label.
 
-```{r}
+```{r facets}
 facets(db, "assay")
 facets(db, "ethnicity")
 facets(db, "sex")
@@ -165,7 +165,7 @@ assay (`ontology_term_id` of `EFO:0009922`) containing individuals of
 African American ethnicity, and female sex. Use the `facets_filter()`
 utility function to filter data sets as needed
 
-```{r}
+```{r african_american_female}
 african_american_female <-
     datasets(db) |>
     filter(
@@ -175,8 +175,8 @@ african_american_female <-
     )
 ```
 
-There are `r nrow(african_american_female)` datasets satisfying our
-criteria. It looks like there are up to
+Use `nrow(african_american_female)` to find the number of datasets
+satisfying our criteria. It looks like there are up to
 
 ```{r}
 african_american_female |>
