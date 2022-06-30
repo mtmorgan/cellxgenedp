@@ -128,7 +128,7 @@
             scrollX = TRUE,
             scrollY = 400,
             dom = 'Btip',
-            buttons = list("searchPanes"),
+            buttons = list(list(extend = "searchPanes", config = list(cascadePanes = TRUE))),
             language = list(searchPanes = list(collapse = "Filter Rows")),
             searchPanes = list(
                 order = c('Assay', 'Authors', 'Cell Type', 'Development Stage',
@@ -214,7 +214,7 @@
             scrollX = TRUE,
             scrollY = 400,
             dom = 'Btip',
-            buttons = list("searchPanes"),
+            buttons = list(list(extend = "searchPanes", config = list(cascadePanes = TRUE))),
             language = list(searchPanes = list(collapse = "Filter Rows")),
             searchPanes = list(
                 order = c('Assay', 'Authors', 'Cell Type', 'Development Stage',
