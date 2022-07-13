@@ -273,11 +273,12 @@
     left_join(x, datasets(db), by = "dataset_id")
 }
 
+#' @importFrom utils installed.packages
 .cxg_sce_validate_software_requirements <-
     function()
 {
     pkgs <- c("SingleCellExperiment", "zellkonverter", "HDF5Array")
-    need <- pkgs[!pkgs %in% rownames(installed.packages())]
+    need <- setdiff(pkgs, rownames(installed.packages()))
     if (length(need)) {
         need <- paste(need, collapse = '", "')
         stop(
