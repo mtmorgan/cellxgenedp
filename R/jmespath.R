@@ -6,13 +6,11 @@ NULL
 #'
 #' @title Use JMESpath to query JSON files
 #'
-#' @description
+#' @description `jmespath_version()` reports the version of the C++
+#'     jsoncons library in use.
 #'
-#'     `jmespath_version()` reports the version of the C++ jsoncons
-#'     library in use.
-#'
-#'     `jmespath()` executes a query against a json string using the
-#'     'jmespath' specification.
+#' @description `jmespath()` executes a query against a json string
+#'     using the 'jmespath' specification.
 #'
 #' @param data character(1) JSON string.
 #'
@@ -20,14 +18,12 @@ NULL
 #'
 #' @details `jmespath()` is implemented in the jsoncons C++ library.
 #'
-#' @return
+#' @return `jmespath_version()` returns a character(1)
+#'     major.minor.patch version string describing the version of the
+#'     jsoncons library on which jmespath is implemented.
 #'
-#'     `jmespath_version()` returns a character(1) major.minor.patch
-#'     version string describing the version of the jsoncons library
-#'     on which jmespath is implemented.
-#'
-#'     `jmespath()` returns a character(1) json string representing
-#'     the result of the query.
+#' @return `jmespath()` returns a character(1) json string
+#'     representing the result of the query.
 #'
 #' @seealso https://danielaparker.github.io/jsoncons/
 #'
