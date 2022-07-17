@@ -4,3 +4,5 @@ vignettes/*R
 vignettes/*html
 .Rproj.user
 *Rproj
+.httr-oauth
+
