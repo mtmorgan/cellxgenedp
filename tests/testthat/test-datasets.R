@@ -7,7 +7,7 @@ test_that("datasets() works", {
     DATASETS_COLUMNS <- c(
         dataset_id="character", collection_id="character",
         assay="list", cell_count="integer", cell_type="list",
-        collection_visibility="character", dataset_deployments="character",
+        dataset_deployments="character",
         development_stage="list", disease="list", ethnicity="list",
         is_primary_data="character", is_valid="logical",
         linked_genesets="logical", mean_genes_per_cell="numeric",
