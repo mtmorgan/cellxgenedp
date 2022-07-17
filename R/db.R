@@ -13,7 +13,7 @@
 .db_detail <-
     function(id, overwrite)
 {
-    ## called in parallel; be sure to return a result & check for errors
+    ## be sure to return a result & check for errors
     tryCatch({
         uri <- paste0(.COLLECTIONS, id)
         path <- .cellxgene_cache_get(uri, overwrite = overwrite)
@@ -47,7 +47,6 @@
     !is.null(response)
 }
 
-#' @importFrom parallel mclapply
 #' @rdname db
 #' @title Retrieve updated cellxgene database metadata
 #'
@@ -80,7 +79,7 @@ db <-
     if (overwrite)
         message("updating database and collections...")
     db <- .db(overwrite)
-    details <- mclapply(db$id, .db_detail, overwrite = overwrite)
+    details <- lapply(db$id, .db_detail, overwrite = overwrite)
     errors <- vapply(details, inherits, logical(1), "error")
     if (any(errors)) {
         stop(
