@@ -1,10 +1,12 @@
-#' @importFrom dplyr filter slice summarize left_join
+#' @importFrom dplyr filter slice summarize left_join rename
 #'
 #' @importFrom shiny actionButton hr icon navbarPage observeEvent
 #'     renderText runGadget stopApp tabPanel textOutput
 #'     updateNavbarPage
 #'
 #' @importFrom DT renderDataTable datatable formatStyle
+#'
+#' @importFrom htmlwidgets JS
 
 ##
 ## utilities
@@ -35,55 +37,63 @@
 }
 
 ## collections() / datasets() / files()
-
-.cxg_collections <-
+.cxg_allDat <- 
     function(db)
 {
     collections <- collections(db) |>
-        select(c("collection_id", "name"))
+        select(c("collection_id", "name", "publisher_metadata")) |>
+        mutate(authors = vapply(publisher_metadata, function(x) {
+            if (length(x) == 1)
+                return(NA_character_)
+            author_list <- x$authors
+            family <- unlist(lapply(author_list, `[[`, "family"))
+            given <- unlist(lapply(author_list, `[[`, "given"))
+            paste(family, given, sep = ", ", collapse = "; ")
+        }, character(1))) |>
+        mutate(publication_date = vapply(publisher_metadata, function(x) {
+            unlist(x["published_year"])
+        }, integer(1))) |>
+        select(-"publisher_metadata") |>
+        rename(collection_name = name)
 
-    datasets <-
-        datasets(db) |>
-        select(
-            "collection_id", "tissue", "assay", "disease", "organism",
-            "cell_count"
-        )
-
-    labeledDat <-
-        datasets |>
-        mutate(
-            across(c("tissue", "assay", "disease", "organism"), .cxg_labels)
-        ) |>
+    datasets <- datasets(db) |>
+        select("collection_id", "dataset_id", "name", "organism", "tissue",
+            "disease", "assay", "cell_count", "cell_type", "development_stage",
+            "ethnicity", "mean_genes_per_cell", "sex") |>
+        mutate(across(c("organism", "tissue", "disease", "assay", "cell_type",
+            "development_stage", "ethnicity", "sex"), .cxg_labels)) |>
+        rename(dataset_name = name)
+    
+    left_join(datasets, collections, by = "collection_id")
+}
+.cxg_collections <-
+    function(db)
+{
+    .cxg_allDat(db) |>
         group_by(.data$collection_id) |>
-        summarize(across(
-            c("tissue", "assay", "disease", "organism"),
-            function(x) paste(unique(x), collapse = ", ")
-        ))
+        mutate(across(c("organism", "tissue", "disease", "assay", "cell_type",
+            "development_stage", "ethnicity", "sex"),
+            function(x) paste(unique(x), collapse = ", ")),
+            cell_count = sum(.data$cell_count)) |>
+        ungroup() |> 
+        distinct(collection_id, .keep_all = TRUE) |>
+        select("collection_id", "dataset_id", "collection_name", "authors",
+            "publication_date", "organism", "tissue", "disease", "assay",
+            "cell_count", "cell_type", "development_stage", "ethnicity",
+            "mean_genes_per_cell", "sex", "dataset_name")
 
-    countDat <- datasets |>
-        group_by(.data$collection_id) |>
-        summarize(cell_count = sum(.data$cell_count))
-
-    allDat <-
-        left_join(collections, labeledDat, by = "collection_id") |>
-        left_join(countDat, by = "collection_id")
-
-    allDat
 }
 
 .cxg_datasets <-
     function(db)
 {
-    ## select tbl
-    datasets(db) |>
-        mutate(
-            across(c("tissue", "assay", "disease", "organism"), .cxg_labels),
-            view = as.character(icon("eye-open", lib = "glyphicon"))
-        ) |>
-        select(
-            "dataset_id", "collection_id", "view", "name", "tissue", "assay",
-            "disease", "organism", "cell_count"
-        )
+    .cxg_allDat(db) |>
+        distinct(dataset_id, .keep_all = TRUE) |>
+        mutate(view = as.character(icon("eye-open", lib = "glyphicon"))) |>
+        select("collection_id", "dataset_id", "view", "authors",
+            "publication_date", "dataset_name", "organism", "tissue", "disease",
+            "assay", "cell_count", "cell_type", "development_stage", "ethnicity",
+            "mean_genes_per_cell", "sex", "collection_name")
 }
 
 .cxg_files <-
@@ -101,43 +111,131 @@
 .cxg_collections_format <-
     function(tbl)
 {
+    db <- db(overwrite = FALSE)
+
     dt <- datatable(
         tbl,
         selection = 'single',
-        filter = 'top',
+        extensions = c('Select', 'SearchPanes', 'Buttons'),
+        escape = FALSE,
         colnames = c(
-            'rownames', 'id', 'Collection', 'Tissue', 'Assay',
-            'Disease', 'Organism', 'Cells'
+            'rownames', 'Collection_id', 'Dataset_id', 'Collection', 'Authors',
+            'Publication Date', 'Organism', 'Tissue', 'Disease', 'Assay',
+            'Cells', 'Cell Type', 'Development Stage', 'Ethnicity',
+            'Gene Count', 'Sex', 'Dataset'
         ),
         options = list(
+            scrollX = TRUE,
             scrollY = 400,
+            dom = 'Btip',
+            buttons = list(list(extend = "searchPanes", config = list(cascadePanes = TRUE))),
+            language = list(searchPanes = list(collapse = "Filter Rows")),
+            searchPanes = list(
+                order = c('Assay', 'Authors', 'Cell Type', 'Development Stage',
+                    'Disease', 'Ethnicity', 'Organism', 'Publication Date',
+                    'Sex', 'Tissue')
+            ),
             columnDefs = list(
-                list(visible = FALSE, targets = 0:1),
-                list(width = '20px', targets = 4:7)
+                .cxg_search_panes(db, "organism", 6),
+                .cxg_search_panes(db, "disease", 8),
+                .cxg_search_panes(db, "tissue", 7),
+                .cxg_search_panes(db, "assay", 9),
+                .cxg_search_panes(db, "authors", 4, .cxg_search_panes_author),
+                .cxg_search_panes(db, "cell_type", 11),
+                .cxg_search_panes(db, "development_stage", 12),
+                .cxg_search_panes(db, "ethnicity", 13),
+                .cxg_search_panes(db, "publication_date", 5, .cxg_search_panes_publication_date),
+                .cxg_search_panes(db, "sex", 15),
+                list(
+                    searchPanes = list(show = FALSE), targets = c(0:3, 10, 14, 16)
+                ),
+                list(visible = FALSE, targets = c(0:2, 4:5, 11:16)),
+                list(width = '20px', targets = 6:9)
             )
         )
     )
     formatStyle(dt, 2:7, 'vertical-align' = 'top')
 }
 
+.cxg_search_panes_publication_date <-
+    function(db, type)
+{
+    year <- sort(unlist(unique(jmespath(db, "[].publisher_metadata.published_year") |> parse_json())))
+}
+
+.cxg_search_panes_author <- 
+    function(db, type)
+{
+     family <- unlist(jmespath(db, "[].publisher_metadata.authors[].family") |> parse_json())
+     given <- unlist((jmespath(db, "[].publisher_metadata.authors[].given") |> parse_json()))
+     unique(paste(family, given, sep = ", "))
+}
+
+.cxg_search_panes <-
+    function(db, type, col, label_fun = NULL)
+{
+    if (is.null(label_fun))
+        data_labels <- facets(db, type)$label
+    else
+        data_labels <- label_fun(db, type)
+    data_select <- lapply(data_labels, function(data_label) {
+        list(label = data_label,
+            value = JS(paste0("function(rowData, rowIdx) { return /", data_label,
+                "/.test(rowData[", col, "]); }"))
+        )
+    })
+    list(
+        searchPanes = list(
+            show = TRUE,
+            options = data_select,
+            initCollapsed = TRUE
+        ),
+        targets = col
+    )
+}
+
 .cxg_datasets_format <-
     function(tbl)
 {
+    db <- db(overwrite = FALSE)
+    
     dt <- datatable(
         tbl,
         selection = 'multiple',
-        filter = 'top',
+        extensions = c('Select', 'SearchPanes', 'Buttons'),
         escape = FALSE,
         colnames = c(
-            'rownames', 'dataset_id', 'collection_id', 'View', 'Dataset',
-            'Tissue', 'Assay', 'Disease', 'Organism',
-            'Cells'
+            'rownames', 'collection_id', 'dataset_id', 'View', 'Authors',
+            'Publication Date', 'Dataset', 'Organism', 'Tissue', 'Disease',
+            'Assay', 'Cells', 'Cell Type', 'Development Stage', 'Ethnicity',
+            'Gene Count', 'Sex', 'Collection'
         ),
         options = list(
             scrollX = TRUE,
             scrollY = 400,
+            dom = 'Btip',
+            buttons = list(list(extend = "searchPanes", config = list(cascadePanes = TRUE))),
+            language = list(searchPanes = list(collapse = "Filter Rows")),
+            searchPanes = list(
+                order = c('Assay', 'Authors', 'Cell Type', 'Development Stage',
+                    'Disease', 'Ethnicity', 'Organism', 'Publication Date',
+                    'Tissue', 'Sex')
+            ),
             columnDefs = list(
-                list(visible = FALSE, targets = 0:2),
+                .cxg_search_panes(db, "organism", 7),
+                .cxg_search_panes(db, "disease", 9),
+                .cxg_search_panes(db, "tissue", 8),
+                .cxg_search_panes(db, "assay", 10),
+                .cxg_search_panes(db, "cell_type", 12),
+                .cxg_search_panes(db, "development_stage", 13),
+                .cxg_search_panes(db, "ethnicity", 14),
+                .cxg_search_panes(db, "sex", 16),
+                .cxg_search_panes(db, "authors", 4, .cxg_search_panes_author),
+                .cxg_search_panes(db, "publication_date", 5, .cxg_search_panes_publication_date),
+                list(
+                    searchPanes = list(show = FALSE), targets = c(0:3, 6, 11, 15, 17)
+                ),
+                list(visible = FALSE, targets = c(0:2, 4:5, 12:17)),
                 list(className = 'dt-center', width = "10px", targets = 3)
             )
         )
@@ -223,7 +321,6 @@
         ),
 
         id = "navbar"
-
     )
 }
 
@@ -243,13 +340,13 @@
         )
     })
 
-    output$collections <- DT::renderDataTable({
+    output$collections <- DT::renderDT({
         .cxg_collections_format(collections)
-    })
+    }, server = FALSE)
 
-    output$datasets <- DT::renderDataTable({
+    output$datasets <- DT::renderDT({
         .cxg_datasets_format(dataset)
-    })
+    }, server = FALSE)
 
     observeEvent(input$collections_cell_clicked, {
         info <- input$collections_cell_clicked
@@ -258,7 +355,7 @@
         row_idx <- input$collections_row_last_clicked
         id <- collections[row_idx, "collection_id"][[1]]
         dataset <<- datasets |> dplyr::filter(.data$collection_id %in% id)
-        output$datasets <- DT::renderDataTable(.cxg_datasets_format(dataset))
+        output$datasets <- DT::renderDT(.cxg_datasets_format(dataset), server = FALSE)
         updateNavbarPage(session, 'navbar', selected = 'Datasets')
     })
 
