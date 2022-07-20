@@ -175,8 +175,8 @@ african_american_female <-
     )
 ```
 
-Use `nrow(african_american_female)` to find the number of datasets satisfying our
-criteria. It looks like there are up to
+Use `nrow(african_american_female)` to find the number of datasets
+satisfying our criteria. It looks like there are up to
 
 ```{r}
 african_american_female |>
