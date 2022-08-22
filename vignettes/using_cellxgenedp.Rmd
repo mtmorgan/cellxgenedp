@@ -265,7 +265,7 @@ explore the cells present in the data.
 h5ad |>
     colData(h5ad) |>
     as_tibble() |>
-    count(sex, donor)
+    count(sex, donor_id)
 ```
 
 # Next steps
