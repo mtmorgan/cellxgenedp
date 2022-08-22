@@ -6,7 +6,7 @@ test_that("files() works", {
 
     FILES_COLUMNS <- c(
         file_id="character", dataset_id="character", filename="character", 
-        filetype="character", s3_uri="character", type="character", 
+        filetype="character", s3_uri="character",
         user_submitted="logical", created_at="Date", updated_at="Date"
     )
     column_names <- names(FILES_COLUMNS)
