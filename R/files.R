@@ -27,7 +27,7 @@ files <-
 }
 
 .file_download <-
-    function(dataset_id, file_id, file_type, base_url, dry.run)
+    function(dataset_id, file_id, file_type, base_url, dry.run, cache_path = .cellxgene_cache_path())
 {
     ## construct and sign url
     url <- paste0(base_url, dataset_id, "/asset/", file_id)
@@ -43,7 +43,7 @@ files <-
         )
         return(file_name)
     }
-    .cellxgene_cache_get(signed_url, file_name, progress = interactive())
+    .cellxgene_cache_get(signed_url, file_name, progress = interactive(), cache_path = cache_path)
 }
 
 #' @rdname query
@@ -67,7 +67,7 @@ files <-
 #'
 #' @export
 files_download <-
-    function(tbl, dry.run = TRUE)
+    function(tbl, dry.run = TRUE, cache_path = .cellxgene_cache_path())
 {
     stopifnot(
         all(c("dataset_id", "file_id", "filetype") %in% colnames(tbl)),
@@ -77,7 +77,7 @@ files_download <-
     result <- Map(
         .file_download,
         pull(tbl, "dataset_id"), pull(tbl, "file_id"), pull(tbl, "filetype"),
-        MoreArgs = list(base_url = .DATASETS, dry.run = dry.run)
+        MoreArgs = list(base_url = .DATASETS, dry.run = dry.run, cache_path = cache_path)
     )
 
     unlist(result)
