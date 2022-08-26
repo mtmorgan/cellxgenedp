@@ -57,7 +57,6 @@
         select("file", "type", everything())
 }
 
-#' @export
 .cellxgene_cache_get <-
     function(
         uri, file = basename(uri), progress = FALSE, overwrite = FALSE,

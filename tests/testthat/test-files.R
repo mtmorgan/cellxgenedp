@@ -40,3 +40,24 @@ test_that("files_download() works", {
     )
     expect_identical(object, expected)
 })
+
+test_that("files_download() returns named character vector on 0 inputs", {
+    tbl <- data.frame(
+        dataset_id = character(), file_id = character(), filetype = character()
+    )
+    expect_identical(files_download(tbl), setNames(character(), character()))
+})
+
+test_that("files_download() pays attention to cache.path", {
+    tbl <- data.frame(
+        dataset_id = character(), file_id = character(), filetype = character()
+    )
+    cache_path <- tempfile()
+    ## directory does not exist
+    expect_error(files_download(tbl, cache.path = cache_path))
+    dir.create(cache_path)
+    expect_identical(
+        files_download(tbl, cache.path = cache_path),
+        setNames(character(), character())
+    )
+})

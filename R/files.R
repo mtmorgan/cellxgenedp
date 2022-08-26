@@ -27,7 +27,7 @@ files <-
 }
 
 .file_download <-
-    function(dataset_id, file_id, file_type, base_url, dry.run, cache_path = .cellxgene_cache_path())
+    function(dataset_id, file_id, file_type, base_url, dry.run, cache.path)
 {
     ## construct and sign url
     url <- paste0(base_url, dataset_id, "/asset/", file_id)
@@ -43,7 +43,9 @@ files <-
         )
         return(file_name)
     }
-    .cellxgene_cache_get(signed_url, file_name, progress = interactive(), cache_path = cache_path)
+    .cellxgene_cache_get(
+        signed_url, file_name, progress = interactive(), cache_path = cache.path
+    )
 }
 
 #' @rdname query
@@ -54,6 +56,11 @@ files <-
 #' @param dry.run logical(1) indicating whether the (often large)
 #'     file(s) in `tbl` should be downloaded to a local cache. Files
 #'     are not downloaded when `dry.run = TRUE` (default).
+#'
+#' @param cache.path character(1) directory in which to cache
+#'     downloaded files. The directory must already exist. The default
+#'     is `tools::R_user_dir("cellxgenedp", "cache")`, a
+#'     package-specific path in the user home directory.
 #'
 #' @return `files_download()` returns a character() vector of paths to
 #'     the local files.
@@ -67,18 +74,27 @@ files <-
 #'
 #' @export
 files_download <-
-    function(tbl, dry.run = TRUE, cache_path = .cellxgene_cache_path())
+    function(tbl, dry.run = TRUE, cache.path = .cellxgene_cache_path())
 {
     stopifnot(
         all(c("dataset_id", "file_id", "filetype") %in% colnames(tbl)),
-        .is_scalar_logical(dry.run)
+        .is_scalar_logical(dry.run),
+        .is_scalar_character(cache.path), dir.exists(cache.path)
     )
 
     result <- Map(
         .file_download,
         pull(tbl, "dataset_id"), pull(tbl, "file_id"), pull(tbl, "filetype"),
-        MoreArgs = list(base_url = .DATASETS, dry.run = dry.run, cache_path = cache_path)
+        MoreArgs = list(
+            base_url = .DATASETS, dry.run = dry.run, cache.path = cache.path
+        )
     )
 
-    unlist(result)
+    if (identical(length(result), 0L)) {
+        result <- character()
+        names(result) <- character()
+    } else {
+        result <- unlist(result)
+    }
+    result
 }

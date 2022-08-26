@@ -16,7 +16,7 @@ datasets_visualize(tbl)
 
 files(cellxgene_db = db())
 
-files_download(tbl, dry.run = TRUE)
+files_download(tbl, dry.run = TRUE, cache.path = .cellxgene_cache_path())
 }
 \arguments{
 \item{cellxgene_db}{an optional 'cellxgene_db' object, as returned
@@ -30,6 +30,11 @@ and \code{filetype} (for \code{files_download()}).}
 \item{dry.run}{logical(1) indicating whether the (often large)
 file(s) in \code{tbl} should be downloaded to a local cache. Files
 are not downloaded when \code{dry.run = TRUE} (default).}
+
+\item{cache.path}{character(1) directory in which to cache
+downloaded files. The directory must already exist. The default
+is \code{tools::R_user_dir("cellxgenedp", "cache")}, a
+package-specific path in the user home directory.}
 }
 \value{
 Each function returns a tibble describing the corresponding
