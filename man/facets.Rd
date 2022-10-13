@@ -73,15 +73,17 @@ ds <- datasets(db)
 ## datasets with African American females
 ds |>
     dplyr::filter(
-        facets_filter(ethnicity, "label", "African American"),
+        facets_filter(self_reported_ethnicity, "label", "African American"),
         facets_filter(sex, "label", "female")
     )
 
 ## datasets with non-European, known ethnicity
-facets(db, "ethnicity")
+facets(db, "self_reported_ethnicity")
 ds |>
     dplyr::filter(
-        !facets_filter(ethnicity, "label", c("European", "na", "unknown"))
+        !facets_filter(
+            self_reported_ethnicity, "label", c("European", "na", "unknown")
+        )
     )
 
 }

@@ -8,13 +8,16 @@ test_that("datasets() works", {
         dataset_id="character", collection_id="character",
         assay="list", cell_count="integer", cell_type="list",
         dataset_deployments="character",
-        development_stage="list", disease="list", ethnicity="list",
+        development_stage="list", disease="list",
+        self_reported_ethnicity="list",
         is_primary_data="character", is_valid="logical",
         linked_genesets="logical", mean_genes_per_cell="numeric",
         name="character", organism="list", processing_status="list",
-        published="logical", revision="integer", schema_version="character",
+        published="logical", revision="integer",
+        schema_version="character",
         sex="list", tissue="list", tombstone="logical",
-        x_normalization="character", created_at="Date", published_at="Date",
+        created_at="Date",
+        published_at="Date",
         revised_at="Date", updated_at="Date"
     )
     column_names <- names(DATASETS_COLUMNS)

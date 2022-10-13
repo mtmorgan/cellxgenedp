@@ -6,7 +6,7 @@ author:
   email: Martin.Morgan@RoswellPark.org
 package: cellxgenedp
 output:
-    BiocStyle::html_document
+  BiocStyle::html_document
 abstract: |
     The cellxgene data portal (https://cellxgene.cziscience.com/) provides a
     graphical user interface to collections of single-cell sequence data
@@ -149,12 +149,12 @@ datasets(db) |>
 This indicates that at least some of the datasets had more than one
 type of `assay`, `cell_type`, etc. The `facets()` function provides a
 convenient way of discovering possible levels of each column, e.g.,
-`assay`, `organism`, `ethnicity`, or `sex`, and the number of datasets with
-each label.
+`assay`, `organism`, `self_reported_ethnicity`, or `sex`, and the
+number of datasets with each label.
 
 ```{r facets}
 facets(db, "assay")
-facets(db, "ethnicity")
+facets(db, "self_reported_ethnicity")
 facets(db, "sex")
 ```
 
@@ -170,7 +170,7 @@ african_american_female <-
     datasets(db) |>
     filter(
         facets_filter(assay, "ontology_term_id", "EFO:0009922"),
-        facets_filter(ethnicity, "label", "African American"),
+        facets_filter(self_reported_ethnicity, "label", "African American"),
         facets_filter(sex, "label", "female")
     )
 ```

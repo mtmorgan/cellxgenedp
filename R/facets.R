@@ -9,7 +9,7 @@
 #' @export
 FACETS <- c(
     "assay", "cell_type", "development_stage", "disease",
-    "ethnicity", "organism", "sex", "tissue"
+    "self_reported_ethnicity", "organism", "sex", "tissue"
 )
 
 .facet <-
@@ -109,15 +109,17 @@ facets <-
 #' ## datasets with African American females
 #' ds |>
 #'     dplyr::filter(
-#'         facets_filter(ethnicity, "label", "African American"),
+#'         facets_filter(self_reported_ethnicity, "label", "African American"),
 #'         facets_filter(sex, "label", "female")
 #'     )
 #'
 #' ## datasets with non-European, known ethnicity
-#' facets(db, "ethnicity")
+#' facets(db, "self_reported_ethnicity")
 #' ds |>
 #'     dplyr::filter(
-#'         !facets_filter(ethnicity, "label", c("European", "na", "unknown"))
+#'         !facets_filter(
+#'             self_reported_ethnicity, "label", c("European", "na", "unknown")
+#'         )
 #'     )
 #'
 #' @export
