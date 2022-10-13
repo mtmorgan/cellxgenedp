@@ -93,7 +93,9 @@ db <-
     details
 }
 
+
 #' @importFrom utils head
+#' @importFrom rjsoncons jmespath
 #'
 #' @export
 print.cellxgene_db <-
