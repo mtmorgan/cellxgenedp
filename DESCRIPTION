@@ -16,7 +16,7 @@ Description: The cellxgene data portal
     standard ways to 'count matrix' summaries. The cellxgenedp package
     provides an alternative, R-based inteface, allowind data
     discovery, viewing, and downloading.
-License: Artistic-2.0 | file LICENSE
+License: Artistic-2.0
 Encoding: UTF-8
 Collate: db.R collections.R datasets.R files.R facets.R keys.R
     cellxgene.R utilities.R cxg.R
