@@ -9,25 +9,19 @@ Authors@R:
         email = "mtmorgan.bioc@gmail.com",
         comment = c(ORCID = "0000-0002-5874-8148")
     ),
-    person("Kayla", "Interdonato", role = "aut"),
-    person(
-        "Daniel", "Parker", role = "cph",
-        email = "danielaparker@yahoo.com",
-        comment = "jsoncons C++ library creator"
-    ))
+    person("Kayla", "Interdonato", role = "aut"))
 Description: The cellxgene data portal
     (https://cellxgene.cziscience.com/) provides a graphical user
     interface to collections of single-cell sequence data processed in
     standard ways to 'count matrix' summaries. The cellxgenedp package
     provides an alternative, R-based inteface, allowind data
     discovery, viewing, and downloading.
-License: Artistic-2.0 | BSL-1.0 | file LICENSE
+License: Artistic-2.0 | file LICENSE
 Encoding: UTF-8
 Collate: db.R collections.R datasets.R files.R facets.R keys.R
-    cellxgene.R utilities.R cpp11.R jmespath.R cxg.R
+    cellxgene.R utilities.R cxg.R
 Depends: dplyr
-Imports: httr, curl, jsonlite, utils, tools, shiny, DT
-LinkingTo: cpp11
+Imports: httr, curl, jsonlite, utils, tools, shiny, DT, rjsoncons
 Suggests:
     zellkonverter,
     SingleCellExperiment,
@@ -38,7 +32,6 @@ Suggests:
     testthat (>= 3.0.0),
     mockery
 biocViews: SingleCell, DataImport, ThirdPartyClient
-SystemRequirements: C++14
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.1
 VignetteBuilder: knitr
