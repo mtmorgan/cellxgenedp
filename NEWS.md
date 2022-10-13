@@ -4,6 +4,13 @@
 
 * (v. 1.1.4) allow custom files_download() cache. Thanks @stemangiola,
   https://github.com/mtmorgan/cellxgenedp/pull/9
+  
+* (v. 1.1.6) datasets `ethnicity` field renamed to
+  `self_reported_ethnicity`
+  
+* (v. 1.1.6) use {rjsoncons} CRAN package for queries, rather than
+  local implementation. Thanks @LiNk-NY,
+  https://github.com/mtmorgan/cellxgenedp/pull/12
 
 # cellxgenedp 0.0.7
 
