@@ -1,6 +1,7 @@
 on:
   push:
     paths: ['vignettes/**.Rmd']
+  workflow_dispatch:
 
 name: render-rmarkdown
 
