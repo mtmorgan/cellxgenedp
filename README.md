@@ -1,3 +1,4 @@
+
 # Installation and use
 
 This package is available in *Bioconductor* version 3.15 and later. The
@@ -5,110 +6,134 @@ following code installs
 [cellxgenedp](https://bioconductor.org/packages/cellxgenedp) as well as
 other packages required for this vignette.
 
-    pkgs <- c("cellxgenedp", "zellkonverter", "SingleCellExperiment", "HDF5Array")
-    required_pkgs <- pkgs[!pkgs %in% rownames(installed.packages())]
-    BiocManager::install(required_pkgs)
+``` r
+pkgs <- c("cellxgenedp", "zellkonverter", "SingleCellExperiment", "HDF5Array")
+required_pkgs <- pkgs[!pkgs %in% rownames(installed.packages())]
+BiocManager::install(required_pkgs)
+```
 
 Use the following `pkgs` vector to install from GitHub (latest,
 unchecked, development version) instead
 
-    pkgs <- c(
-        "mtmorgan/cellxgenedp", "zellkonverter", "SingleCellExperiment", "HDF5Array"
-    )
+``` r
+pkgs <- c(
+    "mtmorgan/cellxgenedp", "zellkonverter", "SingleCellExperiment", "HDF5Array"
+)
+```
 
 Load the package into your current *R* session. We make extensive use of
 the dplyr packages, and at the end of the vignette use
 SingleCellExperiment and zellkonverter, so load those as well.
 
-    suppressPackageStartupMessages({
-        library(zellkonverter)
-        library(SingleCellExperiment) # load early to avoid masking dplyr::count()
-        library(dplyr)
-        library(cellxgenedp)
-    })
+``` r
+suppressPackageStartupMessages({
+    library(zellkonverter)
+    library(SingleCellExperiment) # load early to avoid masking dplyr::count()
+    library(dplyr)
+    library(cellxgenedp)
+})
+```
+
+# `cxg()` Provides a ‘shiny’ interface
+
+The following sections outline how to use the
+[cellxgenedp](https://bioconductor.org/packages/cellxgenedp) package in
+an *R* script; most functionality is also available in the `cxg()` shiny
+application, providing an easy way to identify, download, and visualize
+one or several datasets. Start the app
+
+``` r
+cxg()
+```
+
+choose a project on the first tab, and a dataset for visualization, or
+one or more datasets for download\!
 
 # Collections, datasets and files
 
 Retrieve metadata about resources available at the cellxgene data portal
 using `db()`:
 
-    db <- db()
+``` r
+db <- db()
+```
 
 Printing the `db` object provides a brief overview of the available
 data, as well as hints, in the form of functions like `collections()`,
 for further exploration.
 
-    db
-
-    ## cellxgene_db
-    ## number of collections(): 55
-    ## number of datasets(): 327
-    ## number of files(): 979
+``` r
+db
+#> cellxgene_db
+#> number of collections(): 101
+#> number of datasets(): 530
+#> number of files(): 1582
+```
 
 The portal organizes data hierarchically, with ‘collections’ (research
 studies, approximately), ‘datasets’, and ‘files’. Discover data using
 the corresponding functions.
 
-    collections(db)
+``` r
+collections(db)
+#> # A tibble: 101 × 16
+#>    collec…¹ acces…² conta…³ conta…⁴ curat…⁵ data_…⁶ descr…⁷ genes…⁸ links  name 
+#>    <chr>    <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <lgl>   <list> <chr>
+#>  1 03f821b… READ    km16@s… Kersti… Batuha… 2.0     It is … NA      <list> Loca…
+#>  2 6e8c541… READ    a.vano… Alexan… Jennif… 2.0     A Sing… NA      <list> Mura…
+#>  3 3472f32… READ    wongcb… Raymon… Batuha… 2.0     The re… NA      <list> A si…
+#>  4 83ed3be… READ    tom.ta… Tom Ta… Jennif… 2.0     During… NA      <list> Inte…
+#>  5 92fde06… READ    c.nove… Claudi… Jason … 2.0     The ce… NA      <list> A co…
+#>  6 eb735cc… READ    rv4@sa… Roser … Batuha… 2.0     Human … NA      <list> Samp…
+#>  7 e75342a… READ    nhuebn… Norber… Jennif… 2.0     Pathog… NA      <list> Path…
+#>  8 125eef5… READ    my4@sa… Matthe… Jason … 2.0     Unders… NA      <list> Sing…
+#>  9 c9706a9… READ    hnaksh… Harikr… Jennif… 2.0     Single… NA      <list> A si…
+#> 10 5d44596… READ    angela… Angela… Jennif… 2.0     Drople… NA      <list> A mo…
+#> # … with 91 more rows, 6 more variables: publisher_metadata <list>,
+#> #   visibility <chr>, created_at <date>, published_at <date>,
+#> #   revised_at <date>, updated_at <date>, and abbreviated variable names
+#> #   ¹​collection_id, ²​access_type, ³​contact_email, ⁴​contact_name, ⁵​curator_name,
+#> #   ⁶​data_submission_policy_version, ⁷​description, ⁸​genesets
 
-    ## # A tibble: 55 × 17
-    ##    collection_id             access_type contact_email contact_name curator_name
-    ##    <chr>                     <chr>       <chr>         <chr>        <chr>       
-    ##  1 51544e44-293b-4c2b-8c26-… READ        vahedi@pennm… Golnaz Vahe… Maximilian …
-    ##  2 6e8c5415-302c-492a-a5f9-… READ        a.vanoudenaa… Alexander v… Kirtana Vee…
-    ##  3 0a839c4b-10d0-4d64-9272-… READ        zemin@pku.ed… Zemin Zhang  Pablo Garci…
-    ##  4 2a79d190-a41e-4408-88c8-… READ        neal.ravindr… Neal G. Rav… Pablo Garci…
-    ##  5 4b54248f-2165-477c-a027-… READ        Douglas.Stra… Douglas Str… Maximilian …
-    ##  6 c9706a92-0e5f-46c1-96d8-… READ        hnakshat@iup… Harikrishna… Jennifer Yu…
-    ##  7 367d95c0-0eb0-4dae-8276-… READ        edl@allenins… Ed S. Lein   Pablo Garci…
-    ##  8 9b02383a-9358-4f0f-9795-… READ        parkerw@wust… Parker Wils… Jennifer Yu…
-    ##  9 7d7cabfd-1d1f-40af-96b7-… READ        jimmie.ye@uc… Jimmie Ye    Maximilian …
-    ## 10 8f126edf-5405-4731-8374-… READ        julian.knigh… Julian C. K… Jason Hilton
-    ## # … with 45 more rows, and 12 more variables:
-    ## #   data_submission_policy_version <chr>, description <chr>, genesets <lgl>,
-    ## #   links <list>, name <chr>, obfuscated_uuid <chr>, publisher_metadata <list>,
-    ## #   visibility <chr>, created_at <date>, published_at <date>,
-    ## #   revised_at <date>, updated_at <date>
+datasets(db)
+#> # A tibble: 530 × 26
+#>    dataset_id     colle…¹ assay  cell_…² cell_…³ datas…⁴ devel…⁵ disease is_pr…⁶
+#>    <chr>          <chr>   <list>   <int> <list>  <chr>   <list>  <list>  <chr>  
+#>  1 edc8d3fe-153c… 03f821… <list>  236977 <list>  https:… <list>  <list>  PRIMARY
+#>  2 2a498ace-872a… 03f821… <list>  422220 <list>  https:… <list>  <list>  PRIMARY
+#>  3 b07e5164-baf6… 6e8c54… <list>    2126 <list>  https:… <list>  <list>  PRIMARY
+#>  4 d5c67a4e-a8d9… 3472f3… <list>   19694 <list>  https:… <list>  <list>  PRIMARY
+#>  5 11ff73e8-d3e4… 83ed3b… <list>   71732 <list>  https:… <list>  <list>  PRIMARY
+#>  6 42bb7f78-cef8… 92fde0… <list>  141401 <list>  https:… <list>  <list>  PRIMARY
+#>  7 c2a461b1-0c15… eb735c… <list>   97499 <list>  https:… <list>  <list>  PRIMARY
+#>  8 9434b020-de42… e75342… <list>   59217 <list>  https:… <list>  <list>  SECOND…
+#>  9 bdf69f8d-5a96… e75342… <list>    2576 <list>  https:… <list>  <list>  SECOND…
+#> 10 83b5e943-a1d5… e75342… <list>    7999 <list>  https:… <list>  <list>  SECOND…
+#> # … with 520 more rows, 17 more variables: is_valid <lgl>,
+#> #   linked_genesets <lgl>, mean_genes_per_cell <dbl>, name <chr>,
+#> #   organism <list>, processing_status <list>, published <lgl>, revision <int>,
+#> #   schema_version <chr>, self_reported_ethnicity <list>, sex <list>,
+#> #   tissue <list>, tombstone <lgl>, created_at <date>, published_at <date>,
+#> #   revised_at <date>, updated_at <date>, and abbreviated variable names
+#> #   ¹​collection_id, ²​cell_count, ³​cell_type, ⁴​dataset_deployments, …
 
-    datasets(db)
-
-    ## # A tibble: 327 × 28
-    ##    dataset_id         collection_id assay  cell_count cell_type collection_visi…
-    ##    <chr>              <chr>         <list>      <int> <list>    <chr>           
-    ##  1 37b21763-7f0f-41a… 51544e44-293… <list>      69645 <list>    PUBLIC          
-    ##  2 b07e5164-baf6-43d… 6e8c5415-302… <list>       2126 <list>    PUBLIC          
-    ##  3 9dbab10c-118d-496… 0a839c4b-10d… <list>    1462702 <list>    PUBLIC          
-    ##  4 030faa69-ff79-4d8… 2a79d190-a41… <list>      77650 <list>    PUBLIC          
-    ##  5 dd018fc0-8da7-403… 4b54248f-216… <list>      42127 <list>    PUBLIC          
-    ##  6 2a262b59-7936-4ec… 4b54248f-216… <list>      62415 <list>    PUBLIC          
-    ##  7 43770b51-4b0e-418… 4b54248f-216… <list>       5617 <list>    PUBLIC          
-    ##  8 574e9f9e-f8b4-41e… 4b54248f-216… <list>      83451 <list>    PUBLIC          
-    ##  9 5ba85070-a41c-418… 4b54248f-216… <list>      10742 <list>    PUBLIC          
-    ## 10 03c0e874-f984-4e6… 4b54248f-216… <list>      50206 <list>    PUBLIC          
-    ## # … with 317 more rows, and 22 more variables: dataset_deployments <chr>,
-    ## #   development_stage <list>, disease <list>, ethnicity <list>,
-    ## #   is_primary_data <chr>, is_valid <lgl>, linked_genesets <lgl>,
-    ## #   mean_genes_per_cell <dbl>, name <chr>, organism <list>,
-    ## #   processing_status <list>, published <lgl>, revision <int>,
-    ## #   schema_version <chr>, sex <list>, tissue <list>, tombstone <lgl>,
-    ## #   x_normalization <chr>, created_at <date>, published_at <date>, …
-
-    files(db)
-
-    ## # A tibble: 979 × 9
-    ##    file_id   dataset_id filename filetype s3_uri type  user_submitted created_at
-    ##    <chr>     <chr>      <chr>    <chr>    <chr>  <chr> <lgl>          <date>    
-    ##  1 3a440c51… 37b21763-… local.r… RDS      s3://… REMIX TRUE           2021-09-23
-    ##  2 8f87a5c3… 37b21763-… explore… CXG      s3://… REMIX TRUE           2021-09-23
-    ##  3 5c64f247… 37b21763-… local.h… H5AD     s3://… REMIX TRUE           2021-09-23
-    ##  4 8fa6b88d… b07e5164-… explore… CXG      s3://… REMIX TRUE           2021-10-27
-    ##  5 90bedf16… b07e5164-… local.h… H5AD     s3://… REMIX TRUE           2021-10-27
-    ##  6 39b5c80f… b07e5164-… local.r… RDS      s3://… REMIX TRUE           2021-10-27
-    ##  7 66e97f2c… 9dbab10c-… local.t… RDS      s3://… REMIX TRUE           2021-10-01
-    ##  8 dd867da2… 9dbab10c-… local.h… H5AD     s3://… REMIX TRUE           2021-09-24
-    ##  9 64298402… 9dbab10c-… explore… CXG      s3://… REMIX TRUE           2021-09-24
-    ## 10 0af763e1… 030faa69-… local.h… H5AD     s3://… REMIX TRUE           2021-09-23
-    ## # … with 969 more rows, and 1 more variable: updated_at <date>
+files(db)
+#> # A tibble: 1,582 × 8
+#>    file_id          datas…¹ filen…² filet…³ s3_uri user_…⁴ created_at updated_at
+#>    <chr>            <chr>   <chr>   <chr>   <chr>  <lgl>   <date>     <date>    
+#>  1 1e788c65-3422-4… edc8d3… local.… H5AD    s3://… TRUE    2022-08-22 2022-08-23
+#>  2 24d08b4a-7314-4… edc8d3… local.… RDS     s3://… TRUE    2022-08-22 2022-08-23
+#>  3 88e0bdc6-8d3c-4… edc8d3… explor… CXG     s3://… TRUE    2022-08-22 2022-08-23
+#>  4 f93c1a77-ab7a-4… 2a498a… local.… H5AD    s3://… TRUE    2022-08-22 2022-08-23
+#>  5 d17fddad-4907-4… 2a498a… local.… RDS     s3://… TRUE    2022-08-22 2022-08-23
+#>  6 f68fa37e-fb6f-4… 2a498a… explor… CXG     s3://… TRUE    2022-08-22 2022-08-23
+#>  7 fce7ca81-6d88-4… b07e51… local.… H5AD    s3://… TRUE    2022-08-24 2022-08-29
+#>  8 1da81a7b-ce64-4… b07e51… explor… CXG     s3://… TRUE    2022-08-24 2022-08-29
+#>  9 dc9806d3-a959-4… b07e51… local.… RDS     s3://… TRUE    2022-08-24 2022-08-29
+#> 10 0d143085-cf3f-4… d5c67a… local.… H5AD    s3://… TRUE    2022-08-16 2022-08-16
+#> # … with 1,572 more rows, and abbreviated variable names ¹​dataset_id,
+#> #   ²​filename, ³​filetype, ⁴​user_submitted
+```
 
 Each of these resources has a unique primary identifier (e.g.,
 `file_id`) as well as an identifier describing the relationship of the
@@ -120,143 +145,151 @@ identifiers can be used to ‘join’ information across tables.
 A collection may have several datasets, and datasets may have several
 files. For instance, here is the collection with the most datasets
 
-    collection_with_most_datasets <-
-        datasets(db) |>
-        count(collection_id, sort = TRUE) |>
-        slice(1)
+``` r
+collection_with_most_datasets <-
+    datasets(db) |>
+    count(collection_id, sort = TRUE) |>
+    slice(1)
+```
 
 We can find out about this collection by joining with the
 `collections()` table.
 
-    left_join(
-        collection_with_most_datasets |> select(collection_id),
-        collections(db),
-        by = "collection_id"
-    ) |> glimpse()
-
-    ## Rows: 1
-    ## Columns: 17
-    ## $ collection_id                  <chr> "8e880741-bf9a-4c8e-9227-934204631d2a"
-    ## $ access_type                    <chr> "READ"
-    ## $ contact_email                  <chr> "jmarshal@broadinstitute.org"
-    ## $ contact_name                   <chr> "Jamie L Marshall"
-    ## $ curator_name                   <chr> "Jennifer Yu-Sheng Chien"
-    ## $ data_submission_policy_version <chr> "2.0"
-    ## $ description                    <chr> "High resolution spatial transcriptomic…
-    ## $ genesets                       <lgl> NA
-    ## $ links                          <list> [["Kidney Slide-seq Github", "OTHER", "…
-    ## $ name                           <chr> "High Resolution Slide-seqV2 Spatial Tr…
-    ## $ obfuscated_uuid                <chr> ""
-    ## $ publisher_metadata             <list> [[["Marshall", "Jamie L."], ["Noel", "T…
-    ## $ visibility                     <chr> "PUBLIC"
-    ## $ created_at                     <date> 2021-05-28
-    ## $ published_at                   <date> 2021-12-09
-    ## $ revised_at                     <date> 2022-02-07
-    ## $ updated_at                     <date> 2022-02-17
+``` r
+left_join(
+    collection_with_most_datasets |> select(collection_id),
+    collections(db),
+    by = "collection_id"
+) |> glimpse()
+#> Rows: 1
+#> Columns: 16
+#> $ collection_id                  <chr> "8e880741-bf9a-4c8e-9227-934204631d2a"
+#> $ access_type                    <chr> "READ"
+#> $ contact_email                  <chr> "jmarshal@broadinstitute.org"
+#> $ contact_name                   <chr> "Jamie L Marshall"
+#> $ curator_name                   <chr> "Jennifer Yu-Sheng Chien"
+#> $ data_submission_policy_version <chr> "2.0"
+#> $ description                    <chr> "High resolution spatial transcriptomic…
+#> $ genesets                       <lgl> NA
+#> $ links                          <list> [["Macosko Lab Slide-seq Github", "OTHE…
+#> $ name                           <chr> "High Resolution Slide-seqV2 Spatial Tr…
+#> $ publisher_metadata             <list> [[["Marshall", "Jamie L."], ["Noel", "T…
+#> $ visibility                     <chr> "PUBLIC"
+#> $ created_at                     <date> 2021-05-28
+#> $ published_at                   <date> 2021-12-09
+#> $ revised_at                     <date> 2022-10-06
+#> $ updated_at                     <date> 2022-10-06
+```
 
 We can take a similar strategy to identify all datasets belonging to
 this collection
 
-    left_join(
-        collection_with_most_datasets |> select(collection_id),
-        datasets(db),
-        by = "collection_id"
-    )
-
-    ## # A tibble: 129 × 28
-    ##    collection_id         dataset_id assay  cell_count cell_type collection_visi…
-    ##    <chr>                 <chr>      <list>      <int> <list>    <chr>           
-    ##  1 8e880741-bf9a-4c8e-9… 00099d5e-… <list>      26239 <list>    PUBLIC          
-    ##  2 8e880741-bf9a-4c8e-9… 4ebe33a1-… <list>      17909 <list>    PUBLIC          
-    ##  3 8e880741-bf9a-4c8e-9… a5ecb41a-… <list>      19029 <list>    PUBLIC          
-    ##  4 8e880741-bf9a-4c8e-9… 88b7da92-… <list>      44588 <list>    PUBLIC          
-    ##  5 8e880741-bf9a-4c8e-9… 5c451b91-… <list>      13147 <list>    PUBLIC          
-    ##  6 8e880741-bf9a-4c8e-9… 3679ae7d-… <list>      10701 <list>    PUBLIC          
-    ##  7 8e880741-bf9a-4c8e-9… b627552d-… <list>      22502 <list>    PUBLIC          
-    ##  8 8e880741-bf9a-4c8e-9… ff77ee42-… <list>      38024 <list>    PUBLIC          
-    ##  9 8e880741-bf9a-4c8e-9… 10eed666-… <list>      16027 <list>    PUBLIC          
-    ## 10 8e880741-bf9a-4c8e-9… 2214c7a9-… <list>      27639 <list>    PUBLIC          
-    ## # … with 119 more rows, and 22 more variables: dataset_deployments <chr>,
-    ## #   development_stage <list>, disease <list>, ethnicity <list>,
-    ## #   is_primary_data <chr>, is_valid <lgl>, linked_genesets <lgl>,
-    ## #   mean_genes_per_cell <dbl>, name <chr>, organism <list>,
-    ## #   processing_status <list>, published <lgl>, revision <int>,
-    ## #   schema_version <chr>, sex <list>, tissue <list>, tombstone <lgl>,
-    ## #   x_normalization <chr>, created_at <date>, published_at <date>, …
+``` r
+left_join(
+    collection_with_most_datasets |> select(collection_id),
+    datasets(db),
+    by = "collection_id"
+)
+#> # A tibble: 129 × 26
+#>    collection_id  datas…¹ assay  cell_…² cell_…³ datas…⁴ devel…⁵ disease is_pr…⁶
+#>    <chr>          <chr>   <list>   <int> <list>  <chr>   <list>  <list>  <chr>  
+#>  1 8e880741-bf9a… c5ac9b… <list>   21181 <list>  https:… <list>  <list>  PRIMARY
+#>  2 8e880741-bf9a… 4ebe33… <list>   17909 <list>  https:… <list>  <list>  PRIMARY
+#>  3 8e880741-bf9a… a5ecb4… <list>   19029 <list>  https:… <list>  <list>  PRIMARY
+#>  4 8e880741-bf9a… 88b7da… <list>   44588 <list>  https:… <list>  <list>  PRIMARY
+#>  5 8e880741-bf9a… 5c451b… <list>   13147 <list>  https:… <list>  <list>  PRIMARY
+#>  6 8e880741-bf9a… b8bd55… <list>   34355 <list>  https:… <list>  <list>  PRIMARY
+#>  7 8e880741-bf9a… 3679ae… <list>   10701 <list>  https:… <list>  <list>  PRIMARY
+#>  8 8e880741-bf9a… b62755… <list>   22502 <list>  https:… <list>  <list>  PRIMARY
+#>  9 8e880741-bf9a… ff77ee… <list>   38024 <list>  https:… <list>  <list>  PRIMARY
+#> 10 8e880741-bf9a… d4f003… <list>   27429 <list>  https:… <list>  <list>  PRIMARY
+#> # … with 119 more rows, 17 more variables: is_valid <lgl>,
+#> #   linked_genesets <lgl>, mean_genes_per_cell <dbl>, name <chr>,
+#> #   organism <list>, processing_status <list>, published <lgl>, revision <int>,
+#> #   schema_version <chr>, self_reported_ethnicity <list>, sex <list>,
+#> #   tissue <list>, tombstone <lgl>, created_at <date>, published_at <date>,
+#> #   revised_at <date>, updated_at <date>, and abbreviated variable names
+#> #   ¹​dataset_id, ²​cell_count, ³​cell_type, ⁴​dataset_deployments, …
+```
 
 ## `facets()` provides information on ‘levels’ present in specific columns
 
 Notice that some columns are ‘lists’ rather than atomic vectors like
 ‘character’ or ‘integer’.
 
-    datasets(db) |>
-        select(where(is.list))
-
-    ## # A tibble: 327 × 9
-    ##    assay  cell_type development_sta… disease ethnicity organism processing_stat…
-    ##    <list> <list>    <list>           <list>  <list>    <list>   <list>          
-    ##  1 <list> <list>    <list [1]>       <list>  <list>    <list>   <named list>    
-    ##  2 <list> <list>    <list [4]>       <list>  <list>    <list>   <named list>    
-    ##  3 <list> <list>    <list [65]>      <list>  <list>    <list>   <named list>    
-    ##  4 <list> <list>    <list [1]>       <list>  <list>    <list>   <named list [8]>
-    ##  5 <list> <list>    <list [8]>       <list>  <list>    <list>   <named list>    
-    ##  6 <list> <list>    <list [1]>       <list>  <list>    <list>   <named list>    
-    ##  7 <list> <list>    <list [1]>       <list>  <list>    <list>   <named list>    
-    ##  8 <list> <list>    <list [8]>       <list>  <list>    <list>   <named list>    
-    ##  9 <list> <list>    <list [8]>       <list>  <list>    <list>   <named list>    
-    ## 10 <list> <list>    <list [1]>       <list>  <list>    <list>   <named list>    
-    ## # … with 317 more rows, and 2 more variables: sex <list>, tissue <list>
+``` r
+datasets(db) |>
+    select(where(is.list))
+#> # A tibble: 530 × 9
+#>    assay      cell_…¹ devel…² disease organ…³ processing…⁴ self_…⁵ sex    tissue
+#>    <list>     <list>  <list>  <list>  <list>  <list>       <list>  <list> <list>
+#>  1 <list [2]> <list>  <list>  <list>  <list>  <named list> <list>  <list> <list>
+#>  2 <list [1]> <list>  <list>  <list>  <list>  <named list> <list>  <list> <list>
+#>  3 <list [1]> <list>  <list>  <list>  <list>  <named list> <list>  <list> <list>
+#>  4 <list [1]> <list>  <list>  <list>  <list>  <named list> <list>  <list> <list>
+#>  5 <list [1]> <list>  <list>  <list>  <list>  <named list> <list>  <list> <list>
+#>  6 <list [5]> <list>  <list>  <list>  <list>  <named list> <list>  <list> <list>
+#>  7 <list [1]> <list>  <list>  <list>  <list>  <named list> <list>  <list> <list>
+#>  8 <list [2]> <list>  <list>  <list>  <list>  <named list> <list>  <list> <list>
+#>  9 <list [2]> <list>  <list>  <list>  <list>  <named list> <list>  <list> <list>
+#> 10 <list [2]> <list>  <list>  <list>  <list>  <named list> <list>  <list> <list>
+#> # … with 520 more rows, and abbreviated variable names ¹​cell_type,
+#> #   ²​development_stage, ³​organism, ⁴​processing_status, ⁵​self_reported_ethnicity
+```
 
 This indicates that at least some of the datasets had more than one type
 of `assay`, `cell_type`, etc. The `facets()` function provides a
 convenient way of discovering possible levels of each column, e.g.,
-`assay`, `organism`, `ethnicity`, or `sex`, and the number of datasets
-with each label.
+`assay`, `organism`, `self_reported_ethnicity`, or `sex`, and the number
+of datasets with each label.
 
-    facets(db, "assay")
-
-    ## # A tibble: 21 × 4
-    ##    facet label                          ontology_term_id     n
-    ##    <chr> <chr>                          <chr>            <int>
-    ##  1 assay Slide-seq                      EFO:0009920        129
-    ##  2 assay 10x 3' v3                      EFO:0009922         83
-    ##  3 assay 10x 3' v2                      EFO:0009899         82
-    ##  4 assay Smart-seq2                     EFO:0008931         32
-    ##  5 assay Visium Spatial Gene Expression EFO:0010961          8
-    ##  6 assay Seq-Well                       EFO:0008919          7
-    ##  7 assay 10x 5' v1                      EFO:0011025          6
-    ##  8 assay 10x technology                 EFO:0008995          6
-    ##  9 assay scATAC-seq                     EFO:0010891          5
-    ## 10 assay sci-RNA-seq                    EFO:0010550          5
-    ## # … with 11 more rows
-
-    facets(db, "ethnicity")
-
-    ## # A tibble: 13 × 4
-    ##    facet     label                              ontology_term_id     n
-    ##    <chr>     <chr>                              <chr>            <int>
-    ##  1 ethnicity na                                 na                 157
-    ##  2 ethnicity European                           HANCESTRO:0005     103
-    ##  3 ethnicity unknown                            unknown             86
-    ##  4 ethnicity African American                   HANCESTRO:0568      27
-    ##  5 ethnicity Asian                              HANCESTRO:0008      20
-    ##  6 ethnicity Hispanic or Latin American         HANCESTRO:0014      14
-    ##  7 ethnicity African American or Afro-Caribbean HANCESTRO:0016       5
-    ##  8 ethnicity East Asian                         HANCESTRO:0009       2
-    ##  9 ethnicity Chinese                            HANCESTRO:0021       1
-    ## 10 ethnicity Eskimo                             HANCESTRO:0595       1
-    ## 11 ethnicity Finnish                            HANCESTRO:0321       1
-    ## 12 ethnicity Han Chinese                        HANCESTRO:0027       1
-    ## 13 ethnicity Oceanian                           HANCESTRO:0017       1
-
-    facets(db, "sex")
-
-    ## # A tibble: 3 × 4
-    ##   facet label   ontology_term_id     n
-    ##   <chr> <chr>   <chr>            <int>
-    ## 1 sex   male    PATO:0000384       285
-    ## 2 sex   female  PATO:0000383       135
-    ## 3 sex   unknown unknown             37
+``` r
+facets(db, "assay")
+#> # A tibble: 30 × 4
+#>    facet label                          ontology_term_id     n
+#>    <chr> <chr>                          <chr>            <int>
+#>  1 assay 10x 3' v3                      EFO:0009922        180
+#>  2 assay 10x 3' v2                      EFO:0009899        162
+#>  3 assay Slide-seq                      EFO:0009920        129
+#>  4 assay 10x 5' v1                      EFO:0011025         43
+#>  5 assay Smart-seq2                     EFO:0008931         36
+#>  6 assay Visium Spatial Gene Expression EFO:0010961         35
+#>  7 assay 10x technology                 EFO:0008995         30
+#>  8 assay Drop-seq                       EFO:0008722         11
+#>  9 assay 10x 3' transcription profiling EFO:0030003          9
+#> 10 assay 10x 5' v2                      EFO:0009900          9
+#> # … with 20 more rows
+facets(db, "self_reported_ethnicity")
+#> # A tibble: 18 × 4
+#>    facet                   label                                   ontol…¹     n
+#>    <chr>                   <chr>                                   <chr>   <int>
+#>  1 self_reported_ethnicity unknown                                 unknown   209
+#>  2 self_reported_ethnicity European                                HANCES…   181
+#>  3 self_reported_ethnicity na                                      na        168
+#>  4 self_reported_ethnicity Asian                                   HANCES…    59
+#>  5 self_reported_ethnicity African American                        HANCES…    37
+#>  6 self_reported_ethnicity admixed ancestry                        HANCES…    24
+#>  7 self_reported_ethnicity Greater Middle Eastern  (Middle Easter… HANCES…    21
+#>  8 self_reported_ethnicity Hispanic or Latin American              HANCES…    16
+#>  9 self_reported_ethnicity African American or Afro-Caribbean      HANCES…     5
+#> 10 self_reported_ethnicity East Asian                              HANCES…     4
+#> 11 self_reported_ethnicity African                                 HANCES…     3
+#> 12 self_reported_ethnicity South Asian                             HANCES…     2
+#> 13 self_reported_ethnicity Chinese                                 HANCES…     1
+#> 14 self_reported_ethnicity Eskimo                                  HANCES…     1
+#> 15 self_reported_ethnicity Finnish                                 HANCES…     1
+#> 16 self_reported_ethnicity Han Chinese                             HANCES…     1
+#> 17 self_reported_ethnicity Oceanian                                HANCES…     1
+#> 18 self_reported_ethnicity Pacific Islander                        HANCES…     1
+#> # … with abbreviated variable name ¹​ontology_term_id
+facets(db, "sex")
+#> # A tibble: 3 × 4
+#>   facet label   ontology_term_id     n
+#>   <chr> <chr>   <chr>            <int>
+#> 1 sex   male    PATO:0000384       451
+#> 2 sex   female  PATO:0000383       308
+#> 3 sex   unknown unknown             48
+```
 
 ## Filtering faceted columns
 
@@ -265,86 +298,95 @@ Suppose we were interested in finding datasets from the 10x 3’ v3 assay
 American ethnicity, and female sex. Use the `facets_filter()` utility
 function to filter data sets as needed
 
-    african_american_female <-
-        datasets(db) |>
-        filter(
-            facets_filter(assay, "ontology_term_id", "EFO:0009922"),
-            facets_filter(ethnicity, "label", "African American"),
-            facets_filter(sex, "label", "female")
-        )
+``` r
+african_american_female <-
+    datasets(db) |>
+    filter(
+        facets_filter(assay, "ontology_term_id", "EFO:0009922"),
+        facets_filter(self_reported_ethnicity, "label", "African American"),
+        facets_filter(sex, "label", "female")
+    )
+```
 
-There are 14 datasets satisfying our criteria. It looks like there are
-up to
+Use `nrow(african_american_female)` to find the number of datasets
+satisfying our criteria. It looks like there are up to
 
-    african_american_female |>
-        summarise(total_cell_count = sum(cell_count))
-
-    ## # A tibble: 1 × 1
-    ##   total_cell_count
-    ##              <int>
-    ## 1          2246355
+``` r
+african_american_female |>
+    summarise(total_cell_count = sum(cell_count))
+#> # A tibble: 1 × 1
+#>   total_cell_count
+#>              <int>
+#> 1          2608650
+```
 
 cells sequenced (each dataset may contain cells from several
 ethnicities, as well as males or individuals of unknown gender, so we do
 not know the actual number of cells available without downloading
 files). Use `left_join` to identify the corresponding collections:
 
-    ## collections
-    left_join(
-        african_american_female |> select(collection_id) |> distinct(),
-        collections(db),
-        by = "collection_id"
-    )
-
-    ## # A tibble: 6 × 17
-    ##   collection_id              access_type contact_email contact_name curator_name
-    ##   <chr>                      <chr>       <chr>         <chr>        <chr>       
-    ## 1 c9706a92-0e5f-46c1-96d8-2… READ        hnakshat@iup… Harikrishna… Jennifer Yu…
-    ## 2 2f75d249-1bec-459b-bf2b-b… READ        rsatija@nyge… Rahul Satija Pablo Garci…
-    ## 3 bcb61471-2a44-4d00-a0af-f… READ        info@kpmp.org KPMP         Jennifer Yu…
-    ## 4 625f6bf4-2f33-4942-962e-3… READ        a5wang@healt… Allen Wang   Pablo Garci…
-    ## 5 b953c942-f5d8-434f-9da7-e… READ        icobos@stanf… Inma Cobos   Christopher…
-    ## 6 b9fc3d70-5a72-4479-a046-c… READ        bruce.aronow… Bruce Aronow Pablo Garci…
-    ## # … with 12 more variables: data_submission_policy_version <chr>,
-    ## #   description <chr>, genesets <lgl>, links <list>, name <chr>,
-    ## #   obfuscated_uuid <chr>, publisher_metadata <list>, visibility <chr>,
-    ## #   created_at <date>, published_at <date>, revised_at <date>,
-    ## #   updated_at <date>
+``` r
+## collections
+left_join(
+    african_american_female |> select(collection_id) |> distinct(),
+    collections(db),
+    by = "collection_id"
+)
+#> # A tibble: 7 × 16
+#>   collect…¹ acces…² conta…³ conta…⁴ curat…⁵ data_…⁶ descr…⁷ genes…⁸ links  name 
+#>   <chr>     <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <lgl>   <list> <chr>
+#> 1 c9706a92… READ    hnaksh… Harikr… Jennif… 2.0     "Singl… NA      <list> A si…
+#> 2 2f75d249… READ    rsatij… Rahul … Jennif… 2.0     "This … NA      <list> Azim…
+#> 3 62e8f058… READ    chanj3… Joseph… Jennif… 2.0     "155,0… NA      <list> HTAN…
+#> 4 bcb61471… READ    info@k… KPMP    Jennif… 2.0     "Under… NA      <list> An a…
+#> 5 b9fc3d70… READ    bruce.… Bruce … Jennif… 2.0     "Numer… NA      <list> A We…
+#> 6 625f6bf4… READ    a5wang… Allen … Jennif… 2.0     "Large… NA      <list> Lung…
+#> 7 b953c942… READ    icobos… Inma C… Jennif… 2.0     "Tau a… NA      <list> Sing…
+#> # … with 6 more variables: publisher_metadata <list>, visibility <chr>,
+#> #   created_at <date>, published_at <date>, revised_at <date>,
+#> #   updated_at <date>, and abbreviated variable names ¹​collection_id,
+#> #   ²​access_type, ³​contact_email, ⁴​contact_name, ⁵​curator_name,
+#> #   ⁶​data_submission_policy_version, ⁷​description, ⁸​genesets
+```
 
 # Visualizing data in `cellxgene`
 
 Discover files associated with our first selected dataset
 
-    selected_files <-
-        left_join(
-            african_american_female |> select(dataset_id),
-            files(db),
-            by = "dataset_id"
-        )
-    selected_files
-
-    ## # A tibble: 42 × 9
-    ##    dataset_id   file_id filename filetype s3_uri type  user_submitted created_at
-    ##    <chr>        <chr>   <chr>    <chr>    <chr>  <chr> <lgl>          <date>    
-    ##  1 de985818-28… d5c6de… local.h… H5AD     s3://… REMIX TRUE           2021-09-24
-    ##  2 de985818-28… a0bcae… local.r… RDS      s3://… REMIX TRUE           2021-09-24
-    ##  3 de985818-28… dff842… explore… CXG      s3://… REMIX TRUE           2021-09-24
-    ##  4 f72958f5-7f… 2e7374… local.r… RDS      s3://… REMIX TRUE           2021-10-07
-    ##  5 f72958f5-7f… bbce34… explore… CXG      s3://… REMIX TRUE           2021-10-07
-    ##  6 f72958f5-7f… 091323… local.h… H5AD     s3://… REMIX TRUE           2021-10-07
-    ##  7 07854d9c-53… f6f812… local.h… H5AD     s3://… REMIX TRUE           2022-02-15
-    ##  8 07854d9c-53… 7ae7df… explore… CXG      s3://… REMIX TRUE           2022-02-15
-    ##  9 07854d9c-53… 3f995f… local.r… RDS      s3://… REMIX TRUE           2022-02-15
-    ## 10 0b75c598-08… 38eaca… local.h… H5AD     s3://… REMIX TRUE           2022-02-15
-    ## # … with 32 more rows, and 1 more variable: updated_at <date>
+``` r
+selected_files <-
+    left_join(
+        african_american_female |> select(dataset_id),
+        files(db),
+        by = "dataset_id"
+    )
+selected_files
+#> # A tibble: 63 × 8
+#>    dataset_id       file_id filen…¹ filet…² s3_uri user_…³ created_at updated_at
+#>    <chr>            <chr>   <chr>   <chr>   <chr>  <lgl>   <date>     <date>    
+#>  1 de985818-285f-4… d5c6de… local.… H5AD    s3://… TRUE    2021-09-24 2021-09-24
+#>  2 de985818-285f-4… a0bcae… local.… RDS     s3://… TRUE    2021-09-24 2021-12-21
+#>  3 de985818-285f-4… dff842… explor… CXG     s3://… TRUE    2021-09-24 2021-09-24
+#>  4 f72958f5-7f42-4… a13168… local.… H5AD    s3://… TRUE    2022-08-30 2022-08-30
+#>  5 f72958f5-7f42-4… 155b79… explor… CXG     s3://… TRUE    2022-08-30 2022-08-30
+#>  6 f72958f5-7f42-4… 2f85a7… local.… RDS     s3://… TRUE    2022-08-30 2022-08-30
+#>  7 d224c8e0-c28e-4… 44ac7f… explor… CXG     s3://… TRUE    2022-09-27 2022-09-30
+#>  8 d224c8e0-c28e-4… f73413… local.… RDS     s3://… TRUE    2022-09-27 2022-09-30
+#>  9 d224c8e0-c28e-4… 22fbf4… local.… H5AD    s3://… TRUE    2022-09-27 2022-09-30
+#> 10 d4cfefa0-3a35-4… fc43a9… local.… H5AD    s3://… TRUE    2022-09-27 2022-09-30
+#> # … with 53 more rows, and abbreviated variable names ¹​filename, ²​filetype,
+#> #   ³​user_submitted
+```
 
 The `filetype` column lists the type of each file. The cellxgene service
 can be used to visualize *datasets* that have `CXG` files.
 
-    selected_files |>
-        filter(filetype == "CXG") |>
-        slice(1) |> # visualize a single dataset
-        datasets_visualize()
+``` r
+selected_files |>
+    filter(filetype == "CXG") |>
+    slice(1) |> # visualize a single dataset
+    datasets_visualize()
+```
 
 Visualization is an interactive process, so `datasets_visualize()` will
 only open up to 5 browser tabs per call.
@@ -359,16 +401,17 @@ used to create the file is different from the version used to read the
 file. We therefore focus on the `H5AD` files. For illustration, we
 download one of our selected files.
 
-    local_file <-
-        selected_files |>
-        filter(
-            dataset_id == "3de0ad6d-4378-4f62-b37b-ec0b75a50d94",
-            filetype == "H5AD"
-        ) |>
-        files_download(dry.run = FALSE)
-    basename(local_file)
-
-    ## [1] "119d5332-a639-4e9e-a158-3ca1f891f337.H5AD"
+``` r
+local_file <-
+    selected_files |>
+    filter(
+        dataset_id == "3de0ad6d-4378-4f62-b37b-ec0b75a50d94",
+        filetype == "H5AD"
+    ) |>
+    files_download(dry.run = FALSE)
+basename(local_file)
+#> [1] "f4065ffa-c2d6-45bf-b596-5a69e36d8fcd.H5AD"
+```
 
 These are downloaded to a local cache (use the internal function
 `cellxgenedp:::.cellxgenedb_cache_path()` for the location of the
@@ -377,45 +420,48 @@ cache), so the process is only time-consuming the first time.
 `H5AD` files can be converted to *R* / *Bioconductor* objects using the
 [zellkonverter](https://bioconductor.org/packages/zelkonverter) package.
 
-    h5ad <- readH5AD(local_file, reader = "R", use_hdf5 = TRUE)
-    h5ad
-
-    ## class: SingleCellExperiment 
-    ## dim: 26329 46500 
-    ## metadata(4): X_normalization layer_descriptions schema_version title
-    ## assays(1): X
-    ## rownames: NULL
-    ## rowData names(5): feature_biotype feature_id feature_is_filtered
-    ##   feature_name feature_reference
-    ## colnames(46500): D032_AACAAGACAGCCCACA D032_AACAGGGGTCCAGCGT ...
-    ##   D231_CGAGTGCTCAACCCGG D231_TTCGCTGAGGAACATT
-    ## colData names(25): assay assay_ontology_term_id ... tissue
-    ##   tissue_ontology_term_id
-    ## reducedDimNames(1): X_umap
-    ## mainExpName: NULL
-    ## altExpNames(0):
+``` r
+h5ad <- readH5AD(local_file, reader = "R", use_hdf5 = TRUE)
+h5ad
+#> class: SingleCellExperiment 
+#> dim: 26329 46500 
+#> metadata(5): X_normalization cell_type_ontology_term_id_colors
+#>   layer_descriptions schema_version title
+#> assays(1): X
+#> rownames: NULL
+#> rowData names(5): feature_biotype feature_id feature_is_filtered
+#>   feature_name feature_reference
+#> colnames(46500): D032_AACAAGACAGCCCACA D032_AACAGGGGTCCAGCGT ...
+#>   D231_CGAGTGCTCAACCCGG D231_TTCGCTGAGGAACATT
+#> colData names(25): assay assay_ontology_term_id ... tissue
+#>   tissue_ontology_term_id
+#> reducedDimNames(1): X_umap
+#> mainExpName: NULL
+#> altExpNames(0):
+```
 
 The `SingleCellExperiment` object is a matrix-like object with rows
 corresponding to genes and columns to cells. Thus we can easily explore
 the cells present in the data.
 
-    h5ad |>
-        colData(h5ad) |>
-        as_tibble() |>
-        count(sex, donor)
-
-    ## # A tibble: 9 × 3
-    ##   sex    donor     n
-    ##   <fct>  <fct> <int>
-    ## 1 female D088   5903
-    ## 2 female D139   5217
-    ## 3 female D175   1778
-    ## 4 female D231   4680
-    ## 5 male   D032   4970
-    ## 6 male   D046   8894
-    ## 7 male   D062   4852
-    ## 8 male   D122   3935
-    ## 9 male   D150   6271
+``` r
+h5ad |>
+    colData(h5ad) |>
+    as_tibble() |>
+    count(sex, donor_id)
+#> # A tibble: 9 × 3
+#>   sex    donor_id     n
+#>   <fct>  <fct>    <int>
+#> 1 female D088      5903
+#> 2 female D139      5217
+#> 3 female D175      1778
+#> 4 female D231      4680
+#> 5 male   D032      4970
+#> 6 male   D046      8894
+#> 7 male   D062      4852
+#> 8 male   D122      3935
+#> 9 male   D150      6271
+```
 
 # Next steps
 
@@ -434,47 +480,52 @@ primary as well as derived single-cell data files.
 
 # Session info
 
-    ## R Under development (unstable) (2022-03-07 r81852)
-    ## Platform: aarch64-apple-darwin21.3.0 (64-bit)
-    ## Running under: macOS Monterey 12.2.1
-    ## 
-    ## Matrix products: default
-    ## BLAS:   /Users/ma38727/bin/R-devel/lib/libRblas.dylib
-    ## LAPACK: /Users/ma38727/bin/R-devel/lib/libRlapack.dylib
-    ## 
-    ## locale:
-    ## [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
-    ## 
-    ## attached base packages:
-    ## [1] stats4    stats     graphics  grDevices utils     datasets  methods  
-    ## [8] base     
-    ## 
-    ## other attached packages:
-    ##  [1] cellxgenedp_0.99.7          dplyr_1.0.8                
-    ##  [3] SingleCellExperiment_1.17.2 SummarizedExperiment_1.25.3
-    ##  [5] Biobase_2.55.0              GenomicRanges_1.47.6       
-    ##  [7] GenomeInfoDb_1.31.4         IRanges_2.29.1             
-    ##  [9] S4Vectors_0.33.10           BiocGenerics_0.41.2        
-    ## [11] MatrixGenerics_1.7.0        matrixStats_0.61.0         
-    ## [13] zellkonverter_1.5.0        
-    ## 
-    ## loaded via a namespace (and not attached):
-    ##  [1] Rcpp_1.0.8.2           dir.expiry_1.3.0       lattice_0.20-45       
-    ##  [4] png_0.1-7              assertthat_0.2.1       digest_0.6.29         
-    ##  [7] utf8_1.2.2             R6_2.5.1               evaluate_0.15         
-    ## [10] httr_1.4.2             pillar_1.7.0           basilisk_1.7.0        
-    ## [13] zlibbioc_1.41.0        rlang_1.0.2            curl_4.3.2            
-    ## [16] Matrix_1.4-0           reticulate_1.24        rmarkdown_2.13        
-    ## [19] stringr_1.4.0          RCurl_1.98-1.6         DelayedArray_0.21.2   
-    ## [22] HDF5Array_1.23.2       compiler_4.2.0         xfun_0.30             
-    ## [25] pkgconfig_2.0.3        htmltools_0.5.2        tidyselect_1.1.2      
-    ## [28] tibble_3.1.6           GenomeInfoDbData_1.2.7 fansi_1.0.2           
-    ## [31] crayon_1.5.0           bitops_1.0-7           rhdf5filters_1.7.0    
-    ## [34] basilisk.utils_1.7.0   grid_4.2.0             jsonlite_1.8.0        
-    ## [37] lifecycle_1.0.1        DBI_1.1.2              magrittr_2.0.2        
-    ## [40] cli_3.2.0              stringi_1.7.6          XVector_0.35.0        
-    ## [43] ellipsis_0.3.2         filelock_1.0.2         generics_0.1.2        
-    ## [46] vctrs_0.3.8            Rhdf5lib_1.17.3        tools_4.2.0           
-    ## [49] glue_1.6.2             purrr_0.3.4            parallel_4.2.0        
-    ## [52] fastmap_1.1.0          yaml_2.3.5             rhdf5_2.39.6          
-    ## [55] knitr_1.37
+    #> R version 4.2.1 (2022-06-23)
+    #> Platform: x86_64-pc-linux-gnu (64-bit)
+    #> Running under: Ubuntu 20.04.5 LTS
+    #> 
+    #> Matrix products: default
+    #> BLAS:   /usr/lib/x86_64-linux-gnu/blas/libblas.so.3.9.0
+    #> LAPACK: /usr/lib/x86_64-linux-gnu/lapack/liblapack.so.3.9.0
+    #> 
+    #> locale:
+    #>  [1] LC_CTYPE=C.UTF-8       LC_NUMERIC=C           LC_TIME=C.UTF-8       
+    #>  [4] LC_COLLATE=C.UTF-8     LC_MONETARY=C.UTF-8    LC_MESSAGES=C.UTF-8   
+    #>  [7] LC_PAPER=C.UTF-8       LC_NAME=C              LC_ADDRESS=C          
+    #> [10] LC_TELEPHONE=C         LC_MEASUREMENT=C.UTF-8 LC_IDENTIFICATION=C   
+    #> 
+    #> attached base packages:
+    #> [1] stats4    stats     graphics  grDevices datasets  utils     methods  
+    #> [8] base     
+    #> 
+    #> other attached packages:
+    #>  [1] cellxgenedp_1.1.6           dplyr_1.0.10               
+    #>  [3] SingleCellExperiment_1.19.1 SummarizedExperiment_1.27.3
+    #>  [5] Biobase_2.57.1              GenomicRanges_1.49.1       
+    #>  [7] GenomeInfoDb_1.33.8         IRanges_2.31.2             
+    #>  [9] S4Vectors_0.35.4            BiocGenerics_0.43.4        
+    #> [11] MatrixGenerics_1.9.1        matrixStats_0.62.0         
+    #> [13] zellkonverter_1.7.7        
+    #> 
+    #> loaded via a namespace (and not attached):
+    #>  [1] Rcpp_1.0.9             dir.expiry_1.5.1       lattice_0.20-45       
+    #>  [4] png_0.1-7              digest_0.6.29          utf8_1.2.2            
+    #>  [7] mime_0.12              R6_2.5.1               evaluate_0.17         
+    #> [10] httr_1.4.4             pillar_1.8.1           basilisk_1.9.11       
+    #> [13] zlibbioc_1.43.0        rlang_1.0.6            curl_4.3.3            
+    #> [16] Matrix_1.5-1           DT_0.25                reticulate_1.26       
+    #> [19] rmarkdown_2.17         stringr_1.4.1          htmlwidgets_1.5.4     
+    #> [22] RCurl_1.98-1.9         HDF5Array_1.25.2       shiny_1.7.2           
+    #> [25] DelayedArray_0.23.2    compiler_4.2.1         httpuv_1.6.6          
+    #> [28] xfun_0.33              pkgconfig_2.0.3        htmltools_0.5.3       
+    #> [31] tidyselect_1.2.0       tibble_3.1.8           GenomeInfoDbData_1.2.9
+    #> [34] codetools_0.2-18       fansi_1.0.3            withr_2.5.0           
+    #> [37] later_1.3.0            rhdf5filters_1.9.0     bitops_1.0-7          
+    #> [40] rjsoncons_1.0.0        basilisk.utils_1.9.4   grid_4.2.1            
+    #> [43] xtable_1.8-4           jsonlite_1.8.2         lifecycle_1.0.3       
+    #> [46] magrittr_2.0.3         cli_3.4.1              stringi_1.7.8         
+    #> [49] XVector_0.37.1         renv_0.16.0            promises_1.2.0.1      
+    #> [52] ellipsis_0.3.2         filelock_1.0.2         generics_0.1.3        
+    #> [55] vctrs_0.4.2            Rhdf5lib_1.19.2        tools_4.2.1           
+    #> [58] glue_1.6.2             parallel_4.2.1         fastmap_1.1.0         
+    #> [61] yaml_2.3.5             rhdf5_2.41.1           knitr_1.40
