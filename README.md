@@ -65,9 +65,9 @@ for further exploration.
 ``` r
 db
 #> cellxgene_db
-#> number of collections(): 101
-#> number of datasets(): 530
-#> number of files(): 1582
+#> number of collections(): 103
+#> number of datasets(): 538
+#> number of files(): 1606
 ```
 
 The portal organizes data hierarchically, with ‘collections’ (research
@@ -76,62 +76,62 @@ the corresponding functions.
 
 ``` r
 collections(db)
-#> # A tibble: 101 × 16
+#> # A tibble: 103 × 16
 #>    collec…¹ acces…² conta…³ conta…⁴ curat…⁵ data_…⁶ descr…⁷ genes…⁸ links  name 
 #>    <chr>    <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <lgl>   <list> <chr>
 #>  1 03f821b… READ    km16@s… Kersti… Batuha… 2.0     It is … NA      <list> Loca…
-#>  2 6e8c541… READ    a.vano… Alexan… Jennif… 2.0     A Sing… NA      <list> Mura…
+#>  2 0434a9d… READ    avilla… Alexan… Batuha… 2.0     The va… NA      <list> Acut…
 #>  3 3472f32… READ    wongcb… Raymon… Batuha… 2.0     The re… NA      <list> A si…
-#>  4 83ed3be… READ    tom.ta… Tom Ta… Jennif… 2.0     During… NA      <list> Inte…
-#>  5 92fde06… READ    c.nove… Claudi… Jason … 2.0     The ce… NA      <list> A co…
-#>  6 eb735cc… READ    rv4@sa… Roser … Batuha… 2.0     Human … NA      <list> Samp…
-#>  7 e75342a… READ    nhuebn… Norber… Jennif… 2.0     Pathog… NA      <list> Path…
-#>  8 125eef5… READ    my4@sa… Matthe… Jason … 2.0     Unders… NA      <list> Sing…
-#>  9 c9706a9… READ    hnaksh… Harikr… Jennif… 2.0     Single… NA      <list> A si…
-#> 10 5d44596… READ    angela… Angela… Jennif… 2.0     Drople… NA      <list> A mo…
-#> # … with 91 more rows, 6 more variables: publisher_metadata <list>,
+#>  4 2902f08… READ    lopes@… S. M. … Wei Kh… 2.0     The ov… NA      <list> Sing…
+#>  5 83ed3be… READ    tom.ta… Tom Ta… Jennif… 2.0     During… NA      <list> Inte…
+#>  6 2b02dff… READ    miriam… Miriam… Batuha… 2.0     Clinic… NA      <list> Sing…
+#>  7 eb735cc… READ    rv4@sa… Roser … Batuha… 2.0     Human … NA      <list> Samp…
+#>  8 44531dd… READ    tallul… Tallul… Jennif… 2.0     The cr… NA      <list> Sing…
+#>  9 e75342a… READ    nhuebn… Norber… Jennif… 2.0     Pathog… NA      <list> Path…
+#> 10 125eef5… READ    my4@sa… Matthe… Jason … 2.0     Unders… NA      <list> Sing…
+#> # … with 93 more rows, 6 more variables: publisher_metadata <list>,
 #> #   visibility <chr>, created_at <date>, published_at <date>,
 #> #   revised_at <date>, updated_at <date>, and abbreviated variable names
 #> #   ¹​collection_id, ²​access_type, ³​contact_email, ⁴​contact_name, ⁵​curator_name,
 #> #   ⁶​data_submission_policy_version, ⁷​description, ⁸​genesets
 
 datasets(db)
-#> # A tibble: 530 × 26
-#>    dataset_id     colle…¹ assay  cell_…² cell_…³ datas…⁴ devel…⁵ disease is_pr…⁶
-#>    <chr>          <chr>   <list>   <int> <list>  <chr>   <list>  <list>  <chr>  
-#>  1 edc8d3fe-153c… 03f821… <list>  236977 <list>  https:… <list>  <list>  PRIMARY
-#>  2 2a498ace-872a… 03f821… <list>  422220 <list>  https:… <list>  <list>  PRIMARY
-#>  3 b07e5164-baf6… 6e8c54… <list>    2126 <list>  https:… <list>  <list>  PRIMARY
-#>  4 d5c67a4e-a8d9… 3472f3… <list>   19694 <list>  https:… <list>  <list>  PRIMARY
-#>  5 11ff73e8-d3e4… 83ed3b… <list>   71732 <list>  https:… <list>  <list>  PRIMARY
-#>  6 42bb7f78-cef8… 92fde0… <list>  141401 <list>  https:… <list>  <list>  PRIMARY
-#>  7 c2a461b1-0c15… eb735c… <list>   97499 <list>  https:… <list>  <list>  PRIMARY
-#>  8 9434b020-de42… e75342… <list>   59217 <list>  https:… <list>  <list>  SECOND…
-#>  9 bdf69f8d-5a96… e75342… <list>    2576 <list>  https:… <list>  <list>  SECOND…
-#> 10 83b5e943-a1d5… e75342… <list>    7999 <list>  https:… <list>  <list>  SECOND…
-#> # … with 520 more rows, 17 more variables: is_valid <lgl>,
-#> #   linked_genesets <lgl>, mean_genes_per_cell <dbl>, name <chr>,
-#> #   organism <list>, processing_status <list>, published <lgl>, revision <int>,
-#> #   schema_version <chr>, self_reported_ethnicity <list>, sex <list>,
-#> #   tissue <list>, tombstone <lgl>, created_at <date>, published_at <date>,
-#> #   revised_at <date>, updated_at <date>, and abbreviated variable names
-#> #   ¹​collection_id, ²​cell_count, ³​cell_type, ⁴​dataset_deployments, …
+#> # A tibble: 538 × 28
+#>    dataset_id     colle…¹ donor…² assay  cell_…³ cell_…⁴ datas…⁵ devel…⁶ disease
+#>    <chr>          <chr>   <list>  <list>   <int> <list>  <chr>   <list>  <list> 
+#>  1 edc8d3fe-153c… 03f821… <list>  <list>  236977 <list>  https:… <list>  <list> 
+#>  2 2a498ace-872a… 03f821… <list>  <list>  422220 <list>  https:… <list>  <list> 
+#>  3 fa8605cf-f27e… 0434a9… <list>  <list>   59506 <list>  https:… <list>  <list> 
+#>  4 d5c67a4e-a8d9… 3472f3… <list>  <list>   19694 <list>  https:… <list>  <list> 
+#>  5 1f1c5c14-5949… 2902f0… <list>  <list>   20676 <list>  https:… <list>  <list> 
+#>  6 11ff73e8-d3e4… 83ed3b… <list>  <list>   71732 <list>  https:… <list>  <list> 
+#>  7 36c867a7-be10… 2b02df… <list>  <list>   32458 <list>  https:… <list>  <list> 
+#>  8 c2a461b1-0c15… eb735c… <list>  <list>   97499 <list>  https:… <list>  <list> 
+#>  9 0895c838-e550… 44531d… <list>  <list>     146 <list>  https:… <list>  <list> 
+#> 10 a49d9109-1d0c… 44531d… <list>  <list>    2346 <list>  https:… <list>  <list> 
+#> # … with 528 more rows, 19 more variables: is_primary_data <chr>,
+#> #   is_valid <lgl>, linked_genesets <lgl>, mean_genes_per_cell <dbl>,
+#> #   name <chr>, organism <list>, processing_status <list>, published <lgl>,
+#> #   revision <int>, schema_version <chr>, self_reported_ethnicity <list>,
+#> #   sex <list>, suspension_type <list>, tissue <list>, tombstone <lgl>,
+#> #   created_at <date>, published_at <date>, revised_at <date>,
+#> #   updated_at <date>, and abbreviated variable names ¹​collection_id, …
 
 files(db)
-#> # A tibble: 1,582 × 8
+#> # A tibble: 1,606 × 8
 #>    file_id          datas…¹ filen…² filet…³ s3_uri user_…⁴ created_at updated_at
 #>    <chr>            <chr>   <chr>   <chr>   <chr>  <lgl>   <date>     <date>    
-#>  1 1e788c65-3422-4… edc8d3… local.… H5AD    s3://… TRUE    2022-08-22 2022-08-23
-#>  2 24d08b4a-7314-4… edc8d3… local.… RDS     s3://… TRUE    2022-08-22 2022-08-23
-#>  3 88e0bdc6-8d3c-4… edc8d3… explor… CXG     s3://… TRUE    2022-08-22 2022-08-23
-#>  4 f93c1a77-ab7a-4… 2a498a… local.… H5AD    s3://… TRUE    2022-08-22 2022-08-23
-#>  5 d17fddad-4907-4… 2a498a… local.… RDS     s3://… TRUE    2022-08-22 2022-08-23
-#>  6 f68fa37e-fb6f-4… 2a498a… explor… CXG     s3://… TRUE    2022-08-22 2022-08-23
-#>  7 fce7ca81-6d88-4… b07e51… local.… H5AD    s3://… TRUE    2022-08-24 2022-08-29
-#>  8 1da81a7b-ce64-4… b07e51… explor… CXG     s3://… TRUE    2022-08-24 2022-08-29
-#>  9 dc9806d3-a959-4… b07e51… local.… RDS     s3://… TRUE    2022-08-24 2022-08-29
-#> 10 0d143085-cf3f-4… d5c67a… local.… H5AD    s3://… TRUE    2022-08-16 2022-08-16
-#> # … with 1,572 more rows, and abbreviated variable names ¹​dataset_id,
+#>  1 8c4737ab-cd8d-4… edc8d3… explor… CXG     s3://… TRUE    2022-10-18 2022-10-18
+#>  2 15fda108-90fd-4… edc8d3… local.… RDS     s3://… TRUE    2022-10-18 2022-10-18
+#>  3 4a052f7b-7de0-4… edc8d3… local.… H5AD    s3://… TRUE    2022-10-18 2022-10-18
+#>  4 e6fd765c-bcfe-4… 2a498a… local.… H5AD    s3://… TRUE    2022-10-18 2022-10-18
+#>  5 9a8737f1-775f-4… 2a498a… explor… CXG     s3://… TRUE    2022-10-18 2022-10-18
+#>  6 aeb40efc-77ae-4… 2a498a… local.… RDS     s3://… TRUE    2022-10-18 2022-10-18
+#>  7 b50c48f1-ef5e-4… fa8605… local.… H5AD    s3://… TRUE    2022-10-20 2022-10-20
+#>  8 59309f21-0db8-4… fa8605… local.… RDS     s3://… TRUE    2022-10-20 2022-10-20
+#>  9 399c2655-f56a-4… fa8605… explor… CXG     s3://… TRUE    2022-10-20 2022-10-20
+#> 10 1027b8d1-6b71-4… d5c67a… local.… RDS     s3://… TRUE    2022-10-17 2022-10-18
+#> # … with 1,596 more rows, and abbreviated variable names ¹​dataset_id,
 #> #   ²​filename, ³​filetype, ⁴​user_submitted
 ```
 
@@ -171,14 +171,14 @@ left_join(
 #> $ data_submission_policy_version <chr> "2.0"
 #> $ description                    <chr> "High resolution spatial transcriptomic…
 #> $ genesets                       <lgl> NA
-#> $ links                          <list> [["Macosko Lab Slide-seq Github", "OTHE…
+#> $ links                          <list> [["", "RAW_DATA", "https://www.ncbi.nlm…
 #> $ name                           <chr> "High Resolution Slide-seqV2 Spatial Tr…
 #> $ publisher_metadata             <list> [[["Marshall", "Jamie L."], ["Noel", "T…
 #> $ visibility                     <chr> "PUBLIC"
 #> $ created_at                     <date> 2021-05-28
 #> $ published_at                   <date> 2021-12-09
-#> $ revised_at                     <date> 2022-10-06
-#> $ updated_at                     <date> 2022-10-06
+#> $ revised_at                     <date> 2022-10-24
+#> $ updated_at                     <date> 2022-10-24
 ```
 
 We can take a similar strategy to identify all datasets belonging to
@@ -190,26 +190,26 @@ left_join(
     datasets(db),
     by = "collection_id"
 )
-#> # A tibble: 129 × 26
-#>    collection_id  datas…¹ assay  cell_…² cell_…³ datas…⁴ devel…⁵ disease is_pr…⁶
-#>    <chr>          <chr>   <list>   <int> <list>  <chr>   <list>  <list>  <chr>  
-#>  1 8e880741-bf9a… c5ac9b… <list>   21181 <list>  https:… <list>  <list>  PRIMARY
-#>  2 8e880741-bf9a… 4ebe33… <list>   17909 <list>  https:… <list>  <list>  PRIMARY
-#>  3 8e880741-bf9a… a5ecb4… <list>   19029 <list>  https:… <list>  <list>  PRIMARY
-#>  4 8e880741-bf9a… 88b7da… <list>   44588 <list>  https:… <list>  <list>  PRIMARY
-#>  5 8e880741-bf9a… 5c451b… <list>   13147 <list>  https:… <list>  <list>  PRIMARY
-#>  6 8e880741-bf9a… b8bd55… <list>   34355 <list>  https:… <list>  <list>  PRIMARY
-#>  7 8e880741-bf9a… 3679ae… <list>   10701 <list>  https:… <list>  <list>  PRIMARY
-#>  8 8e880741-bf9a… b62755… <list>   22502 <list>  https:… <list>  <list>  PRIMARY
-#>  9 8e880741-bf9a… ff77ee… <list>   38024 <list>  https:… <list>  <list>  PRIMARY
-#> 10 8e880741-bf9a… d4f003… <list>   27429 <list>  https:… <list>  <list>  PRIMARY
-#> # … with 119 more rows, 17 more variables: is_valid <lgl>,
-#> #   linked_genesets <lgl>, mean_genes_per_cell <dbl>, name <chr>,
-#> #   organism <list>, processing_status <list>, published <lgl>, revision <int>,
-#> #   schema_version <chr>, self_reported_ethnicity <list>, sex <list>,
-#> #   tissue <list>, tombstone <lgl>, created_at <date>, published_at <date>,
-#> #   revised_at <date>, updated_at <date>, and abbreviated variable names
-#> #   ¹​dataset_id, ²​cell_count, ³​cell_type, ⁴​dataset_deployments, …
+#> # A tibble: 129 × 28
+#>    collection_id  datas…¹ donor…² assay  cell_…³ cell_…⁴ datas…⁵ devel…⁶ disease
+#>    <chr>          <chr>   <list>  <list>   <int> <list>  <chr>   <list>  <list> 
+#>  1 8e880741-bf9a… ff77ee… <list>  <list>   38024 <list>  https:… <list>  <list> 
+#>  2 8e880741-bf9a… 5c451b… <list>  <list>   13147 <list>  https:… <list>  <list> 
+#>  3 8e880741-bf9a… 4ebe33… <list>  <list>   17909 <list>  https:… <list>  <list> 
+#>  4 8e880741-bf9a… 88b7da… <list>  <list>   44588 <list>  https:… <list>  <list> 
+#>  5 8e880741-bf9a… 230eee… <list>  <list>   22430 <list>  https:… <list>  <list> 
+#>  6 8e880741-bf9a… 1831d8… <list>  <list>   22458 <list>  https:… <list>  <list> 
+#>  7 8e880741-bf9a… 868026… <list>  <list>   31194 <list>  https:… <list>  <list> 
+#>  8 8e880741-bf9a… b62755… <list>  <list>   22502 <list>  https:… <list>  <list> 
+#>  9 8e880741-bf9a… 348383… <list>  <list>   27814 <list>  https:… <list>  <list> 
+#> 10 8e880741-bf9a… 4f420b… <list>  <list>   19886 <list>  https:… <list>  <list> 
+#> # … with 119 more rows, 19 more variables: is_primary_data <chr>,
+#> #   is_valid <lgl>, linked_genesets <lgl>, mean_genes_per_cell <dbl>,
+#> #   name <chr>, organism <list>, processing_status <list>, published <lgl>,
+#> #   revision <int>, schema_version <chr>, self_reported_ethnicity <list>,
+#> #   sex <list>, suspension_type <list>, tissue <list>, tombstone <lgl>,
+#> #   created_at <date>, published_at <date>, revised_at <date>,
+#> #   updated_at <date>, and abbreviated variable names ¹​dataset_id, ²​donor_id, …
 ```
 
 ## `facets()` provides information on ‘levels’ present in specific columns
@@ -220,20 +220,21 @@ Notice that some columns are ‘lists’ rather than atomic vectors like
 ``` r
 datasets(db) |>
     select(where(is.list))
-#> # A tibble: 530 × 9
-#>    assay      cell_…¹ devel…² disease organ…³ processing…⁴ self_…⁵ sex    tissue
-#>    <list>     <list>  <list>  <list>  <list>  <list>       <list>  <list> <list>
-#>  1 <list [2]> <list>  <list>  <list>  <list>  <named list> <list>  <list> <list>
-#>  2 <list [1]> <list>  <list>  <list>  <list>  <named list> <list>  <list> <list>
-#>  3 <list [1]> <list>  <list>  <list>  <list>  <named list> <list>  <list> <list>
-#>  4 <list [1]> <list>  <list>  <list>  <list>  <named list> <list>  <list> <list>
-#>  5 <list [1]> <list>  <list>  <list>  <list>  <named list> <list>  <list> <list>
-#>  6 <list [5]> <list>  <list>  <list>  <list>  <named list> <list>  <list> <list>
-#>  7 <list [1]> <list>  <list>  <list>  <list>  <named list> <list>  <list> <list>
-#>  8 <list [2]> <list>  <list>  <list>  <list>  <named list> <list>  <list> <list>
-#>  9 <list [2]> <list>  <list>  <list>  <list>  <named list> <list>  <list> <list>
-#> 10 <list [2]> <list>  <list>  <list>  <list>  <named list> <list>  <list> <list>
-#> # … with 520 more rows, and abbreviated variable names ¹​cell_type,
+#> # A tibble: 538 × 11
+#>    donor_id   assay  cell_…¹ devel…² disease organ…³ processing…⁴ self_…⁵ sex   
+#>    <list>     <list> <list>  <list>  <list>  <list>  <list>       <list>  <list>
+#>  1 <list>     <list> <list>  <list>  <list>  <list>  <named list> <list>  <list>
+#>  2 <list>     <list> <list>  <list>  <list>  <list>  <named list> <list>  <list>
+#>  3 <list>     <list> <list>  <list>  <list>  <list>  <named list> <list>  <list>
+#>  4 <list [3]> <list> <list>  <list>  <list>  <list>  <named list> <list>  <list>
+#>  5 <list [5]> <list> <list>  <list>  <list>  <list>  <named list> <list>  <list>
+#>  6 <list [5]> <list> <list>  <list>  <list>  <list>  <named list> <list>  <list>
+#>  7 <list>     <list> <list>  <list>  <list>  <list>  <named list> <list>  <list>
+#>  8 <list>     <list> <list>  <list>  <list>  <list>  <named list> <list>  <list>
+#>  9 <list [4]> <list> <list>  <list>  <list>  <list>  <named list> <list>  <list>
+#> 10 <list [4]> <list> <list>  <list>  <list>  <list>  <named list> <list>  <list>
+#> # … with 528 more rows, 2 more variables: suspension_type <list>,
+#> #   tissue <list>, and abbreviated variable names ¹​cell_type,
 #> #   ²​development_stage, ³​organism, ⁴​processing_status, ⁵​self_reported_ethnicity
 ```
 
@@ -245,30 +246,30 @@ of datasets with each label.
 
 ``` r
 facets(db, "assay")
-#> # A tibble: 30 × 4
+#> # A tibble: 32 × 4
 #>    facet label                          ontology_term_id     n
 #>    <chr> <chr>                          <chr>            <int>
-#>  1 assay 10x 3' v3                      EFO:0009922        180
+#>  1 assay 10x 3' v3                      EFO:0009922        188
 #>  2 assay 10x 3' v2                      EFO:0009899        162
-#>  3 assay Slide-seq                      EFO:0009920        129
+#>  3 assay Slide-seqV2                    EFO:0030062        129
 #>  4 assay 10x 5' v1                      EFO:0011025         43
 #>  5 assay Smart-seq2                     EFO:0008931         36
 #>  6 assay Visium Spatial Gene Expression EFO:0010961         35
-#>  7 assay 10x technology                 EFO:0008995         30
+#>  7 assay 10x multiome                   EFO:0030059         24
 #>  8 assay Drop-seq                       EFO:0008722         11
 #>  9 assay 10x 3' transcription profiling EFO:0030003          9
 #> 10 assay 10x 5' v2                      EFO:0009900          9
-#> # … with 20 more rows
+#> # … with 22 more rows
 facets(db, "self_reported_ethnicity")
 #> # A tibble: 18 × 4
 #>    facet                   label                                   ontol…¹     n
 #>    <chr>                   <chr>                                   <chr>   <int>
-#>  1 self_reported_ethnicity unknown                                 unknown   209
+#>  1 self_reported_ethnicity unknown                                 unknown   210
 #>  2 self_reported_ethnicity European                                HANCES…   181
-#>  3 self_reported_ethnicity na                                      na        168
+#>  3 self_reported_ethnicity na                                      na        175
 #>  4 self_reported_ethnicity Asian                                   HANCES…    59
 #>  5 self_reported_ethnicity African American                        HANCES…    37
-#>  6 self_reported_ethnicity admixed ancestry                        HANCES…    24
+#>  6 self_reported_ethnicity multiethnic                             multie…    24
 #>  7 self_reported_ethnicity Greater Middle Eastern  (Middle Easter… HANCES…    21
 #>  8 self_reported_ethnicity Hispanic or Latin American              HANCES…    16
 #>  9 self_reported_ethnicity African American or Afro-Caribbean      HANCES…     5
@@ -286,8 +287,8 @@ facets(db, "sex")
 #> # A tibble: 3 × 4
 #>   facet label   ontology_term_id     n
 #>   <chr> <chr>   <chr>            <int>
-#> 1 sex   male    PATO:0000384       451
-#> 2 sex   female  PATO:0000383       308
+#> 1 sex   male    PATO:0000384       456
+#> 2 sex   female  PATO:0000383       315
 #> 3 sex   unknown unknown             48
 ```
 
@@ -337,11 +338,11 @@ left_join(
 #>   <chr>     <chr>   <chr>   <chr>   <chr>   <chr>   <chr>   <lgl>   <list> <chr>
 #> 1 c9706a92… READ    hnaksh… Harikr… Jennif… 2.0     "Singl… NA      <list> A si…
 #> 2 2f75d249… READ    rsatij… Rahul … Jennif… 2.0     "This … NA      <list> Azim…
-#> 3 62e8f058… READ    chanj3… Joseph… Jennif… 2.0     "155,0… NA      <list> HTAN…
-#> 4 bcb61471… READ    info@k… KPMP    Jennif… 2.0     "Under… NA      <list> An a…
-#> 5 b9fc3d70… READ    bruce.… Bruce … Jennif… 2.0     "Numer… NA      <list> A We…
-#> 6 625f6bf4… READ    a5wang… Allen … Jennif… 2.0     "Large… NA      <list> Lung…
-#> 7 b953c942… READ    icobos… Inma C… Jennif… 2.0     "Tau a… NA      <list> Sing…
+#> 3 b9fc3d70… READ    bruce.… Bruce … Jennif… 2.0     "Numer… NA      <list> A We…
+#> 4 62e8f058… READ    chanj3… Joseph… Jennif… 2.0     "155,0… NA      <list> HTAN…
+#> 5 625f6bf4… READ    a5wang… Allen … Jennif… 2.0     "Large… NA      <list> Lung…
+#> 6 b953c942… READ    icobos… Inma C… Jennif… 2.0     "Tau a… NA      <list> Sing…
+#> 7 bcb61471… READ    info@k… KPMP    Jennif… 2.0     "Under… NA      <list> An a…
 #> # … with 6 more variables: publisher_metadata <list>, visibility <chr>,
 #> #   created_at <date>, published_at <date>, revised_at <date>,
 #> #   updated_at <date>, and abbreviated variable names ¹​collection_id,
@@ -364,16 +365,16 @@ selected_files
 #> # A tibble: 63 × 8
 #>    dataset_id       file_id filen…¹ filet…² s3_uri user_…³ created_at updated_at
 #>    <chr>            <chr>   <chr>   <chr>   <chr>  <lgl>   <date>     <date>    
-#>  1 de985818-285f-4… d5c6de… local.… H5AD    s3://… TRUE    2021-09-24 2021-09-24
-#>  2 de985818-285f-4… a0bcae… local.… RDS     s3://… TRUE    2021-09-24 2021-12-21
-#>  3 de985818-285f-4… dff842… explor… CXG     s3://… TRUE    2021-09-24 2021-09-24
-#>  4 f72958f5-7f42-4… a13168… local.… H5AD    s3://… TRUE    2022-08-30 2022-08-30
-#>  5 f72958f5-7f42-4… 155b79… explor… CXG     s3://… TRUE    2022-08-30 2022-08-30
-#>  6 f72958f5-7f42-4… 2f85a7… local.… RDS     s3://… TRUE    2022-08-30 2022-08-30
-#>  7 d224c8e0-c28e-4… 44ac7f… explor… CXG     s3://… TRUE    2022-09-27 2022-09-30
-#>  8 d224c8e0-c28e-4… f73413… local.… RDS     s3://… TRUE    2022-09-27 2022-09-30
-#>  9 d224c8e0-c28e-4… 22fbf4… local.… H5AD    s3://… TRUE    2022-09-27 2022-09-30
-#> 10 d4cfefa0-3a35-4… fc43a9… local.… H5AD    s3://… TRUE    2022-09-27 2022-09-30
+#>  1 de985818-285f-4… 15e9d9… local.… H5AD    s3://… TRUE    2022-10-21 2022-10-21
+#>  2 de985818-285f-4… 0d3974… explor… CXG     s3://… TRUE    2022-10-21 2022-10-21
+#>  3 de985818-285f-4… e254f9… local.… RDS     s3://… TRUE    2022-10-21 2022-10-21
+#>  4 f72958f5-7f42-4… 59bd46… local.… RDS     s3://… TRUE    2022-10-18 2022-10-18
+#>  5 f72958f5-7f42-4… 3a2467… explor… CXG     s3://… TRUE    2022-10-18 2022-10-18
+#>  6 f72958f5-7f42-4… d9f9d0… local.… H5AD    s3://… TRUE    2022-10-18 2022-10-18
+#>  7 bc2a7b3d-f04e-4… f6d9f2… local.… H5AD    s3://… TRUE    2022-10-18 2022-10-18
+#>  8 bc2a7b3d-f04e-4… 46de9c… explor… CXG     s3://… TRUE    2022-10-18 2022-10-18
+#>  9 bc2a7b3d-f04e-4… 5331f2… local.… RDS     s3://… TRUE    2022-10-18 2022-10-18
+#> 10 96a3f64b-0ee9-4… b77452… local.… H5AD    s3://… TRUE    2022-10-18 2022-10-18
 #> # … with 53 more rows, and abbreviated variable names ¹​filename, ²​filetype,
 #> #   ³​user_submitted
 ```
@@ -410,7 +411,7 @@ local_file <-
     ) |>
     files_download(dry.run = FALSE)
 basename(local_file)
-#> [1] "f4065ffa-c2d6-45bf-b596-5a69e36d8fcd.H5AD"
+#> [1] "f69ba4b3-fc45-483c-8a7c-434fd056aeed.H5AD"
 ```
 
 These are downloaded to a local cache (use the internal function
@@ -421,20 +422,23 @@ cache), so the process is only time-consuming the first time.
 [zellkonverter](https://bioconductor.org/packages/zelkonverter) package.
 
 ``` r
-h5ad <- readH5AD(local_file, reader = "R", use_hdf5 = TRUE)
+h5ad <- readH5AD(local_file, use_hdf5 = TRUE)
+#> + '/home/runner/.cache/R/basilisk/1.9.11/0/bin/conda' 'create' '--yes' '--prefix' '/home/runner/.cache/R/basilisk/1.9.11/zellkonverter/1.7.7/zellkonverterAnnDataEnv-0.8.0' 'python=3.8.13' '--quiet' '-c' 'conda-forge'
+#> + '/home/runner/.cache/R/basilisk/1.9.11/0/bin/conda' 'install' '--yes' '--prefix' '/home/runner/.cache/R/basilisk/1.9.11/zellkonverter/1.7.7/zellkonverterAnnDataEnv-0.8.0' 'python=3.8.13'
+#> + '/home/runner/.cache/R/basilisk/1.9.11/0/bin/conda' 'install' '--yes' '--prefix' '/home/runner/.cache/R/basilisk/1.9.11/zellkonverter/1.7.7/zellkonverterAnnDataEnv-0.8.0' '-c' 'conda-forge' 'python=3.8.13' 'anndata=0.8.0' 'h5py=3.6.0' 'hdf5=1.12.1' 'natsort=8.1.0' 'numpy=1.22.3' 'packaging=21.3' 'pandas=1.4.2' 'python=3.8.13' 'scipy=1.7.3' 'sqlite=3.38.2'
 h5ad
 #> class: SingleCellExperiment 
 #> dim: 26329 46500 
-#> metadata(5): X_normalization cell_type_ontology_term_id_colors
-#>   layer_descriptions schema_version title
+#> metadata(3): cell_type_ontology_term_id_colors schema_version title
 #> assays(1): X
-#> rownames: NULL
-#> rowData names(5): feature_biotype feature_id feature_is_filtered
-#>   feature_name feature_reference
+#> rownames(26329): ENSG00000182308 ENSG00000124827 ... ENSG00000155229
+#>   ENSG00000105609
+#> rowData names(4): feature_is_filtered feature_name feature_reference
+#>   feature_biotype
 #> colnames(46500): D032_AACAAGACAGCCCACA D032_AACAGGGGTCCAGCGT ...
 #>   D231_CGAGTGCTCAACCCGG D231_TTCGCTGAGGAACATT
-#> colData names(25): assay assay_ontology_term_id ... tissue
-#>   tissue_ontology_term_id
+#> colData names(26): nCount_RNA nFeature_RNA ... self_reported_ethnicity
+#>   development_stage
 #> reducedDimNames(1): X_umap
 #> mainExpName: NULL
 #> altExpNames(0):
@@ -499,33 +503,34 @@ primary as well as derived single-cell data files.
     #> [8] base     
     #> 
     #> other attached packages:
-    #>  [1] cellxgenedp_1.1.6           dplyr_1.0.10               
+    #>  [1] cellxgenedp_1.1.7           dplyr_1.0.10               
     #>  [3] SingleCellExperiment_1.19.1 SummarizedExperiment_1.27.3
     #>  [5] Biobase_2.57.1              GenomicRanges_1.49.1       
-    #>  [7] GenomeInfoDb_1.33.8         IRanges_2.31.2             
+    #>  [7] GenomeInfoDb_1.33.15        IRanges_2.31.2             
     #>  [9] S4Vectors_0.35.4            BiocGenerics_0.43.4        
     #> [11] MatrixGenerics_1.9.1        matrixStats_0.62.0         
     #> [13] zellkonverter_1.7.7        
     #> 
     #> loaded via a namespace (and not attached):
-    #>  [1] Rcpp_1.0.9             dir.expiry_1.5.1       lattice_0.20-45       
-    #>  [4] png_0.1-7              digest_0.6.29          utf8_1.2.2            
-    #>  [7] mime_0.12              R6_2.5.1               evaluate_0.17         
-    #> [10] httr_1.4.4             pillar_1.8.1           basilisk_1.9.11       
-    #> [13] zlibbioc_1.43.0        rlang_1.0.6            curl_4.3.3            
-    #> [16] Matrix_1.5-1           DT_0.25                reticulate_1.26       
-    #> [19] rmarkdown_2.17         stringr_1.4.1          htmlwidgets_1.5.4     
-    #> [22] RCurl_1.98-1.9         HDF5Array_1.25.2       shiny_1.7.2           
-    #> [25] DelayedArray_0.23.2    compiler_4.2.1         httpuv_1.6.6          
-    #> [28] xfun_0.33              pkgconfig_2.0.3        htmltools_0.5.3       
-    #> [31] tidyselect_1.2.0       tibble_3.1.8           GenomeInfoDbData_1.2.9
-    #> [34] codetools_0.2-18       fansi_1.0.3            withr_2.5.0           
-    #> [37] later_1.3.0            rhdf5filters_1.9.0     bitops_1.0-7          
-    #> [40] rjsoncons_1.0.0        basilisk.utils_1.9.4   grid_4.2.1            
-    #> [43] xtable_1.8-4           jsonlite_1.8.2         lifecycle_1.0.3       
-    #> [46] magrittr_2.0.3         cli_3.4.1              stringi_1.7.8         
-    #> [49] XVector_0.37.1         renv_0.16.0            promises_1.2.0.1      
-    #> [52] ellipsis_0.3.2         filelock_1.0.2         generics_0.1.3        
-    #> [55] vctrs_0.4.2            Rhdf5lib_1.19.2        tools_4.2.1           
-    #> [58] glue_1.6.2             parallel_4.2.1         fastmap_1.1.0         
-    #> [61] yaml_2.3.5             rhdf5_2.41.1           knitr_1.40
+    #>  [1] Rcpp_1.0.9             here_1.0.1             dir.expiry_1.5.1      
+    #>  [4] lattice_0.20-45        png_0.1-7              rprojroot_2.0.3       
+    #>  [7] digest_0.6.30          utf8_1.2.2             mime_0.12             
+    #> [10] R6_2.5.1               evaluate_0.17          httr_1.4.4            
+    #> [13] pillar_1.8.1           basilisk_1.9.11        zlibbioc_1.43.0       
+    #> [16] rlang_1.0.6            curl_4.3.3             Matrix_1.5-1          
+    #> [19] DT_0.26                reticulate_1.26        rmarkdown_2.17        
+    #> [22] stringr_1.4.1          htmlwidgets_1.5.4      RCurl_1.98-1.9        
+    #> [25] HDF5Array_1.25.2       shiny_1.7.2            DelayedArray_0.23.2   
+    #> [28] compiler_4.2.1         httpuv_1.6.6           xfun_0.34             
+    #> [31] pkgconfig_2.0.3        htmltools_0.5.3        tidyselect_1.2.0      
+    #> [34] tibble_3.1.8           GenomeInfoDbData_1.2.9 codetools_0.2-18      
+    #> [37] fansi_1.0.3            withr_2.5.0            later_1.3.0           
+    #> [40] rhdf5filters_1.9.0     bitops_1.0-7           rjsoncons_1.0.0       
+    #> [43] basilisk.utils_1.9.4   grid_4.2.1             xtable_1.8-4          
+    #> [46] jsonlite_1.8.3         lifecycle_1.0.3        magrittr_2.0.3        
+    #> [49] cli_3.4.1              stringi_1.7.8          XVector_0.37.1        
+    #> [52] renv_0.16.0            promises_1.2.0.1       ellipsis_0.3.2        
+    #> [55] filelock_1.0.2         generics_0.1.3         vctrs_0.5.0           
+    #> [58] Rhdf5lib_1.19.2        tools_4.2.1            glue_1.6.2            
+    #> [61] parallel_4.2.1         fastmap_1.1.0          yaml_2.3.6            
+    #> [64] rhdf5_2.41.1           knitr_1.40
