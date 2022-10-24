@@ -8,6 +8,10 @@ SIGNIFICANT USER-VISIBLE CHANGES
 * (v. 1.1.6) datasets `ethnicity` field renamed to
   `self_reported_ethnicity`
 
+* (v. 1.1.7) use zellkonverter's basilisk-based Python parser to read
+  H5AD files in the vignette, see
+  https://github.com/theislab/zellkonverter/issues/78
+
 OTHER
 
 * (v. 1.1.2) reset cache on build machines weekly
