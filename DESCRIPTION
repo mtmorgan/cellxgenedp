@@ -19,7 +19,7 @@ Description: The cellxgene data portal
 License: Artistic-2.0
 Encoding: UTF-8
 Collate: db.R collections.R datasets.R files.R facets.R keys.R
-    cellxgene.R utilities.R cxg.R
+    cellxgene.R utilities.R links.R publisher_metadata.R cxg.R
 Depends: dplyr
 Imports: httr, curl, jsonlite, utils, tools, shiny, DT, rjsoncons
 Suggests:
@@ -33,6 +33,6 @@ Suggests:
     mockery
 biocViews: SingleCell, DataImport, ThirdPartyClient
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.3
 VignetteBuilder: knitr
 Config/testthat/edition: 3
