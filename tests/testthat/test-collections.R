@@ -6,11 +6,13 @@ test_that("collections() works", {
     expect_true(nrow(collections) >= 48L)
     COLLECTIONS_COLUMNS <- c(
         collection_id="character", access_type="character",
-        contact_email="character", 
-        contact_name="character", data_submission_policy_version="character", 
-        description="character", genesets="logical", links="list", 
+        contact_email="character",
+        contact_name="character",
+        curator_name="character",
+        data_submission_policy_version="character",
+        description="character", links="list",
         name="character", visibility="character",
-        created_at="Date", published_at="Date", revised_at="Date", 
+        created_at="Date", published_at="Date",
         updated_at="Date"
     )
     column_names <- names(COLLECTIONS_COLUMNS)
