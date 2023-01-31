@@ -5,8 +5,7 @@
 {
     query <- paste0(query_base, ".keys(@)")
     key_names <-
-        jmespath(db, query) |>
-        parse_json() |>
+        .jmes_to_r(db, query) |>
         setdiff(.KEYS_BLOCKLIST)
     path_base <- gsub("[0]", "[]", query_base, fixed = TRUE)
     key_paths <- paste0(path_base, ".", key_names)
@@ -42,9 +41,7 @@ keys <-
         paste0(keys, ":", keys, collapse = ","),
         "}"
     )
-    lol <-
-        jmespath(db, query) |>
-        parse_json()
+    lol <- .jmes_to_r(db, query, simplifyVector = FALSE)
 
     ## list-of-rows to list-of-columns
     keys <- names(lol[[1]])

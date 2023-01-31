@@ -95,7 +95,6 @@ db <-
 
 
 #' @importFrom utils head
-#' @importFrom rjsoncons jmespath
 #'
 #' @export
 print.cellxgene_db <-
@@ -103,10 +102,10 @@ print.cellxgene_db <-
 {
     cat(
         head(class(x), 1L), "\n",
-        "number of collections(): ", jmespath(x, "length([])"), "\n",
-        "number of datasets(): ", jmespath(x, "length([].datasets[])"), "\n",
+        "number of collections(): ", .jmes_to_r(x, "length([])"), "\n",
+        "number of datasets(): ", .jmes_to_r(x, "length([].datasets[])"), "\n",
         "number of files(): ",
-        jmespath(x, "length([].datasets[].dataset_assets[])"), "\n",
+        .jmes_to_r(x, "length([].datasets[].dataset_assets[])"), "\n",
         sep = ""
     )
 }

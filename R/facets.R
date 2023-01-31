@@ -24,8 +24,7 @@ FACETS <- c(
     )
     projection <-
         cellxgene_db |>
-        jmespath(query) |>
-        parse_json()
+        .jmes_to_r(query)
 
     projection |>
         bind_rows() |>
