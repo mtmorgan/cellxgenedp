@@ -238,7 +238,7 @@ illustration, we download one of our selected files.
 local_file <-
     selected_files |>
     filter(
-        dataset_id == "3de0ad6d-4378-4f62-b37b-ec0b75a50d94",
+        dataset_id == "24205601-0780-4bf2-b1d9-0e3cacbc2cd6",
         filetype == "H5AD"
     ) |>
     files_download(dry.run = FALSE)
