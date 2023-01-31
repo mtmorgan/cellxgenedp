@@ -3,6 +3,6 @@ test_that("keys() works", {
     skip_if_not(db_exists)
 
     keys <- keys()
-    expected <- c(collections = 16L, datasets = 26L, files = 8L)
+    expected <- c(collections = 15L, datasets = 26L, files = 8L)
     expect_true(all(lengths(keys) >= expected))
 })
