@@ -197,6 +197,64 @@ left_join(
 )
 ```
 
+## Publication and other external data
+
+Many collections include publication information and other external
+data. This information is available in the return value of
+`collections()`, but the helper function `publisher_metadata()`,
+`authors()`, and `links()` may facilite access.
+
+Suppose one is interested in the publication "A single-cell atlas of
+the healthy breast tissues reveals clinically relevant clusters of
+breast epithelial cells". Discover it in the collections
+
+```{r}
+title_of_interest <- paste(
+    "A single-cell atlas of the healthy breast tissues reveals clinically",
+    "relevant clusters of breast epithelial cells"
+)
+collection_of_interest <-
+    collections(db) |>
+    dplyr::filter(startsWith(name, title_of_interest))
+collection_of_interest |>
+    glimpse()
+```
+
+Use the `collection_id` to extract publisher metadata (including a DOI
+if available) and author information
+
+```{r}
+collection_id_of_interest <- pull(collection_of_interest, "collection_id")
+publisher_metadata(db) |>
+    filter(collection_id == collection_id_of_interest) |>
+    glimpse()
+authors(db) |>
+    filter(collection_id == collection_id_of_interest)
+```
+
+Collections may have links to additional external data, in this case a
+DOI and two links to `RAW_DATA`.
+
+```{r}
+external_links <- links(db)
+external_links
+external_links |>
+    count(link_type)
+external_links |>
+    filter(collection_id == collection_id_of_interest)
+```
+
+Conversely, knowledge of a DOI, etc., can be used to discover details
+of the corresponding collection.
+
+```{r}
+doi_of_interest <- "https://doi.org/10.1016/j.xcrm.2021.100219"
+links(db) |>
+    filter(link_type == "DOI" & link_url == doi_of_interest) |>
+    left_join(collections(db)) |>
+    glimpse()
+```
+
 # Visualizing data in `cellxgene`
 
 Discover files associated with our first selected dataset
