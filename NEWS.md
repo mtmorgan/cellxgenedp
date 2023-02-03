@@ -1,3 +1,10 @@
+# cellxgenedp 1.4
+
+SIGNIFICANT USER-VISIBLE CHANGES
+
+* (v 1.3.3) add publisher_metadata(), authors(), and links() to make access
+  to nested 'collections()' data more straight-forward
+
 # cellxgenedp 1.2
 
 SIGNIFICANT USER-VISIBLE CHANGES
