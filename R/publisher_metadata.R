@@ -109,7 +109,11 @@ publisher_metadata <-
         .jmes_to_r(cellxgene_db, publisher_metadata_path) |>
         bind_rows() |>
         as_tibble() |>
-        mutate(published_at = as.Date(as.POSIXct(.data$published_at)))
+        mutate(
+            published_at = as.Date(as.POSIXct(
+                .data$published_at, origin = "1970-01-01 00:00.00 UTC"
+            ))
+        )
 
     collection_id <- .jmes_to_r(cellxgene_db, "[*].id")
     name <- .jmes_to_r(cellxgene_db, "[*].name")
