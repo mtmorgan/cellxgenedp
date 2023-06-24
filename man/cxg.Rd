@@ -24,7 +24,7 @@ Shiny application for discovering, viewing, and downloading
 cellxgene data
 }
 \examples{
-\donttest{
+\dontrun{
 cxg()
 }
 

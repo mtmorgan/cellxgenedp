@@ -313,7 +313,7 @@
 #'     imported into R as SingleCellExperiment objects.
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' cxg()
 #' }
 #'
