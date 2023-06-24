@@ -1,6 +1,6 @@
 Package: cellxgenedp
 Title: Discover and Access Single Cell Data Sets in the cellxgene Data Portal
-Version: 1.5.0
+Version: 1.5.1
 Authors@R: 
     c(person(
         given = "Martin",
@@ -36,3 +36,4 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
 VignetteBuilder: knitr
 Config/testthat/edition: 3
+URL: https://mtmorgan.github.io/cellxgenedp/
