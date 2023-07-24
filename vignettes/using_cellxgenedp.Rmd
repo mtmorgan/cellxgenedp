@@ -311,7 +311,7 @@ cache), so the process is only time-consuming the first time.
 the [zellkonverter][] package.
 
 ```{r}
-h5ad <- readH5AD(local_file, use_hdf5 = TRUE)
+h5ad <- readH5AD(local_file, use_hdf5 = TRUE, reader = "R")
 h5ad
 ```
 
