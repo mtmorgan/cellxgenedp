@@ -29,6 +29,7 @@
     jmespath(db, path) |>
         parse_json(..., simplifyVector = simplifyVector)
 }
+
 .onLoad <-
     function(libname, pkgname)
 {

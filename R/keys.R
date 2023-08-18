@@ -1,4 +1,4 @@
-.KEYS_BLOCKLIST <- c("datasets", "dataset_assets")
+.KEYS_BLOCKLIST <- c("datasets", "assets")
 
 .keys <-
     function(db, query_base, keys, path)
@@ -20,7 +20,7 @@ keys <-
     queries <- c(
         collections = "[0]",
         datasets = "[0].datasets[0]",
-        files = "[0].datasets[0].dataset_assets[0]"
+        files = "[0].datasets[0].assets[0]"
     )
     lapply(queries, .keys, db = cellxgene_db)
 }
@@ -68,7 +68,7 @@ keys <-
     ## format
     result <-
         tbl |>
-        relocate(ends_with("_id"), "id", everything()) |>
+        relocate(ends_with("_id"), everything()) |>
         relocate(ends_with("_at"), .after = last_col())
 
     ## class

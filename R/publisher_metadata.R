@@ -19,7 +19,7 @@ links <-
 {
     link_lengths <-
         .jmes_to_r(cellxgene_db, "[*].length(links)[]")
-    collection_ids <- .jmes_to_r(cellxgene_db, "[*].id")
+    collection_ids <- .jmes_to_r(cellxgene_db, "[*].collection_id")
     collection_id <- tibble(collection_id = rep(collection_ids, link_lengths))
     links <-
         cellxgene_db |>
@@ -53,24 +53,19 @@ links <-
 authors <-
     function(cellxgene_db = db())
 {
-    has_publisher_metadata <-
-        cellxgene_db |>
-        .jmes_to_r("[*].contains(keys(@), 'publisher_metadata')")
+    ## publisher_metadata can be NULL; filter for non-null values
+    cellxgene_db <- jmespath(cellxgene_db, "[?not_null(publisher_metadata)]")
 
     author_length <-
         .jmes_to_r(cellxgene_db, "[*].publisher_metadata[].length(authors)")
-    author_path <- "[*].publisher_metadata[].authors[]"
     author <-
-        .jmes_to_r(cellxgene_db, author_path) |>
+        .jmes_to_r(cellxgene_db, "[*].publisher_metadata[].authors[]") |>
         bind_rows() |>
         as_tibble() |>
         rename(consortium = "name")
 
-    has_publisher_metadata <- .jmes_to_r(
-        cellxgene_db, "[*].contains(keys(@), 'publisher_metadata')"
-    )
-    collection_id <- .jmes_to_r(cellxgene_db, "[*].id")
-    collection_id <- rep(collection_id[has_publisher_metadata], author_length)
+    collection_ids <- .jmes_to_r(cellxgene_db, "[*].collection_id")
+    collection_id <- rep(collection_ids, author_length)
     bind_cols(
         tibble(collection_id = collection_id),
         author
@@ -91,9 +86,8 @@ authors <-
 publisher_metadata <-
     function(cellxgene_db = db())
 {
-    has_publisher_metadata <-
-        cellxgene_db |>
-        .jmes_to_r("[*].contains(keys(@), 'publisher_metadata')")
+    ## publisher_metadata can be NULL; filter for non-null values
+    cellxgene_db <- jmespath(cellxgene_db, "[?not_null(publisher_metadata)]")
 
     keys <- c(
         "is_preprint", "journal",
@@ -115,13 +109,10 @@ publisher_metadata <-
             ))
         )
 
-    collection_id <- .jmes_to_r(cellxgene_db, "[*].id")
+    collection_id <- .jmes_to_r(cellxgene_db, "[*].collection_id")
     name <- .jmes_to_r(cellxgene_db, "[*].name")
     publisher_metadata <- bind_cols(
-        tibble(
-            collection_id = collection_id[has_publisher_metadata],
-            name = name[has_publisher_metadata],
-        ),
+        tibble(collection_id = collection_id, name = name),
         publisher_metadata
     )
 

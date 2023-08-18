@@ -8,43 +8,32 @@
 files <-
     function(cellxgene_db = db())
 {
-    .keys_query(cellxgene_db, "[].datasets[].dataset_assets[]", "files") |>
-        relocate(file_id = "id")
-}
-
-## url <- paste0(
-##     "https://api.cellxgene.cziscience.com/dp/v1/datasets/"
-##     "86b37b3c-1e5e-46a9-aecc-2d95b6a38d4b/asset/",
-##     "e43c9f97-9d75-4a67-b62d-0170a597f914"
-## )
-.file_presigned_url <-
-    function(url)
-{
-    response <- httr::POST(url)
-    stop_for_status(response)
-    result <- content(response, as="text", encoding = "UTF-8")
-    jmespath(result, "presigned_url")
+    dataset_ids <- .jmes_to_r(cellxgene_db, "[].datasets[].dataset_id")
+    files_per_dataset <- .jmes_to_r(
+        cellxgene_db, "[].datasets[].length(assets)"
+    )
+    files <- .keys_query(cellxgene_db, "[].datasets[].assets[]", "files")
+    bind_cols(
+        dataset_id = rep(dataset_ids, files_per_dataset),
+        files
+    )
 }
 
 .file_download <-
-    function(dataset_id, file_id, file_type, base_url, dry.run, cache.path)
+    function(dataset_id, file_type, url, dry.run, cache.path)
 {
-    ## construct and sign url
-    url <- paste0(base_url, dataset_id, "/asset/", file_id)
-    signed_url <- .file_presigned_url(url)
-
-    ## download
-    file_name <- paste0(file_id, ".", file_type)
+    file_name <- basename(url)
     if (dry.run) {
         message(
             "'files_download(dry.run = TRUE)'\n",
-            "  file_id: ", file_id, "\n",
             "  file_name: ", file_name, "\n"
         )
         return(file_name)
     }
+
+    ## download
     .cellxgene_cache_get(
-        signed_url, file_name, progress = interactive(), cache_path = cache.path
+        url, file_name, progress = interactive(), cache_path = cache.path
     )
 }
 
@@ -77,17 +66,15 @@ files_download <-
     function(tbl, dry.run = TRUE, cache.path = .cellxgene_cache_path())
 {
     stopifnot(
-        all(c("dataset_id", "file_id", "filetype") %in% colnames(tbl)),
+        all(c("dataset_id", "filetype", "url") %in% colnames(tbl)),
         .is_scalar_logical(dry.run),
         .is_scalar_character(cache.path), dir.exists(cache.path)
     )
 
     result <- Map(
         .file_download,
-        pull(tbl, "dataset_id"), pull(tbl, "file_id"), pull(tbl, "filetype"),
-        MoreArgs = list(
-            base_url = .DATASETS, dry.run = dry.run, cache.path = cache.path
-        )
+        pull(tbl, "dataset_id"), pull(tbl, "filetype"), pull(tbl, "url"),
+        MoreArgs = list(dry.run = dry.run, cache.path = cache.path)
     )
 
     if (identical(length(result), 0L)) {
