@@ -3,3 +3,5 @@ README.*
 ^\.Rproj\.user$
 .httr-oauth
 
+^doc$
+^Meta$

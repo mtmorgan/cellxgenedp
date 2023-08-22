@@ -5,15 +5,23 @@ test_that("collections() works", {
     collections <- collections()
     expect_true(nrow(collections) >= 48L)
     COLLECTIONS_COLUMNS <- c(
-        collection_id="character", access_type="character",
+        collection_id="character",
+        collection_version_id = "character",
+        collection_url = "character",
+        consortia = "list",
         contact_email="character",
         contact_name="character",
         curator_name="character",
-        data_submission_policy_version="character",
-        description="character", links="list",
-        name="character", visibility="character",
-        created_at="Date", published_at="Date",
-        updated_at="Date"
+        description="character",
+        doi = "character",
+        links="list",
+        name="character",
+        publisher_metadata = "list",
+        revising_in = "logical",
+        revision_of = "logical",
+        visibility="character",
+        created_at="Date",
+        published_at="Date"
     )
     column_names <- names(COLLECTIONS_COLUMNS)
     expect_true(all(column_names %in% names(collections)))

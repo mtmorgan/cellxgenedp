@@ -6,16 +6,15 @@ test_that("links() works", {
     expect_true(nrow(links) >= 549L)
 
     link_types <- c(
-        "OTHER", "RAW_DATA", "DOI", "PROTOCOL", "DATA_SOURCE",
-        "LAB_WEBSITE"
+        "DATA_SOURCE", "LAB_WEBSITE", "OTHER", "PROTOCOL", "RAW_DATA"
     )
     expect_true(all(link_types %in% unique(pull(links, "link_type"))))
 
     ## used in vignette
-    doi_of_interest <- "https://doi.org/10.1016/j.xcrm.2021.100219"
+    doi_of_interest <- "https://doi.org/10.1016/j.stem.2018.12.011"
     rows_of_interest <-
         links |>
-        filter(link_type == "DOI" & link_url == doi_of_interest) |>
+        filter(link_url == doi_of_interest) |>
         nrow()
     expect_identical(rows_of_interest, 1L)
 })

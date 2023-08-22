@@ -20,6 +20,15 @@
     response
 }
 
+## for testing purposes
+.cellxgene_HEAD <-
+    function(uri)
+{
+    response <- httr::HEAD(uri)
+    stop_for_status(response)
+    response
+}
+
 #' @importFrom tools R_user_dir
 .cellxgene_cache_path <-
     function(base_path = R_user_dir("cellxgenedp", "cache"))

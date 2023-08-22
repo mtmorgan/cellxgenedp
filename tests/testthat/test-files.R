@@ -5,9 +5,10 @@ test_that("files() works", {
     files <- files()
 
     FILES_COLUMNS <- c(
-        file_id="character", dataset_id="character", filename="character", 
-        filetype="character", s3_uri="character",
-        user_submitted="logical", created_at="Date", updated_at="Date"
+        dataset_id = "character",
+        filesize = "numeric",
+        filetype = "character",
+        url = "character"
     )
     column_names <- names(FILES_COLUMNS)
     expect_true(all(column_names %in% names(files)))
@@ -43,14 +44,14 @@ test_that("files_download() works", {
 
 test_that("files_download() returns named character vector on 0 inputs", {
     tbl <- data.frame(
-        dataset_id = character(), file_id = character(), filetype = character()
+        dataset_id = character(), filetype = character(), url = character()
     )
     expect_identical(files_download(tbl), setNames(character(), character()))
 })
 
 test_that("files_download() pays attention to cache.path", {
     tbl <- data.frame(
-        dataset_id = character(), file_id = character(), filetype = character()
+        dataset_id = character(), filetype = character(), url = character()
     )
     cache_path <- tempfile()
     ## directory does not exist
