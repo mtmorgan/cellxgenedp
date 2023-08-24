@@ -45,3 +45,22 @@
         }
     }
 }
+
+.wrap <-
+    function(...)
+{
+    x <- paste0(...)
+    paste(strwrap(x), collapse = "\n")
+}
+
+.onAttach <-
+    function(libname, pkgname)
+{
+    packageStartupMessage(.wrap(
+        "The interface to CELLxGENE has changed; versions of ",
+        "cellxgenedp prior to 1.4.1 / 1.5.2 will cease to work when ",
+        "CELLxGENE removes the previous interface. See the section ",
+        "'API changes' of the 'Discover and download datasets...' ",
+        "vignette for important details."
+    ))
+}

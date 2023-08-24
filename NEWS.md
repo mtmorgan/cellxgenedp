@@ -4,6 +4,10 @@ SIGNIFICANT USER-VISIBLE CHANGES
 
 * (v 1.3.3) add publisher_metadata(), authors(), and links() to make access
   to nested 'collections()' data more straight-forward
+  
+* (v 1.4.1) use CELLxGENE 'Discover' API, changing column names of
+  some return values. See 'API changes' of the 'Discover and download
+  datasets...' vignette.
 
 # cellxgenedp 1.2
 

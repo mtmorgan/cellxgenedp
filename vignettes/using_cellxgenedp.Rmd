@@ -19,6 +19,11 @@ vignette: |
     %\VignetteEncoding{UTF-8}
 ---
 
+NOTE: The interface to CELLxGENE has changed; versions of
+[cellxgenedp][] prior to 1.4.1 / 1.5.2 will cease to work when
+CELLxGENE removes the previous interface. See the vignette section
+'API changes' for additional details.
+
 # Installation and use
 
 This package is available in _Bioconductor_ version 3.15 and
@@ -344,6 +349,38 @@ as derived single-cell data files.
 
 [hca]: https://bioconductor.org/packages/hca
 [HCAportal]: https://data.humancellatlas.org/explore
+
+# API changes
+
+Data access provided by CELLxGENE has changed to a new 'Discover'
+[API][]. The main functionality of the [cellxgenedp][] package has not
+changed, but specific columns have been removed, replaced or added, as
+follows:
+
+`collections()`
+
+- Removed: `access_type`, `data_submission_policy_version`
+- Replaced: `updated_at` replaced with `revised_at`
+- Added: `collection_version_id`, `collection_url`, `doi`,
+  `revising_in`, `revision_of`
+
+`datasets()`
+
+- Removed: `is_valid`, `processing_status`, `published`, `revision`,
+  `created_at`
+- Replaced: `dataset_deployments` replaced with `explorer_url`, `name`
+  replaced with `title`, `updated_at` replaced with `revised_at`
+- Added: `dataset_version_id`, `batch_condition`,
+  `x_approximate_distribution`
+
+`files()`
+
+- Removed: `file_id`, `filename`, `s3_uri`, `user_submitted`,
+  `created_at`, `updated_at`
+- Added: `filesize`, `url`
+
+
+[API]: https://api.cellxgene.cziscience.com/curation/ui/
 
 # Session info {.unnumbered}
 
