@@ -19,6 +19,11 @@ vignette: |
     %\VignetteEncoding{UTF-8}
 ---
 
+NOTE: The interface to CELLxGENE has changed; versions of
+[cellxgenedp][] prior to 1.4.1 / 1.5.2 will cease to work when
+CELLxGENE removes the previous interface. See the vignette section
+'API changes' for additional details.
+
 # Installation and use
 
 This package is available in _Bioconductor_ version 3.15 and
@@ -248,10 +253,10 @@ Conversely, knowledge of a DOI, etc., can be used to discover details
 of the corresponding collection.
 
 ```{r}
-doi_of_interest <- "https://doi.org/10.1016/j.xcrm.2021.100219"
+doi_of_interest <- "https://doi.org/10.1016/j.stem.2018.12.011"
 links(db) |>
-    filter(link_type == "DOI" & link_url == doi_of_interest) |>
-    left_join(collections(db)) |>
+    filter(link_url == doi_of_interest) |>
+    left_join(collections(db), by = "collection_id") |>
     glimpse()
 ```
 
@@ -292,11 +297,11 @@ Seurat used to create the file is different from the version used to
 read the file. We therefore focus on the `H5AD` files. For
 illustration, we download one of our selected files.
 
-```{r}
+```{r local_file_from_dataset_id}
 local_file <-
     selected_files |>
     filter(
-        dataset_id == "24205601-0780-4bf2-b1d9-0e3cacbc2cd6",
+        dataset_id == "de985818-285f-4f59-9dbd-d74968fddba3",
         filetype == "H5AD"
     ) |>
     files_download(dry.run = FALSE)
@@ -310,7 +315,7 @@ cache), so the process is only time-consuming the first time.
 `H5AD` files can be converted to _R_ / _Bioconductor_ objects using
 the [zellkonverter][] package.
 
-```{r}
+```{r readH5AD}
 h5ad <- readH5AD(local_file, use_hdf5 = TRUE, reader = "R")
 h5ad
 ```
@@ -344,6 +349,38 @@ as derived single-cell data files.
 
 [hca]: https://bioconductor.org/packages/hca
 [HCAportal]: https://data.humancellatlas.org/explore
+
+# API changes
+
+Data access provided by CELLxGENE has changed to a new 'Discover'
+[API][]. The main functionality of the [cellxgenedp][] package has not
+changed, but specific columns have been removed, replaced or added, as
+follows:
+
+`collections()`
+
+- Removed: `access_type`, `data_submission_policy_version`
+- Replaced: `updated_at` replaced with `revised_at`
+- Added: `collection_version_id`, `collection_url`, `doi`,
+  `revising_in`, `revision_of`
+
+`datasets()`
+
+- Removed: `is_valid`, `processing_status`, `published`, `revision`,
+  `created_at`
+- Replaced: `dataset_deployments` replaced with `explorer_url`, `name`
+  replaced with `title`, `updated_at` replaced with `revised_at`
+- Added: `dataset_version_id`, `batch_condition`,
+  `x_approximate_distribution`
+
+`files()`
+
+- Removed: `file_id`, `filename`, `s3_uri`, `user_submitted`,
+  `created_at`, `updated_at`
+- Added: `filesize`, `url`
+
+
+[API]: https://api.cellxgene.cziscience.com/curation/ui/
 
 # Session info {.unnumbered}
 

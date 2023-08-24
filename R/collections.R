@@ -19,6 +19,5 @@
 collections <-
     function(cellxgene_db = db())
 {
-    .keys_query(cellxgene_db, "[]", "collections") |>
-        relocate(collection_id = "id")
+    .keys_query(cellxgene_db, "[]", "collections")
 }

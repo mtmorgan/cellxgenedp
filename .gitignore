@@ -8,3 +8,5 @@ vignettes/*html
 *html
 *_cache
 
+/doc/
+/Meta/

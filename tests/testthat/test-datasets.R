@@ -5,20 +5,29 @@ test_that("datasets() works", {
     datasets <- datasets()
     expect_true(nrow(datasets) >= 223L)
     DATASETS_COLUMNS <- c(
-        dataset_id="character", collection_id="character",
-        assay="list", cell_count="integer", cell_type="list",
-        dataset_deployments="character",
-        development_stage="list", disease="list",
-        self_reported_ethnicity="list",
-        is_primary_data="character", is_valid="logical",
-        mean_genes_per_cell="numeric",
-        name="character", organism="list", processing_status="list",
-        published="logical", revision="integer",
-        schema_version="character",
-        sex="list", tissue="list", tombstone="logical",
-        created_at="Date",
-        published_at="Date",
-        updated_at="Date"
+        dataset_id = "character",
+        dataset_version_id = "character",
+        collection_id = "character",
+        donor_id = "list",
+        assay = "list",
+        batch_condition = "list",
+        cell_count = "integer",
+        cell_type = "list",
+        development_stage = "list",
+        disease = "list",
+        explorer_url = "character",
+        is_primary_data = "list",
+        mean_genes_per_cell = "numeric",
+        organism = "list",
+        schema_version = "character",
+        self_reported_ethnicity = "list",
+        sex = "list",
+        suspension_type = "list",
+        tissue = "list", title = "character",
+        tombstone = "logical",
+        x_approximate_distribution = "character",
+        published_at = "Date",
+        revised_at = "Date"
     )
     column_names <- names(DATASETS_COLUMNS)
     expect_true(all(column_names %in% names(datasets)))

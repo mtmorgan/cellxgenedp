@@ -79,7 +79,7 @@ db <-
     if (overwrite)
         message("updating database and collections...")
     db <- .db(overwrite)
-    details <- lapply(db$id, .db_detail, overwrite = overwrite)
+    details <- lapply(db$collection_id, .db_detail, overwrite = overwrite)
     errors <- vapply(details, inherits, logical(1), "error")
     if (any(errors)) {
         stop(
@@ -105,7 +105,7 @@ print.cellxgene_db <-
         "number of collections(): ", .jmes_to_r(x, "length([])"), "\n",
         "number of datasets(): ", .jmes_to_r(x, "length([].datasets[])"), "\n",
         "number of files(): ",
-        .jmes_to_r(x, "length([].datasets[].dataset_assets[])"), "\n",
+        .jmes_to_r(x, "length([].datasets[].assets[])"), "\n",
         sep = ""
     )
 }

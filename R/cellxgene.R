@@ -4,9 +4,9 @@
 
 .CELLXGENE_PRODUCTION_ENDPOINT <- paste0("https://", .CELLXGENE_PRODUCTION_HOST)
 
-.DATASETS <- paste0(.CELLXGENE_PRODUCTION_ENDPOINT, "/dp/v1/datasets/")
+.DATASETS <- paste0(.CELLXGENE_PRODUCTION_ENDPOINT, "/curation/v1/datasets/")
 
-.COLLECTIONS <- paste0(.CELLXGENE_PRODUCTION_ENDPOINT, "/dp/v1/collections/")
+.COLLECTIONS <- paste0(.CELLXGENE_PRODUCTION_ENDPOINT, "/curation/v1/collections/")
 
 .CELLXGENE_EXPLORER <- "https://cellxgene.cziscience.com/e/"
 
@@ -20,10 +20,20 @@
     response
 }
 
+## for testing purposes
+.cellxgene_HEAD <-
+    function(uri)
+{
+    response <- httr::HEAD(uri)
+    stop_for_status(response)
+    response
+}
+
 #' @importFrom tools R_user_dir
 .cellxgene_cache_path <-
-    function(path = R_user_dir("cellxgenedp", "cache"))
+    function(base_path = R_user_dir("cellxgenedp", "cache"))
 {
+    path <- file.path(base_path, "curation", "v1")
     if (!dir.exists(path))
         dir.create(path, recursive = TRUE)
     path

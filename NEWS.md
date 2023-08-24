@@ -1,3 +1,9 @@
+# cellxgenedp 1.6
+  
+* (v 1.5.2) use CELLxGENE 'Discover' API, changing column names of
+  some return values. See 'API changes' of the 'Discover and download
+  datasets...' vignette.
+
 # cellxgenedp 1.4
 
 SIGNIFICANT USER-VISIBLE CHANGES

@@ -9,8 +9,17 @@
 datasets <-
     function(cellxgene_db = db())
 {
-    .keys_query(cellxgene_db, "[].datasets[]", "datasets") |>
-        relocate(dataset_id = "id")
+    collection_ids <- .jmes_to_r(cellxgene_db, "[].collection_id")
+    datasets_per_collection <- .jmes_to_r(cellxgene_db, "[].length(datasets)")
+    datasets <- .keys_query(cellxgene_db, "[].datasets[]", "datasets")
+    datasets |>
+        bind_cols(
+            collection_id = rep(collection_ids, datasets_per_collection)
+        ) |>
+        relocate(
+            "dataset_id", "dataset_version_id", "collection_id",
+            everything()
+        )
 }
 
 #' @importFrom utils browseURL
