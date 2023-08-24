@@ -81,7 +81,7 @@
             view = as.character(icon("eye-open", lib = "glyphicon"))
         ) |>
         select(
-            "dataset_id", "collection_id", "view", "name", "tissue", "assay",
+            "dataset_id", "collection_id", "view", "title", "tissue", "assay",
             "disease", "organism", "cell_count"
         )
 }
@@ -271,7 +271,7 @@
         if (info$col == 3) {
             files <<- .cxg_files(db, id)
             files |>
-                filter(.data$filetype == "CXG") |>
+                ## filter(.data$filetype == "CXG") |>
                 slice(1) |>
                 datasets_visualize()
         }
