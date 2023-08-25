@@ -18,7 +18,7 @@ collections."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/lib
     
     <a class="navbar-brand me-2" href="../index.html">cellxgenedp</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.5.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.5.3</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -41,7 +41,13 @@ collections."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/lib
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
-      <ul class="navbar-nav"></ul></div>
+      <ul class="navbar-nav"><li class="nav-item">
+  <a class="external-link nav-link" href="https://github.com/mtmorgan/cellxgenedp/" aria-label="github">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul></div>
 
     
   </div>
@@ -49,7 +55,7 @@ collections."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/lib
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="" class="logo" alt=""><h1>Query cellxgene collections, datasets, and files</h1>
-      
+      <small class="dont-index">Source: <a href="https://github.com/mtmorgan/cellxgenedp/blob/HEAD/R/collections.R" class="external-link"><code>R/collections.R</code></a>, <a href="https://github.com/mtmorgan/cellxgenedp/blob/HEAD/R/datasets.R" class="external-link"><code>R/datasets.R</code></a>, <a href="https://github.com/mtmorgan/cellxgenedp/blob/HEAD/R/files.R" class="external-link"><code>R/files.R</code></a>, and 1 more</small>
       <div class="d-none name"><code>query.Rd</code></div>
     </div>
 
@@ -138,93 +144,93 @@ collection.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">db</span> <span class="op">&lt;-</span> <span class="fu"><a href="db.html">db</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">collections</span><span class="op">(</span><span class="va">db</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 145 × 15</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    collection_id   access_type consortia contact_email contact_name curator_name</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> 2b02dff7-e427-… READ        <span style="color: #949494;">&lt;lgl [1]&gt;</span> miriam.merad… Miriam Merad Batuhan Cak…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> 03cdc7f4-bd08-… READ        <span style="color: #949494;">&lt;lgl [1]&gt;</span> tien.peng@uc… Tien Peng    Jason Hilton</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> a72afd53-ab92-… READ        <span style="color: #949494;">&lt;lgl [1]&gt;</span> cblish@stanf… Catherine A… Jennifer Yu…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> e9eec7f5-8519-… READ        <span style="color: #949494;">&lt;list&gt;</span>    mrc38@cam.ac… Menna R Cla… Batuhan Cak…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> 4796c91c-9d8f-… READ        <span style="color: #949494;">&lt;lgl [1]&gt;</span> vazquezi@msk… Ignacio Váz… Jason Hilton</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> bcb61471-2a44-… READ        <span style="color: #949494;">&lt;list&gt;</span>    info@kpmp.org KPMP         Jennifer Yu…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> 13d1c580-4b17-… READ        <span style="color: #949494;">&lt;list&gt;</span>    my4@sanger.a… Matthew You… Jason Hilton</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> 5e469121-c203-… READ        <span style="color: #949494;">&lt;list&gt;</span>    biren@ucsd.e… Bing Ren     Jennifer Yu…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> 9132fae8-bdfe-… READ        <span style="color: #949494;">&lt;lgl [1]&gt;</span> zhuang@chemi… Xiaowei Zhu… Jennifer Yu…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> 0a77d4c0-d5d0-… READ        <span style="color: #949494;">&lt;list&gt;</span>    fabian.theis… Fabian Theis Jennifer Yu…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 135 more rows</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 9 more variables: data_submission_policy_version &lt;chr&gt;, description &lt;chr&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   links &lt;list&gt;, name &lt;chr&gt;, publisher_metadata &lt;list&gt;, visibility &lt;chr&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   created_at &lt;date&gt;, published_at &lt;date&gt;, updated_at &lt;date&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 152 × 18</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    collection_id    collection_version_id collection_url consortia contact_email</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                 <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> e75342a8-0f3b-4… 2d569157-4335-40d6-a… https://cellx… <span style="color: #949494;">&lt;list&gt;</span>    nhuebner@mdc…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> 661a402a-2a5a-4… 626b26f4-a84c-4f31-8… https://cellx… <span style="color: #949494;">&lt;lgl [1]&gt;</span> rv4@sanger.a…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> 367d95c0-0eb0-4… 4216ddce-94c0-4fdc-9… https://cellx… <span style="color: #949494;">&lt;list&gt;</span>    edl@allenins…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> af893e86-8e9f-4… fc8a8009-02f0-4084-9… https://cellx… <span style="color: #949494;">&lt;list&gt;</span>    ruichen@bcm.…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> 48d354f5-a5ca-4… 54caf53d-0a4d-4874-9… https://cellx… <span style="color: #949494;">&lt;list&gt;</span>    Nathan.Salom…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> 793fdaec-5067-4… b4431833-4155-48d7-8… https://cellx… <span style="color: #949494;">&lt;list&gt;</span>    m.a.haniffa@…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> 13d1c580-4b17-4… c7b93415-bf09-45df-9… https://cellx… <span style="color: #949494;">&lt;list&gt;</span>    my4@sanger.a…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> fbc5881f-1ee3-4… 4f2da30d-407b-4c94-8… https://cellx… <span style="color: #949494;">&lt;list&gt;</span>    Douglas.Stra…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> c114c20f-1ef4-4… 871e2180-9ac4-4025-8… https://cellx… <span style="color: #949494;">&lt;lgl [1]&gt;</span> shendure@uw.…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> c8565c6a-01a1-4… 07bfe4f4-61bc-463c-a… https://cellx… <span style="color: #949494;">&lt;list&gt;</span>    carmen.sando…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 142 more rows</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 13 more variables: contact_name &lt;chr&gt;, curator_name &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   description &lt;chr&gt;, doi &lt;chr&gt;, links &lt;list&gt;, name &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   publisher_metadata &lt;list&gt;, revising_in &lt;lgl&gt;, revision_of &lt;lgl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   visibility &lt;chr&gt;, created_at &lt;date&gt;, published_at &lt;date&gt;, revised_at &lt;date&gt;</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">collections</span><span class="op">(</span><span class="va">db</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html" class="external-link">glimpse</a></span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Rows: 145</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Columns: 15</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ collection_id                  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "2b02dff7-e427-4cdc-96fb-c0f354c099aa",…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ access_type                    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "READ", "READ", "READ", "READ", "READ",…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ consortia                      <span style="color: #949494; font-style: italic;">&lt;list&gt;</span> NA, NA, NA, ["Wellcome HCA Strategic S…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ contact_email                  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "miriam.merad@mssm.edu", "tien.peng@ucs…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ contact_name                   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "Miriam Merad", "Tien Peng", "Catherine…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ curator_name                   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "Batuhan Cakir", "Jason Hilton", "Jenni…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ data_submission_policy_version <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "1.0", "1.0", "1.0", "1.0", "1.0", "1.0…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ description                    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "Clinical benefits of cytokine blockade…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ links                          <span style="color: #949494; font-style: italic;">&lt;list&gt;</span> [["", "RAW_DATA", "https://www.ncbi.nl…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ name                           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "Single-Cell Analysis of Crohn’s Diseas…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ publisher_metadata             <span style="color: #949494; font-style: italic;">&lt;list&gt;</span> [[["Martin", "Jerome C."], ["Chang", "…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ visibility                     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "PUBLIC", "PUBLIC", "PUBLIC", "PUBLIC",…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ created_at                     <span style="color: #949494; font-style: italic;">&lt;date&gt;</span> 2023-03-21, 2023-06-22, 2023-03-21, 20…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ published_at                   <span style="color: #949494; font-style: italic;">&lt;date&gt;</span> 2022-04-26, 2023-01-28, 2020-09-28, 20…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ updated_at                     <span style="color: #949494; font-style: italic;">&lt;date&gt;</span> 2023-03-21, 2023-06-22, 2023-03-21, 20…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Rows: 152</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Columns: 18</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $ collection_id         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "e75342a8-0f3b-4ec5-8ee1-245a23e0f7cb", "661a402…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $ collection_version_id <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "2d569157-4335-40d6-af31-14e130c3d8bd", "626b26f…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $ collection_url        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "https://cellxgene.cziscience.com/collections/e7…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $ consortia             <span style="color: #949494; font-style: italic;">&lt;list&gt;</span> ["CZI Single-Cell Biology"], NA, ["Allen Instit…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $ contact_email         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "nhuebner@mdc-berlin.de", "rv4@sanger.ac.uk", "e…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $ contact_name          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "Norbert Hübner", "Roser Vento-Tormo", "Ed S. Le…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $ curator_name          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "Jennifer Yu-Sheng Chien", "Batuhan Cakir", "Jen…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $ description           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "Pathogenic variants in genes that cause dilated…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $ doi                   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "10.1126/science.abo1984", "10.1038/s41586-022-0…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $ links                 <span style="color: #949494; font-style: italic;">&lt;list&gt;</span> [["", "OTHER", "https://github.com/heiniglab/DC…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $ name                  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "Pathogenic variants damage cell composition and…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $ publisher_metadata    <span style="color: #949494; font-style: italic;">&lt;list&gt;</span> [[["Reichart", "Daniel"], ["Lindberg", "Eric L.…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $ revising_in           <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $ revision_of           <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $ visibility            <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "PUBLIC", "PUBLIC", "PUBLIC", "PUBLIC", "PUBLIC"…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $ created_at            <span style="color: #949494; font-style: italic;">&lt;date&gt;</span> 2023-08-22, 2023-08-22, 2023-08-22, 2023-08-22,…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $ published_at          <span style="color: #949494; font-style: italic;">&lt;date&gt;</span> 2022-08-05, 2023-04-11, 2021-02-17, 2021-10-29,…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $ revised_at            <span style="color: #949494; font-style: italic;">&lt;date&gt;</span> 2023-08-22, 2023-08-22, 2023-08-22, 2023-08-22,…</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">datasets</span><span class="op">(</span><span class="va">db</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html" class="external-link">glimpse</a></span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Rows: 841</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Columns: 26</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ dataset_id              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "7a637398-175f-4cf2-b06a-6a494503196b", "9aca7…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ collection_id           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "2b02dff7-e427-4cdc-96fb-c0f354c099aa", "03cdc…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ donor_id                <span style="color: #949494; font-style: italic;">&lt;list&gt;</span> ["pat.5", "pat.6", "pat.7", "pat.8", "pat.10"…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ assay                   <span style="color: #949494; font-style: italic;">&lt;list&gt;</span> [["10x 3' v1", "EFO:0009901"], ["10x 3' v2", …</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ cell_count              <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> 32458, 35699, 18386, 3662, 44721, 130908, 2116…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ cell_type               <span style="color: #949494; font-style: italic;">&lt;list&gt;</span> [["B cell", "CL:0000236"], ["alpha-beta T cel…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ dataset_deployments     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "https://cellxgene.cziscience.com/e/36c867a7-b…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ development_stage       <span style="color: #949494; font-style: italic;">&lt;list&gt;</span> [["human early adulthood stage", "HsapDv:0000…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ disease                 <span style="color: #949494; font-style: italic;">&lt;list&gt;</span> [["Crohn ileitis", "MONDO:0000709"]], [["norm…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ is_primary_data         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "PRIMARY", "PRIMARY", "PRIMARY", "SECONDARY", …</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ is_valid                <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ mean_genes_per_cell     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 763.68282, 1922.05370, 2918.85603, 3945.77171,…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ name                    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "Ileum", "immune cells", "non-immune cells", "…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ organism                <span style="color: #949494; font-style: italic;">&lt;list&gt;</span> [["Homo sapiens", "NCBITaxon:9606"]], [["Homo…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ processing_status       <span style="color: #949494; font-style: italic;">&lt;list&gt;</span> [0, "UPLOADED", "7a637398-175f-4cf2-b06a-6a49…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ published               <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ revision                <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ schema_version          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "3.0.0", "3.0.0", "3.0.0", "3.0.0", "3.0.0", "…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ self_reported_ethnicity <span style="color: #949494; font-style: italic;">&lt;list&gt;</span> [["unknown", "unknown"]], [["European", "HANC…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ sex                     <span style="color: #949494; font-style: italic;">&lt;list&gt;</span> [["unknown", "unknown"]], [["female", "PATO:0…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ suspension_type         <span style="color: #949494; font-style: italic;">&lt;list&gt;</span> ["cell"], ["cell"], ["cell"], ["cell"], ["cel…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ tissue                  <span style="color: #949494; font-style: italic;">&lt;list&gt;</span> [["ileum", "UBERON:0002116"]], [["alveolus of…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ tombstone               <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALS…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ created_at              <span style="color: #949494; font-style: italic;">&lt;date&gt;</span> 2022-04-13, 2022-09-14, 2023-06-22, 2023-06-2…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ published_at            <span style="color: #949494; font-style: italic;">&lt;date&gt;</span> 2022-04-26, 2023-01-28, 2023-01-28, 2023-01-2…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ updated_at              <span style="color: #949494; font-style: italic;">&lt;date&gt;</span> 2022-04-13, 2022-09-14, 2023-06-22, 2023-06-2…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Rows: 910</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Columns: 24</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $ dataset_id                 <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "f7995301-7551-4e1d-8396-ffe3c9497ace", "ed…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $ dataset_version_id         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "0a4f9a00-6f75-4ff7-aeec-d975b2a983fc", "61…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $ collection_id              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "e75342a8-0f3b-4ec5-8ee1-245a23e0f7cb", "e7…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $ donor_id                   <span style="color: #949494; font-style: italic;">&lt;list&gt;</span> ["DP2", "H3", "DT4", "H5", "DO1", "H6", "H…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $ assay                      <span style="color: #949494; font-style: italic;">&lt;list&gt;</span> [["10x 3' v2", "EFO:0009899"], ["10x 3' v3…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $ batch_condition            <span style="color: #949494; font-style: italic;">&lt;list&gt;</span> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $ cell_count                 <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> 311418, 142816, 2576, 59217, 7999, 881081, …</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $ cell_type                  <span style="color: #949494; font-style: italic;">&lt;list&gt;</span> [["cardiac muscle cell", "CL:0000746"]], […</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $ development_stage          <span style="color: #949494; font-style: italic;">&lt;list&gt;</span> [["adolescent stage", "HsapDv:0000086"], […</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $ disease                    <span style="color: #949494; font-style: italic;">&lt;list&gt;</span> [["arrhythmogenic right ventricular cardio…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $ explorer_url               <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "https://cellxgene.cziscience.com/e/f799530…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $ is_primary_data            <span style="color: #949494; font-style: italic;">&lt;list&gt;</span> [FALSE], [FALSE], [FALSE], [FALSE], [FALSE…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $ mean_genes_per_cell        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 2180.2172, 1437.7487, 2090.2655, 214.9302, …</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $ organism                   <span style="color: #949494; font-style: italic;">&lt;list&gt;</span> [["Homo sapiens", "NCBITaxon:9606"]], [["H…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $ schema_version             <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "3.1.0", "3.1.0", "3.1.0", "3.1.0", "3.1.0"…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $ self_reported_ethnicity    <span style="color: #949494; font-style: italic;">&lt;list&gt;</span> [["Asian", "HANCESTRO:0008"], ["European",…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $ sex                        <span style="color: #949494; font-style: italic;">&lt;list&gt;</span> [["female", "PATO:0000383"], ["male", "PAT…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $ suspension_type            <span style="color: #949494; font-style: italic;">&lt;list&gt;</span> ["nucleus"], ["nucleus"], ["nucleus"], ["n…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $ tissue                     <span style="color: #949494; font-style: italic;">&lt;list&gt;</span> [["apex of heart", "UBERON:0002098"], ["he…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $ title                      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "DCM/ACM heart cell atlas: Cardiomyocytes",…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $ tombstone                  <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, F…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $ x_approximate_distribution <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $ published_at               <span style="color: #949494; font-style: italic;">&lt;date&gt;</span> 2022-08-05, 2022-08-05, 2022-08-05, 2022-0…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $ revised_at                 <span style="color: #949494; font-style: italic;">&lt;date&gt;</span> 2023-08-22, 2023-08-22, 2023-08-22, 2023-0…</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># \donttest{</span></span></span>
-<span class="r-in"><span><span class="co">## visualize the first dataset</span></span></span>
-<span class="r-in"><span><span class="fu">datasets</span><span class="op">(</span><span class="va">db</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
-<span class="r-in"><span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
-<span class="r-in"><span>    <span class="fu">datasets_visualize</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>    <span class="co">## visualize the first dataset</span></span></span>
+<span class="r-in"><span>    <span class="fu">datasets</span><span class="op">(</span><span class="va">db</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>        <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>        <span class="fu">datasets_visualize</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 <span class="r-in"><span><span class="fu">files</span><span class="op">(</span><span class="va">db</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html" class="external-link">glimpse</a></span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Rows: 3,348</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Columns: 8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ file_id        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "e9b93ee2-37a7-454d-b2ea-ee369e979386", "78e930cd-3b37-…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ dataset_id     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "7a637398-175f-4cf2-b06a-6a494503196b", "7a637398-175f-…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ filename       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "", "local.rds", "raw.h5ad", "local.h5ad", "raw.h5ad", …</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ filetype       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "CXG", "RDS", "RAW_H5AD", "H5AD", "RAW_H5AD", "H5AD", "…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ s3_uri         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "s3://hosted-cellxgene-prod/e9b93ee2-37a7-454d-b2ea-ee3…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ user_submitted <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, T…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ created_at     <span style="color: #949494; font-style: italic;">&lt;date&gt;</span> 1970-01-01, 1970-01-01, 1970-01-01, 1970-01-01, 1970-0…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ updated_at     <span style="color: #949494; font-style: italic;">&lt;date&gt;</span> 1970-01-01, 1970-01-01, 1970-01-01, 1970-01-01, 1970-0…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Rows: 1,802</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Columns: 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $ dataset_id <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "f7995301-7551-4e1d-8396-ffe3c9497ace", "f7995301-7551-4e1d…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $ filesize   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 3255625301, 3234403317, 1010106545, 967955201, 35165722, 26…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $ filetype   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "H5AD", "RDS", "H5AD", "RDS", "H5AD", "RDS", "H5AD", "RDS",…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $ url        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "https://datasets.cellxgene.cziscience.com/0a4f9a00-6f75-4f…</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span><span class="fu">files</span><span class="op">(</span><span class="va">db</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
@@ -235,47 +241,46 @@ collection.</p>
 <span class="r-in"><span><span class="co">## common links to external data</span></span></span>
 <span class="r-in"><span><span class="fu">links</span><span class="op">(</span><span class="va">db</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">link_type</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 6 × 2</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 5 × 2</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   link_type       n</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> DATA_SOURCE    40</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> DOI           138</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> LAB_WEBSITE    33</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> OTHER         254</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> PROTOCOL       40</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> RAW_DATA      193</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> DATA_SOURCE    51</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> LAB_WEBSITE    33</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> OTHER         264</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> PROTOCOL       40</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> RAW_DATA      203</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## authors per collection</span></span></span>
 <span class="r-in"><span><span class="fu">authors</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">collection_id</span>, sort <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 138 × 2</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 146 × 2</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    collection_id                            n</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> e5f58829-1a66-40b5-a624-9046778e74f5   221</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> 8f126edf-5405-4731-8374-b5ce11f53e82   205</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> 4f586cb6-972b-4ef7-a4ef-3c3800a3c004   147</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> 0b9d8a04-bb9d-44da-aa27-705bb65b54eb   135</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> 367d95c0-0eb0-4dae-8276-9407239421ee   106</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> 6f6d381a-7701-4781-935c-db10d30de293    98</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> 1ca90a2d-2943-483d-b678-b809bf464c30    94</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> 0a839c4b-10d0-4d64-9272-684c49a2c8ba    90</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> ae1420fe-6630-46ed-8b3d-cc6056a66467    83</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> ddfad306-714d-4cc0-9985-d9072820c530    69</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 128 more rows</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> bcb61471-2a44-4d00-a0af-ff085512674c   171</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> 4f586cb6-972b-4ef7-a4ef-3c3800a3c004   147</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> 0b9d8a04-bb9d-44da-aa27-705bb65b54eb   135</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> 367d95c0-0eb0-4dae-8276-9407239421ee   106</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> 6f6d381a-7701-4781-935c-db10d30de293    98</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> 1ca90a2d-2943-483d-b678-b809bf464c30    94</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> 0a839c4b-10d0-4d64-9272-684c49a2c8ba    90</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> ae1420fe-6630-46ed-8b3d-cc6056a66467    83</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 136 more rows</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">publisher_metadata</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html" class="external-link">glimpse</a></span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Rows: 138</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Rows: 146</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Columns: 9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ collection_id   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "2b02dff7-e427-4cdc-96fb-c0f354c099aa", "03cdc7f4-bd08…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ name            <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "Single-Cell Analysis of Crohn’s Disease Lesions Ident…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ is_preprint     <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE,…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ journal         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "Cell", "Immunity", "Nat Med", "Current Opinion in Imm…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ published_at    <span style="color: #949494; font-style: italic;">&lt;date&gt;</span> 2019-09-01, 2023-02-01, 2020-07-01, 2022-06-01, 2022-…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ published_year  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> 2019, 2023, 2020, 2022, 2022, 2021, 2021, 2021, 2020, …</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ published_month <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> 9, 2, 7, 6, 12, 7, 12, 10, 6, 9, 1, 10, 9, 9, 11, 5, 1…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ published_day   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> 1, 1, 1, 1, 14, 29, 1, 7, 5, 1, 1, 7, 27, 6, 1, 13, 1,…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $ doi             <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "https://doi.org/10.1016/j.cell.2019.08.008", "https:/…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $ collection_id   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "e75342a8-0f3b-4ec5-8ee1-245a23e0f7cb", "661a402a-2a5a…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $ name            <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "Pathogenic variants damage cell composition and singl…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $ is_preprint     <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $ journal         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "Science", "Nature", "Nature", "Cell Genomics", "Scien…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $ published_at    <span style="color: #949494; font-style: italic;">&lt;date&gt;</span> 2022-08-05, 2022-07-21, 2021-10-07, 2023-06-01, 2021-…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $ published_year  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> 2022, 2022, 2021, 2023, 2021, 2021, 2021, 2020, 2020, …</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $ published_month <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> 8, 7, 10, 6, 3, 10, 12, 8, 11, 10, 4, 4, 11, 12, 3, 11…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $ published_day   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> 5, 21, 7, 1, 12, 14, 1, 1, 13, 7, 21, 1, 26, 1, 1, 26,…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $ doi             <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
