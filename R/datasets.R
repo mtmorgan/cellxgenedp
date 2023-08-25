@@ -33,10 +33,12 @@ datasets <-
 #'
 #' @examples
 #' \donttest{
-#' ## visualize the first dataset
-#' datasets(db) |>
-#'     dplyr::slice(1) |>
-#'     datasets_visualize()
+#' if (interactive()) {
+#'     ## visualize the first dataset
+#'     datasets(db) |>
+#'         dplyr::slice(1) |>
+#'         datasets_visualize()
+#' }
 #' }
 #' @export
 datasets_visualize <-

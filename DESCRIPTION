@@ -1,6 +1,6 @@
 Package: cellxgenedp
 Title: Discover and Access Single Cell Data Sets in the cellxgene Data Portal
-Version: 1.5.2
+Version: 1.5.3
 Authors@R: 
     c(person(
         given = "Martin",
@@ -32,7 +32,7 @@ Suggests:
     testthat (>= 3.0.0),
     mockery
 biocViews: SingleCell, DataImport, ThirdPartyClient
-URL: https://mtmorgan.github.io/cellxgenedp/
+URL: https://mtmorgan.github.io/cellxgenedp/, https://github.com/mtmorgan/cellxgenedp
 BugReports: https://github.com/mtmorgan/cellxgenedp/issues
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3

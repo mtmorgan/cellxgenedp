@@ -25,7 +25,8 @@ cellxgene data
 }
 \examples{
 \donttest{
-cxg()
+if (interactive())
+    cxg()
 }
 
 }
