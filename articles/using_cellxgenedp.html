@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">cellxgenedp</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.7.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.7.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -569,36 +569,14 @@ of the corresponding collection.</p>
 <div class="section level2">
 <h2 id="visualizing-data-in-cellxgene">Visualizing data in <code>cellxgene</code><a class="anchor" aria-label="anchor" href="#visualizing-data-in-cellxgene"></a>
 </h2>
-<p>Discover files associated with our first selected dataset</p>
+<p>Visualization is straight-forward once <code>dataset_id</code> is
+available. For example, to visualize the first dataset in
+<code>african_american_female</code>, use</p>
 <div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">selected_files</span> <span class="op">&lt;-</span></span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">left_join</a></span><span class="op">(</span></span>
-<span>        <span class="va">african_american_female</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">dataset_id</span><span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="../reference/query.html">files</a></span><span class="op">(</span><span class="va">db</span><span class="op">)</span>,</span>
-<span>        by <span class="op">=</span> <span class="st">"dataset_id"</span></span>
-<span>    <span class="op">)</span></span>
-<span><span class="va">selected_files</span></span></code></pre></div>
-<pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 68 × 4</span></span></span>
-<span><span class="co">##    dataset_id                             filesize filetype url                 </span></span>
-<span><span class="co">##    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>               </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 1</span> e47c65a8-7d2f-48b8-908e-04ea6505fa26  800<span style="text-decoration: underline;">797</span>163 H5AD     https://datasets.ce…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 2</span> e47c65a8-7d2f-48b8-908e-04ea6505fa26  773<span style="text-decoration: underline;">360</span>314 RDS      https://datasets.ce…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 3</span> c8d40d53-387b-48f2-9f89-72bfdb9c7c9f  385<span style="text-decoration: underline;">922</span>942 H5AD     https://datasets.ce…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 4</span> c8d40d53-387b-48f2-9f89-72bfdb9c7c9f  362<span style="text-decoration: underline;">851</span>875 RDS      https://datasets.ce…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 5</span> a6388a6f-6076-401b-9b30-7d4306a20035  315<span style="text-decoration: underline;">326</span>067 H5AD     https://datasets.ce…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 6</span> a6388a6f-6076-401b-9b30-7d4306a20035  302<span style="text-decoration: underline;">258</span>458 RDS      https://datasets.ce…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 7</span> a41202e6-173c-477c-8b4d-e0688ee1c4cb   82<span style="text-decoration: underline;">026</span>236 H5AD     https://datasets.ce…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 8</span> a41202e6-173c-477c-8b4d-e0688ee1c4cb   74<span style="text-decoration: underline;">894</span>351 RDS      https://datasets.ce…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 9</span> 842c6f5d-4a94-4eef-8510-8c792d1124bc <span style="text-decoration: underline;">7</span>211<span style="text-decoration: underline;">362</span>715 H5AD     https://datasets.ce…</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">10</span> 842c6f5d-4a94-4eef-8510-8c792d1124bc <span style="text-decoration: underline;">6</span>817<span style="text-decoration: underline;">801</span>616 RDS      https://datasets.ce…</span></span>
-<span><span class="co">## <span style="color: #949494;"># ℹ 58 more rows</span></span></span></code></pre>
-<p>The <code>filetype</code> column lists the type of each file. The
-cellxgene service can be used to visualize <em>datasets</em> that have
-<code>CXG</code> files.</p>
-<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">selected_files</span> <span class="op">|&gt;</span></span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">filetype</span> <span class="op">==</span> <span class="st">"CXG"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="co"># visualize a single dataset</span></span>
+<code class="sourceCode R"><span><span class="va">african_american_female</span> <span class="op">|&gt;</span></span>
+<span>    <span class="co">## use criteria to identify a single dataset (here just the</span></span>
+<span>    <span class="co">## 'first' dataset), then visualize</span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html" class="external-link">slice</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="../reference/query.html">datasets_visualize</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>Visualization is an interactive process, so
 <code><a href="../reference/query.html">datasets_visualize()</a></code> will only open up to 5 browser tabs
@@ -607,15 +585,24 @@ per call.</p>
 <div class="section level2">
 <h2 id="file-download-and-use">File download and use<a class="anchor" aria-label="anchor" href="#file-download-and-use"></a>
 </h2>
-<p>Datasets usually contain <code>CXG</code> (cellxgene visualization),
-<code>H5AD</code> (files produced by the python AnnData module), and
-<code>Rds</code> (serialized files produced by the <em>R</em> Seurat
-package). There are no public parsers for <code>CXG</code>, and the
-<code>Rds</code> files may be unreadable if the version of Seurat used
-to create the file is different from the version used to read the file.
-We therefore focus on the <code>H5AD</code> files. For illustration, we
-download one of our selected files.</p>
-<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
+<p>Datasets usually contain <code>H5AD</code> (files produced by the
+python AnnData module), and <code>Rds</code> (serialized files produced
+by the <em>R</em> Seurat package). The <code>Rds</code> files may be
+unreadable if the version of Seurat used to create the file is different
+from the version used to read the file. We therefore focus on the
+<code>H5AD</code> files.</p>
+<p>For illustration, we find all files associated with studies with
+African American females</p>
+<p>download one of our selected files.</p>
+<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">selected_files</span> <span class="op">&lt;-</span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">left_join</a></span><span class="op">(</span></span>
+<span>        <span class="va">african_american_female</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">dataset_id</span><span class="op">)</span>,</span>
+<span>        <span class="fu"><a href="../reference/query.html">files</a></span><span class="op">(</span><span class="va">db</span><span class="op">)</span>,</span>
+<span>        by <span class="op">=</span> <span class="st">"dataset_id"</span></span>
+<span>    <span class="op">)</span></span></code></pre></div>
+<p>And then choose a single dataset and its H5AD file for download</p>
+<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">local_file</span> <span class="op">&lt;-</span></span>
 <span>    <span class="va">selected_files</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span></span>
@@ -631,7 +618,7 @@ the cache), so the process is only time-consuming the first time.</p>
 <p><code>H5AD</code> files can be converted to <em>R</em> /
 <em>Bioconductor</em> objects using the <a href="https://bioconductor.org/packages/zelkonverter" class="external-link">zellkonverter</a>
 package.</p>
-<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">h5ad</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/zellkonverter/man/readH5AD.html" class="external-link">readH5AD</a></span><span class="op">(</span><span class="va">local_file</span>, use_hdf5 <span class="op">=</span> <span class="cn">TRUE</span>, reader <span class="op">=</span> <span class="st">"R"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Warning in H5Aread(A, ...): Reading attribute data of type 'ENUM' not yet</span></span>
 <span><span class="co">## implemented. Values replaced by NA's.</span></span>
@@ -728,7 +715,7 @@ package.</p>
 <span></span>
 <span><span class="co">## Warning in H5Aread(A, ...): Reading attribute data of type 'ENUM' not yet</span></span>
 <span><span class="co">## implemented. Values replaced by NA's.</span></span></code></pre>
-<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">h5ad</span></span></code></pre></div>
 <pre><code><span><span class="co">## class: SingleCellExperiment </span></span>
 <span><span class="co">## dim: 33234 31696 </span></span>
@@ -748,7 +735,7 @@ package.</p>
 <p>The <code>SingleCellExperiment</code> object is a matrix-like object
 with rows corresponding to genes and columns to cells. Thus we can
 easily explore the cells present in the data.</p>
-<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">h5ad</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">colData</a></span><span class="op">(</span><span class="va">h5ad</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -849,7 +836,7 @@ replaced or added, as follows:</p>
 <span><span class="co">## [8] base     </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## other attached packages:</span></span>
-<span><span class="co">##  [1] cellxgenedp_1.7.0           dplyr_1.1.3                </span></span>
+<span><span class="co">##  [1] cellxgenedp_1.7.1           dplyr_1.1.3                </span></span>
 <span><span class="co">##  [3] SingleCellExperiment_1.22.0 SummarizedExperiment_1.30.2</span></span>
 <span><span class="co">##  [5] Biobase_2.60.0              GenomicRanges_1.52.1       </span></span>
 <span><span class="co">##  [7] GenomeInfoDb_1.36.4         IRanges_2.34.1             </span></span>
