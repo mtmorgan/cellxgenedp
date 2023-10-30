@@ -262,25 +262,15 @@ links(db) |>
 
 # Visualizing data in `cellxgene`
 
-Discover files associated with our first selected dataset
-
-```{r}
-selected_files <-
-    left_join(
-        african_american_female |> select(dataset_id),
-        files(db),
-        by = "dataset_id"
-    )
-selected_files
-```
-
-The `filetype` column lists the type of each file. The cellxgene service
-can be used to visualize *datasets* that have `CXG` files.
+Visualization is straight-forward once `dataset_id` is available. For
+example, to visualize the first dataset in `african_american_female`,
+use
 
 ```{r, eval = FALSE}
-selected_files |>
-    filter(filetype == "CXG") |>
-    slice(1) |> # visualize a single dataset
+african_american_female |>
+    ## use criteria to identify a single dataset (here just the
+    ## 'first' dataset), then visualize
+    slice(1) |>
     datasets_visualize()
 ```
 
@@ -289,13 +279,27 @@ will only open up to 5 browser tabs per call.
 
 # File download and use
 
-Datasets usually contain `CXG` (cellxgene visualization), `H5AD`
-(files produced by the python AnnData module), and `Rds` (serialized
-files produced by the _R_ Seurat package). There are no public parsers
-for `CXG`, and the `Rds` files may be unreadable if the version of
-Seurat used to create the file is different from the version used to
-read the file. We therefore focus on the `H5AD` files. For
-illustration, we download one of our selected files.
+Datasets usually contain `H5AD` (files produced by the python AnnData
+module), and `Rds` (serialized files produced by the _R_ Seurat
+package). The `Rds` files may be unreadable if the version of Seurat
+used to create the file is different from the version used to read the
+file. We therefore focus on the `H5AD` files.
+
+For illustration, we find all files associated with studies with
+African American females
+
+download one of our selected files.
+
+```{r selected_files}
+selected_files <-
+    left_join(
+        african_american_female |> select(dataset_id),
+        files(db),
+        by = "dataset_id"
+    )
+```
+
+And then choose a single dataset and its H5AD file for download
 
 ```{r local_file_from_dataset_id}
 local_file <-
