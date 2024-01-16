@@ -8,9 +8,8 @@ allowind data discovery, viewing, and downloading.
 
 ## Installation
 
-This package is available in *Bioconductor* version 3.15 and later. The
-following code installs [cellxgenedp][]
-
+This package is available in *Bioconductor* version 3.15 and
+later. The following code installs
 [cellxgenedp](https://bioconductor.org/packages/cellxgenedp)
 
 ``` r
