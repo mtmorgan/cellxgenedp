@@ -9,23 +9,30 @@ allowind data discovery, viewing, and downloading.
 ## Installation
 
 This package is available in *Bioconductor* version 3.15 and later. The
-following code installs
-[cellxgenedp](https://bioconductor.org/packages/cellxgenedp) as well as
-other packages required for this vignette.
+following code installs [cellxgenedp][]
+
+[cellxgenedp](https://bioconductor.org/packages/cellxgenedp)
 
 ``` r
-pkgs <- c("cellxgenedp", "zellkonverter", "SingleCellExperiment", "HDF5Array")
-required_pkgs <- pkgs[!pkgs %in% rownames(installed.packages())]
-BiocManager::install(required_pkgs)
+if (!"BiocManager" %in% rownames(installed.packages()))
+    install.packages("BiocManager", repos = "https://CRAN.R-project.org")
+BiocManager::install("cellxgenedp")
 ```
 
-Use the following `pkgs` vector to install from GitHub (latest,
-unchecked, development version) instead
+Alternatively, install the 'development' version from GitHub
 
 ``` r
-pkgs <- c(
-    "mtmorgan/cellxgenedp", "zellkonverter", "SingleCellExperiment", "HDF5Array"
-)
+if (!"remotes" %in% rownames(installed.packages()))
+    install.packages("remotes", repos = "https://CRAN.R-project.org")
+remotes::install_github("mtmorgan/cellxgenedp")
+```
+
+To also install additional packages required for this vignette, use
+
+``` r
+pkgs <- c("zellkonverter", "SingleCellExperiment", "HDF5Array")
+required_pkgs <- pkgs[!pkgs %in% rownames(installed.packages())]
+BiocManager::install(required_pkgs)
 ```
 
 ## Use

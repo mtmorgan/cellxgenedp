@@ -33,30 +33,36 @@ packages required for this vignette.
 [cellxgenedp]: https://bioconductor.org/packages/cellxgenedp
 
 ```{r, eval = FALSE}
-pkgs <- c("cellxgenedp", "zellkonverter", "SingleCellExperiment", "HDF5Array")
-required_pkgs <- pkgs[!pkgs %in% rownames(installed.packages())]
-BiocManager::install(required_pkgs)
+if (!"BiocManager" %in% rownames(installed.packages()))
+    install.packages("BiocManager", repos = "https://CRAN.R-project.org")
+BiocManager::install("cellxgenedp")
 ```
 
-Use the following `pkgs` vector to install from GitHub (latest,
-unchecked, development version) instead
+Alternatively, install the 'development' version from GitHub
+
 ```{r, eval = FALSE}
-pkgs <- c(
-    "mtmorgan/cellxgenedp", "zellkonverter", "SingleCellExperiment", "HDF5Array"
-)
+if (!"remotes" %in% rownames(installed.packages()))
+    install.packages("remotes", repos = "https://CRAN.R-project.org")
+remotes::install_github("mtmorgan/cellxgenedp")
+```
+
+To also install additional packages required for this vignette, use
+
+```{r, eval = FALSE}
+pkgs <- c("zellkonverter", "SingleCellExperiment", "HDF5Array")
+required_pkgs <- pkgs[!pkgs %in% rownames(installed.packages())]
+BiocManager::install(required_pkgs)
 ```
 
 Load the package into your current _R_ session. We make extensive use
 of the dplyr packages, and at the end of the vignette use
 SingleCellExperiment and zellkonverter, so load those as well.
 
-```{r}
-suppressPackageStartupMessages({
-    library(zellkonverter)
-    library(SingleCellExperiment) # load early to avoid masking dplyr::count()
-    library(dplyr)
-    library(cellxgenedp)
-})
+```{r, message = FALSE}
+library(zellkonverter)
+library(SingleCellExperiment) # load early to avoid masking dplyr::count()
+library(dplyr)
+library(cellxgenedp)
 ```
 
 # `cxg()` Provides a 'shiny' interface
