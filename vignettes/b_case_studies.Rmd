@@ -1,0 +1,315 @@
+---
+title: "Case Studies"
+author:
+- name: Martin Morgan
+  affiliation: Roswell Park Comprehensive Cancer Center
+  email: Martin.Morgan@RoswellPark.org
+package: cellxgenedp
+output:
+  BiocStyle::html_document
+abstract: |  
+  This article summarizes short case studies and solutions arising
+  from user queries.
+vignette: >
+  %\VignetteIndexEntry{Case Studies}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Setup
+
+For each case study, ensure that cellxgenedp (see the
+[Bioconductor][cellxgenedp-bioc] package landing page, or
+[GitHub.io][cellxgenedp] site) is installed (additional installation
+options are at <https://mtmorgan.github.io/cellxgenedp/>).
+
+[cellxgenedp-bioc]: https://bioconductor.org/packages/cellxgenedp
+[cellxgenedp]: https://mtmorgan.github.io/cellxgenedp
+
+```{r install, eval = FALSE}
+if (!"BiocManager" %in% rownames(installed.packages()))
+    install.packages("BiocManager", repos = "https://CRAN.R-project.org")
+BiocManager::install("cellxgenedp")
+```
+
+Load the package.
+
+```{r setup, message = FALSE}
+library(cellxgenedp)
+```
+
+# Case Study: identify datasets by author
+
+This case study arose from a question on the CZI Science Community
+Slack. A user asked
+
+> Hi! Is it possible to search CELLxGENE and identify all datasets by
+> a specific author or set of authors?
+
+Unfortunately, this is not possible from the [CELLxGENE][] web site --
+authors are only associated with collections, and collections can only
+be sorted or filtered by title (or publication / tissue / disease /
+organism).
+
+[CELLxGENE]: https://cellxgene.cziscience.com/
+
+A [cellxgenedp][] solution uses `authors()` to discover authors and
+their collections, and joins this information to `datasets()`.
+
+```{r}
+author_datasets <- left_join(
+    authors(),
+    datasets(),
+    by = "collection_id",
+    relationship = "many-to-many"
+)
+author_datasets
+```
+
+`author_datasets` provides a convenient point from which to make basic
+queries, e.g., finding the authors contributing the most datasets.
+
+```{r}
+author_datasets |>
+    count(family, given, sort = TRUE)
+```
+
+Perhaps one is interested in the most prolific authors based on
+'collections', rather than 'datasets'. The five most prolific authors
+by collection are
+
+```{r prolific authors}
+prolific_authors <-
+    authors() |>
+    count(family, given, sort = TRUE) |>
+    slice(1:5)
+prolific_authors
+```
+
+The datasets associated with authors are
+
+```{r prolific-author-datasets}
+right_join(
+    author_datasets,
+    prolific_authors,
+    by = c("family", "given")
+)
+```
+
+Alternatively, one might be interested in specific authors.  This is
+most easily accomplished with a simple filter on `author_datasets`, e.g.,
+
+```{r specific-authors}
+author_datasets |>
+    filter(
+        family %in% c("Teichmann", "Regev", "Haniffa")
+    )
+```
+
+or more carefully by constructing at `data.frame` of family and given
+names, and performing a join with `author_datasets`
+
+```{r authors-of-interest}
+authors_of_interest <-
+    tibble(
+        family = c("Teichmann", "Regev", "Haniffa"),
+        given = c("Sarah A.", "Aviv", "Muzlifah")
+    )
+right_join(
+    author_datasets,
+    authors_of_interest,
+    by = c("family", "given")
+)
+```
+
+## Areas of interest
+
+There are several interesting questions that suggest themselves, and
+several areas where some additional work is required.
+
+It might be interesting to identify authors working on similar
+disease, or other areas of interest. The `disease` column in the
+`author_datasets` table is a list.
+
+```{r disease}
+author_datasets |>
+    select(family, given, dataset_id, disease)
+```
+
+This is because a single dataset may involve more than one
+disease. Furthermore, each entry in the list contains two elements,
+the `label` and `ontology_term_id` of the disease. There are two
+approaches to working with this data.
+
+One approach to working with this data uses facilities in
+[cellxgenedp][] as outlined in an accompanying article. Discover
+possible diseases.
+
+```{r disease-facets}
+facets(db(), "disease")
+```
+
+Focus on `COVID-19`, and use `facets_filter()` to select relevant
+author-dataset combinations.
+
+```{r disease-facet-filter}
+author_datasets |>
+    filter(facets_filter(disease, "label", "COVID-19"))
+```
+
+Authors contributing to these datasets are
+
+```{r disease-facet-fitler-authors}
+author_datasets |>
+    filter(facets_filter(disease, "label", "COVID-19")) |>
+    count(family, given, sort = TRUE)
+```
+
+A second approach is to follow the practices in [R for Data
+Science][r4ds], the `disease` column can be 'unnested' twice, the
+first time to expand the `author_datasets` table for each disease, and
+the second time to separate the two columns of each disease.
+
+```{r disease-unnest}
+author_dataset_diseases <-
+    author_datasets |>
+    select(family, given, dataset_id, disease) |>
+    tidyr::unnest_longer(disease) |>
+    tidyr::unnest_wider(disease)
+author_dataset_diseases
+```
+
+Author-dataset combinations associated with COVID-19, and contributors
+to these datasets, are
+
+```{r covid-19, eval = FALSE}
+author_dataset_diseases |>
+    filter(label == "COVID-19")
+
+author_dataset_diseases |>
+    filter(label == "COVID-19") |>
+    count(family, given, sort = TRUE)
+```
+
+These computations are the same as the earlier iteration using
+functionality in [cellxgenedp][].
+
+A further resource that might be of interest is the [OSLr][] package
+article illustrating how the ontologies used by CELLxGENE can be
+manipulated to, e.g., identify studies with terms that derive from a
+common term (e.g., all disease terms related to 'carcinoma').
+
+[r4ds]: https://r4ds.hadley.nz/rectangling
+[OLSr]: https://mtmorgan.github.io/OLSr/articles/
+
+## Collaboration
+
+TODO.
+
+It might be interesting to know which authors have collaborated with
+one another. This can be computed from the `author_datasets` table,
+following approaches developed in the [grantpubcite][] package to
+identify collaborations between projects in the NIH-funded ITCR
+program. See the graph visualization in the [ITCR collaboration][]
+section for inspiration.
+
+[grantpubcite]: https://mtmorgan.github.io/grant
+[ITCR collaboration]: https://mtmorgan.github.io/grantpubcite/articles/case_study_itcr.html#itcr-collaboration
+
+## Duplicate collection-author combinations
+
+Here are the authors
+
+```{r}
+authors <- authors()
+authors
+```
+
+There are `r nrow(authors)` collection-author combinations. We expect
+these to be distinct (each row identifying a unique collection-author
+combination). But this is not true
+
+```{r}
+nrow(authors) == nrow(distinct(authors))
+```
+
+Duplicated data are
+
+```{r}
+authors |> 
+    count(collection_id, family, given, consortium, sort = TRUE) |>
+    filter(n > 1)
+```
+
+Discover details of the first duplicated collection,
+`e5f58829-1a66-40b5-a624-9046778e74f5`
+
+```{r}
+duplicate_authors <-
+    collections() |>
+    filter(collection_id == "e5f58829-1a66-40b5-a624-9046778e74f5")
+duplicate_authors
+```
+ The author information comes from the `publisher_metadata` column
+ 
+```{r}
+publisher_metadata <-
+    duplicate_authors |>
+    pull(publisher_metadata)
+```
+
+This is a 'list-of-lists', with relevant information as elements in
+the first list
+
+```{r}
+names(publisher_metadata[[1]])
+```
+
+and relevant information in the `authors` field, of which there are 221
+
+```{r}
+length(publisher_metadata[[1]][["authors"]])
+```
+
+Inspection shows that there are four authors with family name `Pisco`
+and given name `Angela Oliveira`: it appears that the data provided by
+CZI indeed includes duplicate author names.
+
+From a pragmatic perspective, it might make sense to remove duplicate
+entries from `authors` before down-stream analysis.
+
+```{r}
+deduplicated_authors <- distinct(authors)
+```
+
+Tools that I have found useful when working with list-of-lists style
+data rare [listviewer::jsonedit()][listviewer] for visualization, and
+[rjsoncons][] for filtering and querying these data using JSONpointer,
+JSONpath, or JMESpath expression (a more R-centric tool is the
+[purrr][] package).
+
+[listviewer]: https://CRAN.r-project.org/package=listviewer
+[rjsoncons]: https://CRAN.r-project.org/package=rjsoncons
+[purrr]: https://CRAN.r-project.org/package=purrr
+
+### What is an 'author'?
+
+The combination of family and given name may refer to two (or more)
+different individuals (e.g., two individuals named 'Martin Morgan'),
+or a single individual may be recorded under two different names
+(e.g., given name sometimes 'Martin' and sometimes 'Martin T.'). It is
+not clear how this could be resolved; recording ORCID identifiers
+migth help with disambiguation.
+
+# Session information {.unnumbered}
+
+```{r sessionInfo, echo = FALSE}
+sessionInfo()
+```

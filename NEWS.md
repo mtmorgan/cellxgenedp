@@ -1,5 +1,6 @@
 # cellxgenedp 1.8
   
+* (v 1.7.2) Add vignette 'Case Studies'
 * (v 1.7.1) Update vignette section on dataset visualization to
   accomodate changes in the 'Discover' API.
   https://github.com/mtmorgan/cellxgenedp/issues/15

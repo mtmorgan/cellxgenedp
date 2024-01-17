@@ -11,3 +11,4 @@ vignettes/*html
 /doc/
 /Meta/
 docs
+inst/doc

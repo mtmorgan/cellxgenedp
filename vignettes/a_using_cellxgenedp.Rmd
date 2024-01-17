@@ -1,5 +1,5 @@
 ---
-title: "Discover and download datasets and files from the cellxgene data portal"
+title: "Discover and download datasets and files from CELLxGENE"
 author:
 - name: Martin Morgan
   affiliation: Roswell Park Comprehensive Cancer Center
@@ -14,7 +14,7 @@ abstract: |
     package provides an alternative, R-based inteface, allowing flexible data
     discovery, viewing, and downloading.
 vignette: |
-    %\VignetteIndexEntry{Discover and download datasets and files from the cellxgene data portal}
+    %\VignetteIndexEntry{Discover and download datasets and files from CELLxGENE}
     %\VignetteEngine{knitr::rmarkdown}
     %\VignetteEncoding{UTF-8}
 ---
@@ -27,10 +27,11 @@ CELLxGENE removes the previous interface. See the vignette section
 # Installation and use
 
 This package is available in _Bioconductor_ version 3.15 and
-later. The following code installs [cellxgenedp][] as well as other
-packages required for this vignette.
+later. The following code installs [cellxgenedp][cellxgenedp-bioc]
+from _Bioconductor_
 
-[cellxgenedp]: https://bioconductor.org/packages/cellxgenedp
+[cellxgenedp-bioc]: https://bioconductor.org/packages/cellxgenedp
+[cellxgenedp]: https://mtmorgan.github.io/cellxgenedp
 
 ```{r, eval = FALSE}
 if (!"BiocManager" %in% rownames(installed.packages()))
@@ -38,7 +39,8 @@ if (!"BiocManager" %in% rownames(installed.packages()))
 BiocManager::install("cellxgenedp")
 ```
 
-Alternatively, install the 'development' version from GitHub
+Alternatively, install the 'development' version from GitHub (see
+[GitHub.io][cellxgenedp] for current documentation)
 
 ```{r, eval = FALSE}
 if (!"remotes" %in% rownames(installed.packages()))
@@ -49,7 +51,7 @@ remotes::install_github("mtmorgan/cellxgenedp")
 To also install additional packages required for this vignette, use
 
 ```{r, eval = FALSE}
-pkgs <- c("zellkonverter", "SingleCellExperiment", "HDF5Array")
+pkgs <- c("tidyr", "zellkonverter", "SingleCellExperiment", "HDF5Array")
 required_pkgs <- pkgs[!pkgs %in% rownames(installed.packages())]
 BiocManager::install(required_pkgs)
 ```
@@ -213,7 +215,7 @@ left_join(
 Many collections include publication information and other external
 data. This information is available in the return value of
 `collections()`, but the helper function `publisher_metadata()`,
-`authors()`, and `links()` may facilite access.
+`authors()`, and `links()` may facilitate access.
 
 Suppose one is interested in the publication "A single-cell atlas of
 the healthy breast tissues reveals clinically relevant clusters of
