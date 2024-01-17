@@ -29,7 +29,7 @@ remotes::install_github("mtmorgan/cellxgenedp")
 To also install additional packages required for this vignette, use
 
 ``` r
-pkgs <- c("zellkonverter", "SingleCellExperiment", "HDF5Array")
+pkgs <- c("tidyr", "zellkonverter", "SingleCellExperiment", "HDF5Array")
 required_pkgs <- pkgs[!pkgs %in% rownames(installed.packages())]
 BiocManager::install(required_pkgs)
 ```
