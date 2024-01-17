@@ -26,7 +26,6 @@ Suggests:
     zellkonverter,
     SingleCellExperiment,
     HDF5Array,
-    tidyr,
     BiocStyle,
     knitr,
     rmarkdown,

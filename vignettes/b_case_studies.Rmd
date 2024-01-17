@@ -174,16 +174,16 @@ author_datasets |>
 
 A second approach is to follow the practices in [R for Data
 Science][r4ds], the `disease` column can be 'unnested' twice, the
-first time to expand the `author_datasets` table for each disease, and
-the second time to separate the two columns of each disease.
+first time using `unnest_longer()` to expand the `author_datasets`
+table for each disease, and the second time with `unnest_wider()` to
+separate the two columns of each disease.
 
-```{r disease-unnest}
+```{r disease-unnest, eval = FALSE}
 author_dataset_diseases <-
     author_datasets |>
     select(family, given, dataset_id, disease) |>
     tidyr::unnest_longer(disease) |>
     tidyr::unnest_wider(disease)
-author_dataset_diseases
 ```
 
 Author-dataset combinations associated with COVID-19, and contributors
