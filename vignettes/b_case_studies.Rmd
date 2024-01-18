@@ -47,6 +47,8 @@ library(cellxgenedp)
 
 # Case Study: identify datasets by author
 
+## Challenge and solution
+
 This case study arose from a question on the CZI Science Community
 Slack. A user asked
 
