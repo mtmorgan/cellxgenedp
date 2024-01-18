@@ -1,6 +1,6 @@
 Package: cellxgenedp
 Title: Discover and Access Single Cell Data Sets in the CELLxGENE Data Portal
-Version: 1.7.1.9100
+Version: 1.7.1.9101
 Authors@R: 
     c(person(
         given = "Martin",

@@ -1,5 +1,5 @@
 ---
-title: "Case Studies"
+title: "Case studies"
 author:
 - name: Martin Morgan
   affiliation: Roswell Park Comprehensive Cancer Center
@@ -11,7 +11,7 @@ abstract: |
   This article summarizes short case studies and solutions arising
   from user queries.
 vignette: >
-  %\VignetteIndexEntry{Case Studies}
+  %\VignetteIndexEntry{Case studies}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -45,7 +45,7 @@ Load the package.
 library(cellxgenedp)
 ```
 
-# Case Study: identify datasets by author
+# Case study: authors & datasets
 
 ## Challenge and solution
 
@@ -309,6 +309,40 @@ or a single individual may be recorded under two different names
 (e.g., given name sometimes 'Martin' and sometimes 'Martin T.'). It is
 not clear how this could be resolved; recording ORCID identifiers
 migth help with disambiguation.
+
+# Case study: using ontology to identify datasets
+
+This case study was developed in response to the following Slack
+question:
+
+> CELLxGENE's webpage is using different ontologies and displaying
+> them in an easy to interogate manner (choosing amongst 3 possible
+> coarseness for cell types, tissues and age) I was wondering if this
+> simplified tree of the 3 subgroups for cell type, tissue and age
+> categories was available somewhere?
+
+As indicated in the question, CELLxGENE provides some access to
+ontologies through a hand-curated three-tiered classification of
+specific facets; the tiers can be retrieved from publicly available
+code, but one might want to develop a more flexible or principled
+approach.
+
+CELLxGENE dataset facets like 'disease' and 'cell type' use terms from
+ontologies. Ontologies arrange terms in directed acyclic graphs, and
+use of ontologies can be useful to identify related datasets. For
+instance, one might be interesed in cancer-related datasets (derived
+from the 'carcinoma' term in the corresponding ontology) in general,
+rather than, e.g., 'B-cell non-Hodgkins lymphoma'. 
+
+In exploring this question in *R*, I found myself developing the
+[OLSr][] package to query and process ontologies from the EMBL-EBI
+[Ontology Lookup Service][OLS]. See the '[Case Study: CELLxGENE
+Ontologies][OLSr-case-study]' article in the OLSr package for full
+details.
+
+[OLSr]:https://mtmorgan.github.io/OLSr
+[OLS]: https://www.ebi.ac.uk/ols4/
+[OLSr-case-study]: https://mtmorgan.github.io/OLSr/articles/b_case_study_cxg.html
 
 # Session information {.unnumbered}
 

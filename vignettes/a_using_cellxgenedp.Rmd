@@ -1,5 +1,5 @@
 ---
-title: "Discover and download datasets and files from CELLxGENE"
+title: "Discovery and retrieval"
 author:
 - name: Martin Morgan
   affiliation: Roswell Park Comprehensive Cancer Center
@@ -8,13 +8,13 @@ package: cellxgenedp
 output:
   BiocStyle::html_document
 abstract: |
-    The cellxgene data portal (https://cellxgene.cziscience.com/) provides a
+    The CELLxGENE data portal (https://cellxgene.cziscience.com/) provides a
     graphical user interface to collections of single-cell sequence data
     processed in standard ways to 'count matrix' summaries. The cellxgenedp
     package provides an alternative, R-based inteface, allowing flexible data
-    discovery, viewing, and downloading.
+    discovery, viewing, and retrieval.
 vignette: |
-    %\VignetteIndexEntry{Discover and download datasets and files from CELLxGENE}
+    %\VignetteIndexEntry{Discovery and retrieval}
     %\VignetteEngine{knitr::rmarkdown}
     %\VignetteEncoding{UTF-8}
 ---
