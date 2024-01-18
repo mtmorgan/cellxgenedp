@@ -2,8 +2,9 @@ pandoc: 2.19.2
 pkgdown: 2.0.7
 pkgdown_sha: ~
 articles:
-  using_cellxgenedp: using_cellxgenedp.html
-last_built: 2024-01-16T23:14Z
+  a_using_cellxgenedp: a_using_cellxgenedp.html
+  b_case_studies: b_case_studies.html
+last_built: 2024-01-18T16:13Z
 urls:
   reference: https://mtmorgan.github.io/cellxgenedp/reference
   article: https://mtmorgan.github.io/cellxgenedp/articles
