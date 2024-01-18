@@ -4,7 +4,7 @@ pkgdown_sha: ~
 articles:
   a_using_cellxgenedp: a_using_cellxgenedp.html
   b_case_studies: b_case_studies.html
-last_built: 2024-01-18T16:13Z
+last_built: 2024-01-18T16:32Z
 urls:
   reference: https://mtmorgan.github.io/cellxgenedp/reference
   article: https://mtmorgan.github.io/cellxgenedp/articles
