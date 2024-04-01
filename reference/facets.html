@@ -20,7 +20,7 @@ facets based on label or ontology term."><!-- mathjax --><script src="https://cd
     
     <a class="navbar-brand me-2" href="../index.html">cellxgenedp</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.7.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.7.3</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -145,13 +145,13 @@ equal to the length (number of rows) of <code>facet</code>, with <code>TRUE</cod
 <span class="r-out co"><span class="r-pr">#&gt;</span>   facet                       n</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> assay                      38</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> cell_type                 773</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> development_stage         232</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> disease                   103</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> cell_type                 842</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> development_stage         237</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> disease                   115</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> organism                    7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> self_reported_ethnicity    32</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> self_reported_ethnicity    33</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">7</span> sex                         3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">8</span> tissue                    378</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">8</span> tissue                    389</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## same as facets(, facets = "organism")</span></span></span>
 <span class="r-in"><span><span class="va">f</span> <span class="op">|&gt;</span></span></span>
@@ -159,8 +159,8 @@ equal to the length (number of rows) of <code>facet</code>, with <code>TRUE</cod
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 7 × 4</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   facet    label                 ontology_term_id     n</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                 <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> organism Homo sapiens          NCBITaxon:9606     866</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> organism Mus musculus          NCBITaxon:10090    276</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> organism Homo sapiens          NCBITaxon:9606     917</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> organism Mus musculus          NCBITaxon:10090    331</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> organism Callithrix jacchus    NCBITaxon:9483      28</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> organism Macaca mulatta        NCBITaxon:9544      19</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> organism Sus scrofa domesticus NCBITaxon:9825       3</span>
@@ -176,67 +176,67 @@ equal to the length (number of rows) of <code>facet</code>, with <code>TRUE</cod
 <span class="r-in"><span>        <span class="fu">facets_filter</span><span class="op">(</span><span class="va">self_reported_ethnicity</span>, <span class="st">"label"</span>, <span class="st">"African American"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>        <span class="fu">facets_filter</span><span class="op">(</span><span class="va">sex</span>, <span class="st">"label"</span>, <span class="st">"female"</span><span class="op">)</span></span></span>
 <span class="r-in"><span>    <span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 52 × 31</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 53 × 32</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    dataset_id   dataset_version_id collection_id donor_id assay  batch_condition</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;list&gt;</span> <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> 94c41723-b2… 4a9bcef2-02db-49f… f17b9205-f61… <span style="color: #949494;">&lt;list&gt;</span>   <span style="color: #949494;">&lt;list&gt;</span> <span style="color: #949494;">&lt;lgl [1]&gt;</span>      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> 3de0ad6d-43… 6934232e-4db4-423… 625f6bf4-2f3… <span style="color: #949494;">&lt;list&gt;</span>   <span style="color: #949494;">&lt;list&gt;</span> <span style="color: #949494;">&lt;lgl [1]&gt;</span>      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> de985818-28… 64f14a2b-d754-4bc… c9706a92-0e5… <span style="color: #949494;">&lt;list&gt;</span>   <span style="color: #949494;">&lt;list&gt;</span> <span style="color: #949494;">&lt;lgl [1]&gt;</span>      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> 0b4a15a7-4e… 6616739c-0b4a-4a4… a98b828a-622… <span style="color: #949494;">&lt;list&gt;</span>   <span style="color: #949494;">&lt;list&gt;</span> <span style="color: #949494;">&lt;lgl [1]&gt;</span>      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> 3c361813-5d… 2e0b82ee-5320-437… e1fa9900-3fc… <span style="color: #949494;">&lt;list&gt;</span>   <span style="color: #949494;">&lt;list&gt;</span> <span style="color: #949494;">&lt;lgl [1]&gt;</span>      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> 32b9bdce-24… 04019af8-aaf3-446… bcb61471-2a4… <span style="color: #949494;">&lt;list&gt;</span>   <span style="color: #949494;">&lt;list&gt;</span> <span style="color: #949494;">&lt;lgl [1]&gt;</span>      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> 0b75c598-08… 6568e80d-b8d8-4a5… bcb61471-2a4… <span style="color: #949494;">&lt;list&gt;</span>   <span style="color: #949494;">&lt;list&gt;</span> <span style="color: #949494;">&lt;lgl [1]&gt;</span>      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> 07854d9c-53… bf5607d5-82c3-46f… bcb61471-2a4… <span style="color: #949494;">&lt;list&gt;</span>   <span style="color: #949494;">&lt;list&gt;</span> <span style="color: #949494;">&lt;lgl [1]&gt;</span>      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> e40c6272-af… 23d7646e-5ed0-467… a48f5033-343… <span style="color: #949494;">&lt;list&gt;</span>   <span style="color: #949494;">&lt;list&gt;</span> <span style="color: #949494;">&lt;lgl [1]&gt;</span>      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> d6dfdef1-40… 5a2b8d31-f043-48e… a48f5033-343… <span style="color: #949494;">&lt;list&gt;</span>   <span style="color: #949494;">&lt;list&gt;</span> <span style="color: #949494;">&lt;lgl [1]&gt;</span>      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 42 more rows</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 25 more variables: cell_count &lt;int&gt;, cell_type &lt;list&gt;, citation &lt;chr&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   development_stage &lt;list&gt;, disease &lt;list&gt;, embeddings &lt;list&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   explorer_url &lt;chr&gt;, feature_biotype &lt;list&gt;, feature_count &lt;int&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   feature_reference &lt;list&gt;, is_primary_data &lt;list&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> f64e1be1-de… 76e2eefc-ebb2-4dc… 62e8f058-9c3… <span style="color: #949494;">&lt;chr&gt;</span>    <span style="color: #949494;">&lt;list&gt;</span> <span style="color: #949494;">&lt;lgl [1]&gt;</span>      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> e9175006-89… 4e0351ae-7c33-45e… 62e8f058-9c3… <span style="color: #949494;">&lt;chr&gt;</span>    <span style="color: #949494;">&lt;list&gt;</span> <span style="color: #949494;">&lt;lgl [1]&gt;</span>      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> d4cfefa0-3a… 4cda4640-5264-4a8… 62e8f058-9c3… <span style="color: #949494;">&lt;chr&gt;</span>    <span style="color: #949494;">&lt;list&gt;</span> <span style="color: #949494;">&lt;lgl [1]&gt;</span>      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> d224c8e0-c2… 0c37b06d-c369-424… 62e8f058-9c3… <span style="color: #949494;">&lt;chr&gt;</span>    <span style="color: #949494;">&lt;list&gt;</span> <span style="color: #949494;">&lt;lgl [1]&gt;</span>      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> a6858c10-c5… 53aa3c39-8989-45f… 62e8f058-9c3… <span style="color: #949494;">&lt;chr&gt;</span>    <span style="color: #949494;">&lt;list&gt;</span> <span style="color: #949494;">&lt;lgl [1]&gt;</span>      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> 576f193c-75… 7a30310a-2239-4d8… 62e8f058-9c3… <span style="color: #949494;">&lt;chr&gt;</span>    <span style="color: #949494;">&lt;list&gt;</span> <span style="color: #949494;">&lt;lgl [1]&gt;</span>      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> 486486d4-94… d4fd8c0b-c9a8-4ed… 62e8f058-9c3… <span style="color: #949494;">&lt;chr&gt;</span>    <span style="color: #949494;">&lt;list&gt;</span> <span style="color: #949494;">&lt;lgl [1]&gt;</span>      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> e47c65a8-7d… 71b9ecfc-ed34-487… 4195ab4c-20b… <span style="color: #949494;">&lt;chr&gt;</span>    <span style="color: #949494;">&lt;list&gt;</span> <span style="color: #949494;">&lt;lgl [1]&gt;</span>      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> c8d40d53-38… 071c5094-dd60-424… 4195ab4c-20b… <span style="color: #949494;">&lt;chr&gt;</span>    <span style="color: #949494;">&lt;list&gt;</span> <span style="color: #949494;">&lt;lgl [1]&gt;</span>      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> c45f05b3-aa… e269dc32-c022-407… 4195ab4c-20b… <span style="color: #949494;">&lt;chr&gt;</span>    <span style="color: #949494;">&lt;list&gt;</span> <span style="color: #949494;">&lt;lgl [1]&gt;</span>      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 43 more rows</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 26 more variables: cell_count &lt;int&gt;, cell_type &lt;list&gt;, citation &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   default_embedding &lt;chr&gt;, development_stage &lt;list&gt;, disease &lt;list&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   embeddings &lt;list&gt;, explorer_url &lt;chr&gt;, feature_biotype &lt;list&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   feature_count &lt;int&gt;, feature_reference &lt;list&gt;, is_primary_data &lt;list&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   mean_genes_per_cell &lt;dbl&gt;, organism &lt;list&gt;, primary_cell_count &lt;int&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   raw_data_location &lt;chr&gt;, schema_version &lt;chr&gt;, …</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## datasets with non-European, known ethnicity</span></span></span>
 <span class="r-in"><span><span class="fu">facets</span><span class="op">(</span><span class="va">db</span>, <span class="st">"self_reported_ethnicity"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 32 × 4</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 33 × 4</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    facet                   label                          ontology_term_id     n</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> self_reported_ethnicity European                       HANCESTRO:0005     505</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> self_reported_ethnicity unknown                        unknown            411</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> self_reported_ethnicity na                             na                 320</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> self_reported_ethnicity Asian                          HANCESTRO:0008     141</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> self_reported_ethnicity African American               HANCESTRO:0568      61</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> self_reported_ethnicity Hispanic or Latin American     HANCESTRO:0014      54</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> self_reported_ethnicity European                       HANCESTRO:0005     544</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> self_reported_ethnicity unknown                        unknown            435</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> self_reported_ethnicity na                             na                 375</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> self_reported_ethnicity Asian                          HANCESTRO:0008     143</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> self_reported_ethnicity Hispanic or Latin American     HANCESTRO:0014      63</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> self_reported_ethnicity African American               HANCESTRO:0568      62</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> self_reported_ethnicity Native American,Hispanic or L… HANCESTRO:0013,…    50</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> self_reported_ethnicity African American or Afro-Cari… HANCESTRO:0016      32</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> self_reported_ethnicity Greater Middle Eastern  (Midd… HANCESTRO:0015      22</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> self_reported_ethnicity South Asian                    HANCESTRO:0006      11</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 22 more rows</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> self_reported_ethnicity African                        HANCESTRO:0010      19</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 23 more rows</span></span>
 <span class="r-in"><span><span class="va">ds</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>        <span class="op">!</span><span class="fu">facets_filter</span><span class="op">(</span></span></span>
 <span class="r-in"><span>            <span class="va">self_reported_ethnicity</span>, <span class="st">"label"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"European"</span>, <span class="st">"na"</span>, <span class="st">"unknown"</span><span class="op">)</span></span></span>
 <span class="r-in"><span>        <span class="op">)</span></span></span>
 <span class="r-in"><span>    <span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 25 × 31</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 25 × 32</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    dataset_id   dataset_version_id collection_id donor_id assay  batch_condition</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;list&gt;</span> <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> e6a11140-25… 4866a804-37eb-436… e5f58829-1a6… <span style="color: #949494;">&lt;list&gt;</span>   <span style="color: #949494;">&lt;list&gt;</span> <span style="color: #949494;">&lt;lgl [1]&gt;</span>      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> 6ec405bb-47… c524a1cb-e823-478… e5f58829-1a6… <span style="color: #949494;">&lt;list&gt;</span>   <span style="color: #949494;">&lt;list&gt;</span> <span style="color: #949494;">&lt;lgl [1]&gt;</span>      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> 2ba40233-85… a1e426d5-f575-445… e5f58829-1a6… <span style="color: #949494;">&lt;list&gt;</span>   <span style="color: #949494;">&lt;list&gt;</span> <span style="color: #949494;">&lt;lgl [1]&gt;</span>      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> 2423ce2c-31… 80e4bc4f-e0a9-467… e5f58829-1a6… <span style="color: #949494;">&lt;list&gt;</span>   <span style="color: #949494;">&lt;list&gt;</span> <span style="color: #949494;">&lt;lgl [1]&gt;</span>      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> 2adb1f8a-a6… 1b7484e3-83a0-47f… 38833785-fac… <span style="color: #949494;">&lt;list&gt;</span>   <span style="color: #949494;">&lt;list&gt;</span> <span style="color: #949494;">&lt;lgl [1]&gt;</span>      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> be884a28-0e… 7dd2aaf8-1714-49b… 10bf5c50-8d8… <span style="color: #949494;">&lt;list&gt;</span>   <span style="color: #949494;">&lt;list&gt;</span> <span style="color: #949494;">&lt;lgl [1]&gt;</span>      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> c8f83821-a2… 10ecac59-8895-492… 9d63fcf1-5ca… <span style="color: #949494;">&lt;list&gt;</span>   <span style="color: #949494;">&lt;list&gt;</span> <span style="color: #949494;">&lt;lgl [1]&gt;</span>      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> c05e6940-72… 80a4eb91-dab2-40d… 9d63fcf1-5ca… <span style="color: #949494;">&lt;list&gt;</span>   <span style="color: #949494;">&lt;list&gt;</span> <span style="color: #949494;">&lt;lgl [1]&gt;</span>      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> 894573ad-49… e385cf86-3c0b-422… 9d63fcf1-5ca… <span style="color: #949494;">&lt;list&gt;</span>   <span style="color: #949494;">&lt;list&gt;</span> <span style="color: #949494;">&lt;lgl [1]&gt;</span>      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> 84242d25-f6… 7ce8fb90-86fa-4ea… 9d63fcf1-5ca… <span style="color: #949494;">&lt;list&gt;</span>   <span style="color: #949494;">&lt;list&gt;</span> <span style="color: #949494;">&lt;lgl [1]&gt;</span>      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> e6a11140-25… 9227d155-6f2d-453… e5f58829-1a6… <span style="color: #949494;">&lt;chr&gt;</span>    <span style="color: #949494;">&lt;list&gt;</span> <span style="color: #949494;">&lt;lgl [1]&gt;</span>      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> 6ec405bb-47… 2380b77b-018f-461… e5f58829-1a6… <span style="color: #949494;">&lt;chr&gt;</span>    <span style="color: #949494;">&lt;list&gt;</span> <span style="color: #949494;">&lt;lgl [1]&gt;</span>      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> 2ba40233-85… 2e69ce01-f71b-4a6… e5f58829-1a6… <span style="color: #949494;">&lt;chr&gt;</span>    <span style="color: #949494;">&lt;list&gt;</span> <span style="color: #949494;">&lt;lgl [1]&gt;</span>      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> 2423ce2c-31… 847371ba-5d70-441… e5f58829-1a6… <span style="color: #949494;">&lt;chr&gt;</span>    <span style="color: #949494;">&lt;list&gt;</span> <span style="color: #949494;">&lt;lgl [1]&gt;</span>      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> c45f05b3-aa… e269dc32-c022-407… 4195ab4c-20b… <span style="color: #949494;">&lt;chr&gt;</span>    <span style="color: #949494;">&lt;list&gt;</span> <span style="color: #949494;">&lt;lgl [1]&gt;</span>      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> 87183784-5b… e1d241a7-cfdf-4a6… 4195ab4c-20b… <span style="color: #949494;">&lt;chr&gt;</span>    <span style="color: #949494;">&lt;list&gt;</span> <span style="color: #949494;">&lt;lgl [1]&gt;</span>      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> 6e96d93c-de… 5513f0bc-0553-426… 4195ab4c-20b… <span style="color: #949494;">&lt;chr&gt;</span>    <span style="color: #949494;">&lt;list&gt;</span> <span style="color: #949494;">&lt;lgl [1]&gt;</span>      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> 31b49393-44… 7d28dc15-7665-4a3… 4195ab4c-20b… <span style="color: #949494;">&lt;chr&gt;</span>    <span style="color: #949494;">&lt;list&gt;</span> <span style="color: #949494;">&lt;lgl [1]&gt;</span>      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> 2d3e3c41-34… 5a4ce609-89cb-41d… 4195ab4c-20b… <span style="color: #949494;">&lt;chr&gt;</span>    <span style="color: #949494;">&lt;list&gt;</span> <span style="color: #949494;">&lt;lgl [1]&gt;</span>      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> 2adb1f8a-a6… 851fdc42-fd3b-4fb… 38833785-fac… <span style="color: #949494;">&lt;chr&gt;</span>    <span style="color: #949494;">&lt;list&gt;</span> <span style="color: #949494;">&lt;lgl [1]&gt;</span>      </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 15 more rows</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 25 more variables: cell_count &lt;int&gt;, cell_type &lt;list&gt;, citation &lt;chr&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   development_stage &lt;list&gt;, disease &lt;list&gt;, embeddings &lt;list&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   explorer_url &lt;chr&gt;, feature_biotype &lt;list&gt;, feature_count &lt;int&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   feature_reference &lt;list&gt;, is_primary_data &lt;list&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 26 more variables: cell_count &lt;int&gt;, cell_type &lt;list&gt;, citation &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   default_embedding &lt;chr&gt;, development_stage &lt;list&gt;, disease &lt;list&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   embeddings &lt;list&gt;, explorer_url &lt;chr&gt;, feature_biotype &lt;list&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   feature_count &lt;int&gt;, feature_reference &lt;list&gt;, is_primary_data &lt;list&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   mean_genes_per_cell &lt;dbl&gt;, organism &lt;list&gt;, primary_cell_count &lt;int&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   raw_data_location &lt;chr&gt;, schema_version &lt;chr&gt;, …</span></span>
 <span class="r-in"><span></span></span>
