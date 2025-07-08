@@ -1,3 +1,10 @@
+# cellxgenedp 1.13
+
+BUG FIXES
+
+* (v. 1.12.1 / 1.13.1) Do not attempt to 'unlist' any facet column in
+  datasets or collections
+
 # cellxgenedp 1.10
 
 SIGNIFICANT USER-VISIBLE CHANGES
