@@ -57,8 +57,9 @@ keys <-
         x
     })
 
-    ## unbox
+    ## unbox list columns where all entries are length 1
     idx <- vapply(tbl, \(x) all(lengths(x) == 1L), logical(1))
+    idx[names(idx) %in% FACETS] <- FALSE # don't unbox facets
     tbl[idx] <- lapply(tbl[idx], unlist)
 
     ## timestamps to Date
