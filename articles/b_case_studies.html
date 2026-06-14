@@ -7,8 +7,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Case studies • cellxgenedp</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Case studies">
 </head>
@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">cellxgenedp</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.13.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.17.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -118,46 +118,46 @@ collections, and joins this information to <code><a href="../reference/query.htm
 <span>    relationship <span class="op">=</span> <span class="st">"many-to-many"</span></span>
 <span><span class="op">)</span></span>
 <span><span class="va">author_datasets</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 59,767 × 36</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 71,715 × 39</span></span></span>
 <span><span class="co">#&gt;    collection_id  family given consortium dataset_id dataset_version_id donor_id</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> dc3a5256-5c39… McEvoy Cait… <span style="color: #BB0000;">NA</span>         0bae7ebf-… e6b8dce0-19e6-419… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> dc3a5256-5c39… Murphy Juli… <span style="color: #BB0000;">NA</span>         0bae7ebf-… e6b8dce0-19e6-419… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> dc3a5256-5c39… Zhang  Lin   <span style="color: #BB0000;">NA</span>         0bae7ebf-… e6b8dce0-19e6-419… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> dc3a5256-5c39… Clote… Sergi <span style="color: #BB0000;">NA</span>         0bae7ebf-… e6b8dce0-19e6-419… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> dc3a5256-5c39… Mathe… Jess… <span style="color: #BB0000;">NA</span>         0bae7ebf-… e6b8dce0-19e6-419… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> dc3a5256-5c39… An     James <span style="color: #BB0000;">NA</span>         0bae7ebf-… e6b8dce0-19e6-419… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> dc3a5256-5c39… Karim… Mehr… <span style="color: #BB0000;">NA</span>         0bae7ebf-… e6b8dce0-19e6-419… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> dc3a5256-5c39… Pouya… Dela… <span style="color: #BB0000;">NA</span>         0bae7ebf-… e6b8dce0-19e6-419… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> dc3a5256-5c39… Su     Shen… <span style="color: #BB0000;">NA</span>         0bae7ebf-… e6b8dce0-19e6-419… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> dc3a5256-5c39… Zasla… Olga  <span style="color: #BB0000;">NA</span>         0bae7ebf-… e6b8dce0-19e6-419… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 59,757 more rows</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 29 more variables: assay &lt;list&gt;, batch_condition &lt;list&gt;, cell_count &lt;int&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> af893e86-8e9f… Liang  Qing… <span style="color: #BB0000;">NA</span>         ed419b4e-… c8da6eeb-84d7-437… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> af893e86-8e9f… Liang  Qing… <span style="color: #BB0000;">NA</span>         aad97cb5-… 9db639c3-5c9c-4b8… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> af893e86-8e9f… Liang  Qing… <span style="color: #BB0000;">NA</span>         8f10185b-… 45e411d4-c103-4c2… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> af893e86-8e9f… Liang  Qing… <span style="color: #BB0000;">NA</span>         359f7af4-… e3c7aa91-5edd-416… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> af893e86-8e9f… Liang  Qing… <span style="color: #BB0000;">NA</span>         11ef37ee-… 5903aa1b-c323-4ae… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> af893e86-8e9f… Liang  Qing… <span style="color: #BB0000;">NA</span>         0129dbd9-… 7f2413c4-38c2-455… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> af893e86-8e9f… Liang  Qing… <span style="color: #BB0000;">NA</span>         00e5dedd-… 3d0dcefd-cdf2-4b1… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> af893e86-8e9f… Cheng  Xues… <span style="color: #BB0000;">NA</span>         ed419b4e-… c8da6eeb-84d7-437… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> af893e86-8e9f… Cheng  Xues… <span style="color: #BB0000;">NA</span>         aad97cb5-… 9db639c3-5c9c-4b8… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> af893e86-8e9f… Cheng  Xues… <span style="color: #BB0000;">NA</span>         8f10185b-… 45e411d4-c103-4c2… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 71,705 more rows</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 32 more variables: assay &lt;list&gt;, batch_condition &lt;list&gt;, cell_count &lt;int&gt;,</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;">#   cell_type &lt;list&gt;, citation &lt;chr&gt;, default_embedding &lt;chr&gt;,</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;">#   development_stage &lt;list&gt;, disease &lt;list&gt;, embeddings &lt;list&gt;,</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;">#   explorer_url &lt;chr&gt;, feature_biotype &lt;list&gt;, feature_count &lt;int&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   feature_reference &lt;list&gt;, is_primary_data &lt;list&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   mean_genes_per_cell &lt;dbl&gt;, organism &lt;list&gt;, primary_cell_count &lt;int&gt;, …</span></span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #949494;">#   feature_reference &lt;list&gt;, genetic_perturbation_strategy &lt;lgl&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   is_pre_analysis &lt;lgl&gt;, is_primary_data &lt;list&gt;, mean_genes_per_cell &lt;dbl&gt;, …</span></span></span></code></pre></div>
 <p><code>author_datasets</code> provides a convenient point from which
 to make basic queries, e.g., finding the authors contributing the most
 datasets.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">author_datasets</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">family</span>, <span class="va">given</span>, sort <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 5,594 × 3</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6,797 × 3</span></span></span>
 <span><span class="co">#&gt;    family      given        n</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> Teichmann   Sarah A.   335</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> Teichmann   Sarah A.   371</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> Casper      Tamara     261</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> Dee         Nick       261</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> Chen        Fei        258</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> Murray      Evan       258</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> Keene       C. Dirk    252</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> Hirschstein Daniel     241</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> Macosko     Evan Z.    237</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> Ding        Song-Lin   230</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> Lein        Ed S.      226</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 5,584 more rows</span></span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> Ding        Song-Lin   257</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> Lein        Ed S.      253</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> Keene       C. Dirk    252</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> Hirschstein Daniel     241</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> Macosko     Evan Z.    240</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 6,787 more rows</span></span></span></code></pre></div>
 <p>Perhaps one is interested in the most prolific authors based on
 ‘collections’, rather than ‘datasets’. The five most prolific authors by
 collection are</p>
@@ -170,11 +170,11 @@ collection are</p>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 5 × 3</span></span></span>
 <span><span class="co">#&gt;   family    given          n</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Teichmann Sarah A.      34</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Meyer     Kerstin B.    16</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Polanski  Krzysztof     16</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Regev     Aviv          15</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Haniffa   Muzlifah      14</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Teichmann Sarah A.      37</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> <span style="color: #BB0000;">NA</span>        <span style="color: #BB0000;">NA</span>            21</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Meyer     Kerstin B.    18</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Polanski  Krzysztof     17</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Regev     Aviv          17</span></span></code></pre></div>
 <p>The datasets associated with authors are</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">right_join</a></span><span class="op">(</span></span>
@@ -182,26 +182,26 @@ collection are</p>
 <span>    <span class="va">prolific_authors</span>,</span>
 <span>    by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"family"</span>, <span class="st">"given"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 822 × 37</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 1,005 × 40</span></span></span>
 <span><span class="co">#&gt;    collection_id  family given consortium dataset_id dataset_version_id donor_id</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> b1a879f6-5638… Polan… Krzy… <span style="color: #BB0000;">NA</span>         fd072bc3-… 06c6546e-719b-403… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> b1a879f6-5638… Polan… Krzy… <span style="color: #BB0000;">NA</span>         f1e4a73c-… 9762dea1-fe6b-4e5… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> b1a879f6-5638… Polan… Krzy… <span style="color: #BB0000;">NA</span>         e21487a3-… 14777d63-e4f5-4db… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> b1a879f6-5638… Polan… Krzy… <span style="color: #BB0000;">NA</span>         dcc10fd8-… 6e1268fc-0ae4-4c0… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> b1a879f6-5638… Polan… Krzy… <span style="color: #BB0000;">NA</span>         d0c12af4-… 628d0c56-e77d-48c… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> b1a879f6-5638… Polan… Krzy… <span style="color: #BB0000;">NA</span>         c4e2bde2-… beab2fab-9b39-4c2… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> b1a879f6-5638… Polan… Krzy… <span style="color: #BB0000;">NA</span>         aede7ec2-… d9c3fc9a-299b-4f5… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> b1a879f6-5638… Polan… Krzy… <span style="color: #BB0000;">NA</span>         aa633105-… f75c06fc-4a65-4dd… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> b1a879f6-5638… Polan… Krzy… <span style="color: #BB0000;">NA</span>         8d73847b-… dc9e1cd4-309d-42f… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> b1a879f6-5638… Polan… Krzy… <span style="color: #BB0000;">NA</span>         83de2c2c-… 5a1c9d6d-bb96-457… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 812 more rows</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 30 more variables: assay &lt;list&gt;, batch_condition &lt;list&gt;, cell_count &lt;int&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 16876983-d454… <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>    Global Pa… e88a8e7c-… 02e1d36f-3019-49c… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 16876983-d454… <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>    Global Pa… 5fa72b3e-… 5451683b-f184-4bd… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> e75342a8-0f3b… Teich… Sara… <span style="color: #BB0000;">NA</span>         f7995301-… 27fdbdf9-deae-4ae… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> e75342a8-0f3b… Teich… Sara… <span style="color: #BB0000;">NA</span>         ed2b673b-… 9b7c7203-91cd-4e8… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> e75342a8-0f3b… Teich… Sara… <span style="color: #BB0000;">NA</span>         bdf69f8d-… f8a5ecd6-51ef-4b3… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> e75342a8-0f3b… Teich… Sara… <span style="color: #BB0000;">NA</span>         9434b020-… 48b2a43b-b04c-41c… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> e75342a8-0f3b… Teich… Sara… <span style="color: #BB0000;">NA</span>         83b5e943-… 73b3b585-499e-433… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> e75342a8-0f3b… Teich… Sara… <span style="color: #BB0000;">NA</span>         65badd7a-… 6d0b8b8a-2b22-457… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> e75342a8-0f3b… Teich… Sara… <span style="color: #BB0000;">NA</span>         1252c5fb-… 20080edf-b3c5-4d1… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> e75342a8-0f3b… Teich… Sara… <span style="color: #BB0000;">NA</span>         1062c0f2-… 7206e56c-a6f9-45c… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 995 more rows</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 33 more variables: assay &lt;list&gt;, batch_condition &lt;list&gt;, cell_count &lt;int&gt;,</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;">#   cell_type &lt;list&gt;, citation &lt;chr&gt;, default_embedding &lt;chr&gt;,</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;">#   development_stage &lt;list&gt;, disease &lt;list&gt;, embeddings &lt;list&gt;,</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;">#   explorer_url &lt;chr&gt;, feature_biotype &lt;list&gt;, feature_count &lt;int&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   feature_reference &lt;list&gt;, is_primary_data &lt;list&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   mean_genes_per_cell &lt;dbl&gt;, organism &lt;list&gt;, primary_cell_count &lt;int&gt;, …</span></span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #949494;">#   feature_reference &lt;list&gt;, genetic_perturbation_strategy &lt;lgl&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   is_pre_analysis &lt;lgl&gt;, is_primary_data &lt;list&gt;, mean_genes_per_cell &lt;dbl&gt;, …</span></span></span></code></pre></div>
 <p>Alternatively, one might be interested in specific authors. This is
 most easily accomplished with a simple filter on
 <code>author_datasets</code>, e.g.,</p>
@@ -210,28 +210,28 @@ most easily accomplished with a simple filter on
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span></span>
 <span>        <span class="va">family</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Teichmann"</span>, <span class="st">"Regev"</span>, <span class="st">"Haniffa"</span><span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 599 × 36</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 658 × 39</span></span></span>
 <span><span class="co">#&gt;    collection_id  family given consortium dataset_id dataset_version_id donor_id</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> b1a879f6-5638… Hanif… Muzl… <span style="color: #BB0000;">NA</span>         fd072bc3-… 06c6546e-719b-403… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> b1a879f6-5638… Hanif… Muzl… <span style="color: #BB0000;">NA</span>         f1e4a73c-… 9762dea1-fe6b-4e5… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> b1a879f6-5638… Hanif… Muzl… <span style="color: #BB0000;">NA</span>         e21487a3-… 14777d63-e4f5-4db… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> b1a879f6-5638… Hanif… Muzl… <span style="color: #BB0000;">NA</span>         dcc10fd8-… 6e1268fc-0ae4-4c0… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> b1a879f6-5638… Hanif… Muzl… <span style="color: #BB0000;">NA</span>         d0c12af4-… 628d0c56-e77d-48c… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> b1a879f6-5638… Hanif… Muzl… <span style="color: #BB0000;">NA</span>         c4e2bde2-… beab2fab-9b39-4c2… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> b1a879f6-5638… Hanif… Muzl… <span style="color: #BB0000;">NA</span>         aede7ec2-… d9c3fc9a-299b-4f5… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> b1a879f6-5638… Hanif… Muzl… <span style="color: #BB0000;">NA</span>         aa633105-… f75c06fc-4a65-4dd… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> b1a879f6-5638… Hanif… Muzl… <span style="color: #BB0000;">NA</span>         8d73847b-… dc9e1cd4-309d-42f… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> b1a879f6-5638… Hanif… Muzl… <span style="color: #BB0000;">NA</span>         83de2c2c-… 5a1c9d6d-bb96-457… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 589 more rows</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 29 more variables: assay &lt;list&gt;, batch_condition &lt;list&gt;, cell_count &lt;int&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> e75342a8-0f3b… Teich… Sara… <span style="color: #BB0000;">NA</span>         f7995301-… 27fdbdf9-deae-4ae… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> e75342a8-0f3b… Teich… Sara… <span style="color: #BB0000;">NA</span>         ed2b673b-… 9b7c7203-91cd-4e8… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> e75342a8-0f3b… Teich… Sara… <span style="color: #BB0000;">NA</span>         bdf69f8d-… f8a5ecd6-51ef-4b3… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> e75342a8-0f3b… Teich… Sara… <span style="color: #BB0000;">NA</span>         9434b020-… 48b2a43b-b04c-41c… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> e75342a8-0f3b… Teich… Sara… <span style="color: #BB0000;">NA</span>         83b5e943-… 73b3b585-499e-433… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> e75342a8-0f3b… Teich… Sara… <span style="color: #BB0000;">NA</span>         65badd7a-… 6d0b8b8a-2b22-457… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> e75342a8-0f3b… Teich… Sara… <span style="color: #BB0000;">NA</span>         1252c5fb-… 20080edf-b3c5-4d1… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> e75342a8-0f3b… Teich… Sara… <span style="color: #BB0000;">NA</span>         1062c0f2-… 7206e56c-a6f9-45c… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> e75342a8-0f3b… Teich… Sara… <span style="color: #BB0000;">NA</span>         0fdb6122-… 18111333-e7ce-4a1… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 32f2fd23-ec74… Teich… Sara… <span style="color: #BB0000;">NA</span>         9ddea8d9-… e9c1bce2-a784-4ac… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 648 more rows</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 32 more variables: assay &lt;list&gt;, batch_condition &lt;list&gt;, cell_count &lt;int&gt;,</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;">#   cell_type &lt;list&gt;, citation &lt;chr&gt;, default_embedding &lt;chr&gt;,</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;">#   development_stage &lt;list&gt;, disease &lt;list&gt;, embeddings &lt;list&gt;,</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;">#   explorer_url &lt;chr&gt;, feature_biotype &lt;list&gt;, feature_count &lt;int&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   feature_reference &lt;list&gt;, is_primary_data &lt;list&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   mean_genes_per_cell &lt;dbl&gt;, organism &lt;list&gt;, primary_cell_count &lt;int&gt;, …</span></span></span></code></pre></div>
-<p>or more carefully by constructing at <code>data.frame</code> of
-family and given names, and performing a join with
+<span><span class="co">#&gt; <span style="color: #949494;">#   feature_reference &lt;list&gt;, genetic_perturbation_strategy &lt;lgl&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   is_pre_analysis &lt;lgl&gt;, is_primary_data &lt;list&gt;, mean_genes_per_cell &lt;dbl&gt;, …</span></span></span></code></pre></div>
+<p>or more carefully by constructing a <code>data.frame</code> of family
+and given names, and performing a join with
 <code>author_datasets</code></p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">authors_of_interest</span> <span class="op">&lt;-</span></span>
@@ -244,26 +244,26 @@ family and given names, and performing a join with
 <span>    <span class="va">authors_of_interest</span>,</span>
 <span>    by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"family"</span>, <span class="st">"given"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 513 × 36</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 582 × 39</span></span></span>
 <span><span class="co">#&gt;    collection_id  family given consortium dataset_id dataset_version_id donor_id</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> b1a879f6-5638… Hanif… Muzl… <span style="color: #BB0000;">NA</span>         fd072bc3-… 06c6546e-719b-403… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> b1a879f6-5638… Hanif… Muzl… <span style="color: #BB0000;">NA</span>         f1e4a73c-… 9762dea1-fe6b-4e5… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> b1a879f6-5638… Hanif… Muzl… <span style="color: #BB0000;">NA</span>         e21487a3-… 14777d63-e4f5-4db… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> b1a879f6-5638… Hanif… Muzl… <span style="color: #BB0000;">NA</span>         dcc10fd8-… 6e1268fc-0ae4-4c0… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> b1a879f6-5638… Hanif… Muzl… <span style="color: #BB0000;">NA</span>         d0c12af4-… 628d0c56-e77d-48c… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> b1a879f6-5638… Hanif… Muzl… <span style="color: #BB0000;">NA</span>         c4e2bde2-… beab2fab-9b39-4c2… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> b1a879f6-5638… Hanif… Muzl… <span style="color: #BB0000;">NA</span>         aede7ec2-… d9c3fc9a-299b-4f5… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> b1a879f6-5638… Hanif… Muzl… <span style="color: #BB0000;">NA</span>         aa633105-… f75c06fc-4a65-4dd… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> b1a879f6-5638… Hanif… Muzl… <span style="color: #BB0000;">NA</span>         8d73847b-… dc9e1cd4-309d-42f… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> b1a879f6-5638… Hanif… Muzl… <span style="color: #BB0000;">NA</span>         83de2c2c-… 5a1c9d6d-bb96-457… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 503 more rows</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 29 more variables: assay &lt;list&gt;, batch_condition &lt;list&gt;, cell_count &lt;int&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> e75342a8-0f3b… Teich… Sara… <span style="color: #BB0000;">NA</span>         f7995301-… 27fdbdf9-deae-4ae… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> e75342a8-0f3b… Teich… Sara… <span style="color: #BB0000;">NA</span>         ed2b673b-… 9b7c7203-91cd-4e8… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> e75342a8-0f3b… Teich… Sara… <span style="color: #BB0000;">NA</span>         bdf69f8d-… f8a5ecd6-51ef-4b3… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> e75342a8-0f3b… Teich… Sara… <span style="color: #BB0000;">NA</span>         9434b020-… 48b2a43b-b04c-41c… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> e75342a8-0f3b… Teich… Sara… <span style="color: #BB0000;">NA</span>         83b5e943-… 73b3b585-499e-433… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> e75342a8-0f3b… Teich… Sara… <span style="color: #BB0000;">NA</span>         65badd7a-… 6d0b8b8a-2b22-457… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> e75342a8-0f3b… Teich… Sara… <span style="color: #BB0000;">NA</span>         1252c5fb-… 20080edf-b3c5-4d1… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> e75342a8-0f3b… Teich… Sara… <span style="color: #BB0000;">NA</span>         1062c0f2-… 7206e56c-a6f9-45c… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> e75342a8-0f3b… Teich… Sara… <span style="color: #BB0000;">NA</span>         0fdb6122-… 18111333-e7ce-4a1… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 32f2fd23-ec74… Teich… Sara… <span style="color: #BB0000;">NA</span>         9ddea8d9-… e9c1bce2-a784-4ac… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 572 more rows</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 32 more variables: assay &lt;list&gt;, batch_condition &lt;list&gt;, cell_count &lt;int&gt;,</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;">#   cell_type &lt;list&gt;, citation &lt;chr&gt;, default_embedding &lt;chr&gt;,</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;">#   development_stage &lt;list&gt;, disease &lt;list&gt;, embeddings &lt;list&gt;,</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;">#   explorer_url &lt;chr&gt;, feature_biotype &lt;list&gt;, feature_count &lt;int&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   feature_reference &lt;list&gt;, is_primary_data &lt;list&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   mean_genes_per_cell &lt;dbl&gt;, organism &lt;list&gt;, primary_cell_count &lt;int&gt;, …</span></span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #949494;">#   feature_reference &lt;list&gt;, genetic_perturbation_strategy &lt;lgl&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   is_pre_analysis &lt;lgl&gt;, is_primary_data &lt;list&gt;, mean_genes_per_cell &lt;dbl&gt;, …</span></span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="areas-of-interest">Areas of interest<a class="anchor" aria-label="anchor" href="#areas-of-interest"></a>
@@ -276,20 +276,20 @@ the <code>author_datasets</code> table is a list.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">author_datasets</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">family</span>, <span class="va">given</span>, <span class="va">dataset_id</span>, <span class="va">disease</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 59,767 × 4</span></span></span>
-<span><span class="co">#&gt;    family         given        dataset_id                           disease   </span></span>
-<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>    </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> McEvoy         Caitriona M. 0bae7ebf-eb54-46a6-be9a-3461cecefa4c <span style="color: #949494;">&lt;list [1]&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> Murphy         Julia M.     0bae7ebf-eb54-46a6-be9a-3461cecefa4c <span style="color: #949494;">&lt;list [1]&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> Zhang          Lin          0bae7ebf-eb54-46a6-be9a-3461cecefa4c <span style="color: #949494;">&lt;list [1]&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> Clotet-Freixas Sergi        0bae7ebf-eb54-46a6-be9a-3461cecefa4c <span style="color: #949494;">&lt;list [1]&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> Mathews        Jessica A.   0bae7ebf-eb54-46a6-be9a-3461cecefa4c <span style="color: #949494;">&lt;list [1]&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> An             James        0bae7ebf-eb54-46a6-be9a-3461cecefa4c <span style="color: #949494;">&lt;list [1]&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> Karimzadeh     Mehran       0bae7ebf-eb54-46a6-be9a-3461cecefa4c <span style="color: #949494;">&lt;list [1]&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> Pouyabahar     Delaram      0bae7ebf-eb54-46a6-be9a-3461cecefa4c <span style="color: #949494;">&lt;list [1]&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> Su             Shenghui     0bae7ebf-eb54-46a6-be9a-3461cecefa4c <span style="color: #949494;">&lt;list [1]&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> Zaslaver       Olga         0bae7ebf-eb54-46a6-be9a-3461cecefa4c <span style="color: #949494;">&lt;list [1]&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 59,757 more rows</span></span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 71,715 × 4</span></span></span>
+<span><span class="co">#&gt;    family given   dataset_id                           disease   </span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> Liang  Qingnan ed419b4e-db9b-40f1-8593-68fdf8dfb076 <span style="color: #949494;">&lt;list [1]&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> Liang  Qingnan aad97cb5-f375-45ef-ae9d-178e7f5d5180 <span style="color: #949494;">&lt;list [1]&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> Liang  Qingnan 8f10185b-e0b3-46a5-8706-7f1799225d79 <span style="color: #949494;">&lt;list [1]&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> Liang  Qingnan 359f7af4-87d4-4117-9d6c-ca4cfa1f3f0b <span style="color: #949494;">&lt;list [1]&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> Liang  Qingnan 11ef37ee-2173-458e-aab8-7fe35da8e47b <span style="color: #949494;">&lt;list [1]&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> Liang  Qingnan 0129dbd9-a7d3-4f6b-96b9-1da155a93748 <span style="color: #949494;">&lt;list [1]&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> Liang  Qingnan 00e5dedd-b9b7-43be-8c28-b0e5c6414a62 <span style="color: #949494;">&lt;list [1]&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> Cheng  Xuesen  ed419b4e-db9b-40f1-8593-68fdf8dfb076 <span style="color: #949494;">&lt;list [1]&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> Cheng  Xuesen  aad97cb5-f375-45ef-ae9d-178e7f5d5180 <span style="color: #949494;">&lt;list [1]&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> Cheng  Xuesen  8f10185b-e0b3-46a5-8706-7f1799225d79 <span style="color: #949494;">&lt;list [1]&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 71,705 more rows</span></span></span></code></pre></div>
 <p>This is because a single dataset may involve more than one disease.
 Furthermore, each entry in the list contains two elements, the
 <code>label</code> and <code>ontology_term_id</code> of the disease.
@@ -298,45 +298,45 @@ There are two approaches to working with this data.</p>
 outlined in an accompanying article. Discover possible diseases.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/facets.html">facets</a></span><span class="op">(</span><span class="fu"><a href="../reference/db.html">db</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"disease"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 169 × 4</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 311 × 4</span></span></span>
 <span><span class="co">#&gt;    facet   label                                        ontology_term_id     n</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> disease normal                                       PATO:0000461      <span style="text-decoration: underline;">1</span>541</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> disease normal                                       PATO:0000461      <span style="text-decoration: underline;">1</span>782</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> disease COVID-19                                     MONDO:0100096       66</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> disease dementia                                     MONDO:0001627       50</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> disease breast cancer                                MONDO:0007254       34</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> disease myocardial infarction                        MONDO:0005068       30</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> disease diabetic kidney disease                      MONDO:0005016       26</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> disease Alzheimer disease                            MONDO:0004975       24</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> disease autosomal dominant polycystic kidney disease MONDO:0004691       24</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> disease nonpapillary renal cell carcinoma            MONDO:0007763       20</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> disease colorectal cancer                            MONDO:0005575       17</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 159 more rows</span></span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> disease dementia                                     MONDO:0001627       52</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> disease breast cancer                                MONDO:0007254       38</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> disease colorectal cancer                            MONDO:0005575       35</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> disease myocardial infarction                        MONDO:0005068       30</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> disease Alzheimer disease                            MONDO:0004975       26</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> disease diabetic kidney disease                      MONDO:0005016       26</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> disease autosomal dominant polycystic kidney disease MONDO:0004691       24</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> disease Crohn disease                                MONDO:0005011       21</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 301 more rows</span></span></span></code></pre></div>
 <p>Focus on <code>COVID-19</code>, and use <code><a href="../reference/facets.html">facets_filter()</a></code>
 to select relevant author-dataset combinations.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">author_datasets</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="fu"><a href="../reference/facets.html">facets_filter</a></span><span class="op">(</span><span class="va">disease</span>, <span class="st">"label"</span>, <span class="st">"COVID-19"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 1,912 × 36</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 1,912 × 39</span></span></span>
 <span><span class="co">#&gt;    collection_id  family given consortium dataset_id dataset_version_id donor_id</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> b9fc3d70-5a72… Jin    Kang  <span style="color: #BB0000;">NA</span>         e763ed0d-… 5b916cc5-f01f-42c… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> b9fc3d70-5a72… Jin    Kang  <span style="color: #BB0000;">NA</span>         db0752b9-… 67a20819-b7a9-4a0… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> b9fc3d70-5a72… Jin    Kang  <span style="color: #BB0000;">NA</span>         d9b4bc69-… 7fde015a-c913-4ae… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> b9fc3d70-5a72… Jin    Kang  <span style="color: #BB0000;">NA</span>         bc2a7b3d-… c78a352d-38e5-4b0… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> b9fc3d70-5a72… Jin    Kang  <span style="color: #BB0000;">NA</span>         ae5341b8-… 497ab773-4fd5-426… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> b9fc3d70-5a72… Jin    Kang  <span style="color: #BB0000;">NA</span>         96a3f64b-… 9f073903-c5be-4f6… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> b9fc3d70-5a72… Jin    Kang  <span style="color: #BB0000;">NA</span>         5e717147-… ad80600f-5ae0-496… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> b9fc3d70-5a72… Jin    Kang  <span style="color: #BB0000;">NA</span>         59b69042-… a06a1d9e-b1e8-452… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> b9fc3d70-5a72… Jin    Kang  <span style="color: #BB0000;">NA</span>         4c4cd77c-… c23f6f92-873d-46b… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> b9fc3d70-5a72… Jin    Kang  <span style="color: #BB0000;">NA</span>         055ca631-… 1401027b-5283-4ca… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 29f92179-ca10… Szabo  Pete… <span style="color: #BB0000;">NA</span>         f156606a-… d459ceb2-d44f-469… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 29f92179-ca10… Szabo  Pete… <span style="color: #BB0000;">NA</span>         eec804b9-… 8f00b78c-fef9-438… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 29f92179-ca10… Szabo  Pete… <span style="color: #BB0000;">NA</span>         eeacb0c1-… 9db81723-ba1e-487… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 29f92179-ca10… Szabo  Pete… <span style="color: #BB0000;">NA</span>         ed9e9f96-… 15d019f7-e436-41d… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 29f92179-ca10… Szabo  Pete… <span style="color: #BB0000;">NA</span>         ea786a06-… 01770d4d-850a-478… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 29f92179-ca10… Szabo  Pete… <span style="color: #BB0000;">NA</span>         e5f5d954-… c3570ea2-1c92-44b… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 29f92179-ca10… Szabo  Pete… <span style="color: #BB0000;">NA</span>         dbf0bd35-… 0a7b023c-faeb-41e… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 29f92179-ca10… Szabo  Pete… <span style="color: #BB0000;">NA</span>         db59611b-… b0f4a940-ac61-4e8… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 29f92179-ca10… Szabo  Pete… <span style="color: #BB0000;">NA</span>         ce009dc1-… dfa1787b-751e-414… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 29f92179-ca10… Szabo  Pete… <span style="color: #BB0000;">NA</span>         cab0bc48-… a9a647bf-00ee-4e3… <span style="color: #949494;">&lt;chr&gt;</span>   </span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 1,902 more rows</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 29 more variables: assay &lt;list&gt;, batch_condition &lt;list&gt;, cell_count &lt;int&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 32 more variables: assay &lt;list&gt;, batch_condition &lt;list&gt;, cell_count &lt;int&gt;,</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;">#   cell_type &lt;list&gt;, citation &lt;chr&gt;, default_embedding &lt;chr&gt;,</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;">#   development_stage &lt;list&gt;, disease &lt;list&gt;, embeddings &lt;list&gt;,</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;">#   explorer_url &lt;chr&gt;, feature_biotype &lt;list&gt;, feature_count &lt;int&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   feature_reference &lt;list&gt;, is_primary_data &lt;list&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   mean_genes_per_cell &lt;dbl&gt;, organism &lt;list&gt;, primary_cell_count &lt;int&gt;, …</span></span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #949494;">#   feature_reference &lt;list&gt;, genetic_perturbation_strategy &lt;lgl&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   is_pre_analysis &lt;lgl&gt;, is_primary_data &lt;list&gt;, mean_genes_per_cell &lt;dbl&gt;, …</span></span></span></code></pre></div>
 <p>Authors contributing to these datasets are</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">author_datasets</span> <span class="op">|&gt;</span></span>
@@ -367,20 +367,20 @@ second time to separate the two columns of each disease.</p>
 <span>    <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/unnest_longer.html" class="external-link">unnest_longer</a></span><span class="op">(</span><span class="va">disease</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/unnest_wider.html" class="external-link">unnest_wider</a></span><span class="op">(</span><span class="va">disease</span><span class="op">)</span></span>
 <span><span class="va">author_dataset_diseases</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 77,220 × 5</span></span></span>
-<span><span class="co">#&gt;    family         given        dataset_id                 label ontology_term_id</span></span>
-<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> McEvoy         Caitriona M. 0bae7ebf-eb54-46a6-be9a-3… norm… PATO:0000461    </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> Murphy         Julia M.     0bae7ebf-eb54-46a6-be9a-3… norm… PATO:0000461    </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> Zhang          Lin          0bae7ebf-eb54-46a6-be9a-3… norm… PATO:0000461    </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> Clotet-Freixas Sergi        0bae7ebf-eb54-46a6-be9a-3… norm… PATO:0000461    </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> Mathews        Jessica A.   0bae7ebf-eb54-46a6-be9a-3… norm… PATO:0000461    </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> An             James        0bae7ebf-eb54-46a6-be9a-3… norm… PATO:0000461    </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> Karimzadeh     Mehran       0bae7ebf-eb54-46a6-be9a-3… norm… PATO:0000461    </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> Pouyabahar     Delaram      0bae7ebf-eb54-46a6-be9a-3… norm… PATO:0000461    </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> Su             Shenghui     0bae7ebf-eb54-46a6-be9a-3… norm… PATO:0000461    </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> Zaslaver       Olga         0bae7ebf-eb54-46a6-be9a-3… norm… PATO:0000461    </span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 77,210 more rows</span></span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 100,110 × 5</span></span></span>
+<span><span class="co">#&gt;    family given   dataset_id                           label  ontology_term_id</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> Liang  Qingnan ed419b4e-db9b-40f1-8593-68fdf8dfb076 normal PATO:0000461    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> Liang  Qingnan aad97cb5-f375-45ef-ae9d-178e7f5d5180 normal PATO:0000461    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> Liang  Qingnan 8f10185b-e0b3-46a5-8706-7f1799225d79 normal PATO:0000461    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> Liang  Qingnan 359f7af4-87d4-4117-9d6c-ca4cfa1f3f0b normal PATO:0000461    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> Liang  Qingnan 11ef37ee-2173-458e-aab8-7fe35da8e47b normal PATO:0000461    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> Liang  Qingnan 0129dbd9-a7d3-4f6b-96b9-1da155a93748 normal PATO:0000461    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> Liang  Qingnan 00e5dedd-b9b7-43be-8c28-b0e5c6414a62 normal PATO:0000461    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> Cheng  Xuesen  ed419b4e-db9b-40f1-8593-68fdf8dfb076 normal PATO:0000461    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> Cheng  Xuesen  aad97cb5-f375-45ef-ae9d-178e7f5d5180 normal PATO:0000461    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> Cheng  Xuesen  8f10185b-e0b3-46a5-8706-7f1799225d79 normal PATO:0000461    </span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 100,100 more rows</span></span></span></code></pre></div>
 <p>Author-dataset combinations associated with COVID-19, and
 contributors to these datasets, are</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
@@ -415,21 +415,21 @@ collaboration</a> section for inspiration.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">authors</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/query.html">authors</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">authors</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 7,305 × 4</span></span></span>
-<span><span class="co">#&gt;    collection_id                        family         given        consortium</span></span>
-<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> dc3a5256-5c39-4a21-ac0c-4ede3e7b2323 McEvoy         Caitriona M. <span style="color: #BB0000;">NA</span>        </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> dc3a5256-5c39-4a21-ac0c-4ede3e7b2323 Murphy         Julia M.     <span style="color: #BB0000;">NA</span>        </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> dc3a5256-5c39-4a21-ac0c-4ede3e7b2323 Zhang          Lin          <span style="color: #BB0000;">NA</span>        </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> dc3a5256-5c39-4a21-ac0c-4ede3e7b2323 Clotet-Freixas Sergi        <span style="color: #BB0000;">NA</span>        </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> dc3a5256-5c39-4a21-ac0c-4ede3e7b2323 Mathews        Jessica A.   <span style="color: #BB0000;">NA</span>        </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> dc3a5256-5c39-4a21-ac0c-4ede3e7b2323 An             James        <span style="color: #BB0000;">NA</span>        </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> dc3a5256-5c39-4a21-ac0c-4ede3e7b2323 Karimzadeh     Mehran       <span style="color: #BB0000;">NA</span>        </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> dc3a5256-5c39-4a21-ac0c-4ede3e7b2323 Pouyabahar     Delaram      <span style="color: #BB0000;">NA</span>        </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> dc3a5256-5c39-4a21-ac0c-4ede3e7b2323 Su             Shenghui     <span style="color: #BB0000;">NA</span>        </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> dc3a5256-5c39-4a21-ac0c-4ede3e7b2323 Zaslaver       Olga         <span style="color: #BB0000;">NA</span>        </span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 7,295 more rows</span></span></span></code></pre></div>
-<p>There are 7305 collection-author combinations. We expect these to be
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 9,104 × 4</span></span></span>
+<span><span class="co">#&gt;    collection_id                        family  given    consortium</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> af893e86-8e9f-41f1-a474-ef05359b1fb7 Liang   Qingnan  <span style="color: #BB0000;">NA</span>        </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> af893e86-8e9f-41f1-a474-ef05359b1fb7 Cheng   Xuesen   <span style="color: #BB0000;">NA</span>        </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> af893e86-8e9f-41f1-a474-ef05359b1fb7 Wang    Jun      <span style="color: #BB0000;">NA</span>        </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> af893e86-8e9f-41f1-a474-ef05359b1fb7 Owen    Leah     <span style="color: #BB0000;">NA</span>        </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> af893e86-8e9f-41f1-a474-ef05359b1fb7 Shakoor Akbar    <span style="color: #BB0000;">NA</span>        </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> af893e86-8e9f-41f1-a474-ef05359b1fb7 Lillvis John L.  <span style="color: #BB0000;">NA</span>        </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> af893e86-8e9f-41f1-a474-ef05359b1fb7 Zhang   Charles  <span style="color: #BB0000;">NA</span>        </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> af893e86-8e9f-41f1-a474-ef05359b1fb7 Farkas  Michael  <span style="color: #BB0000;">NA</span>        </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> af893e86-8e9f-41f1-a474-ef05359b1fb7 Kim     Ivana K. <span style="color: #BB0000;">NA</span>        </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> af893e86-8e9f-41f1-a474-ef05359b1fb7 Li      Yumei    <span style="color: #BB0000;">NA</span>        </span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 9,094 more rows</span></span></span></code></pre></div>
+<p>There are 9104 collection-author combinations. We expect these to be
 distinct (each row identifying a unique collection-author combination).
 But this is not true</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
@@ -461,14 +461,15 @@ But this is not true</p>
 <span>    <span class="fu"><a href="../reference/query.html">collections</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">collection_id</span> <span class="op">==</span> <span class="st">"e5f58829-1a66-40b5-a624-9046778e74f5"</span><span class="op">)</span></span>
 <span><span class="va">duplicate_authors</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 18</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 1 × 19</span></span></span>
 <span><span class="co">#&gt;   collection_id     collection_version_id collection_url consortia contact_email</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                 <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> e5f58829-1a66-40… d9c9abfb-ddd1-4172-b… https://cellx… <span style="color: #949494;">&lt;chr [2]&gt;</span> angela.olive…</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 13 more variables: contact_name &lt;chr&gt;, curator_name &lt;chr&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   description &lt;chr&gt;, doi &lt;chr&gt;, links &lt;list&gt;, name &lt;chr&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   publisher_metadata &lt;list&gt;, revising_in &lt;lgl&gt;, revision_of &lt;lgl&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   visibility &lt;chr&gt;, created_at &lt;date&gt;, published_at &lt;date&gt;, revised_at &lt;date&gt;</span></span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> e5f58829-1a66-40… 61d34250-a255-4c7c-b… https://cellx… <span style="color: #949494;">&lt;chr [2]&gt;</span> angela.olive…</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 14 more variables: contact_name &lt;chr&gt;, curator_name &lt;chr&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   description &lt;chr&gt;, doi &lt;chr&gt;, is_pre_analysis &lt;lgl&gt;, links &lt;list&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   name &lt;chr&gt;, publisher_metadata &lt;list&gt;, revising_in &lt;lgl&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   revision_of &lt;lgl&gt;, visibility &lt;chr&gt;, created_at &lt;date&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   published_at &lt;date&gt;, revised_at &lt;date&gt;</span></span></span></code></pre></div>
 <p>The author information comes from the <code>publisher_metadata</code>
 column</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
@@ -531,7 +532,7 @@ approach.</p>
 <p>CELLxGENE dataset facets like ‘disease’ and ‘cell type’ use terms
 from ontologies. Ontologies arrange terms in directed acyclic graphs,
 and use of ontologies can be useful to identify related datasets. For
-instance, one might be interesed in cancer-related datasets (derived
+instance, one might be interested in cancer-related datasets (derived
 from the ‘carcinoma’ term in the corresponding ontology) in general,
 rather than, e.g., ‘B-cell non-Hodgkins lymphoma’.</p>
 <p>In exploring this question in <em>R</em>, I found myself developing
@@ -544,9 +545,9 @@ details.</p>
 <div class="section level2">
 <h2 class="unnumbered" id="session-information">Session information<a class="anchor" aria-label="anchor" href="#session-information"></a>
 </h2>
-<pre><code><span><span class="co">#&gt; R version 4.5.1 (2025-06-13)</span></span>
+<pre><code><span><span class="co">#&gt; R version 4.6.0 (2026-04-24)</span></span>
 <span><span class="co">#&gt; Platform: x86_64-pc-linux-gnu</span></span>
-<span><span class="co">#&gt; Running under: Ubuntu 24.04.2 LTS</span></span>
+<span><span class="co">#&gt; Running under: Ubuntu 24.04.4 LTS</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Matrix products: default</span></span>
 <span><span class="co">#&gt; BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 </span></span>
@@ -565,26 +566,27 @@ details.</p>
 <span><span class="co">#&gt; [1] stats     graphics  grDevices utils     datasets  methods   base     </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; other attached packages:</span></span>
-<span><span class="co">#&gt; [1] cellxgenedp_1.13.1 dplyr_1.1.4        BiocStyle_2.36.0  </span></span>
+<span><span class="co">#&gt; [1] cellxgenedp_1.17.1 dplyr_1.2.1        BiocStyle_2.40.0  </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; loaded via a namespace (and not attached):</span></span>
-<span><span class="co">#&gt;  [1] jsonlite_2.0.0      compiler_4.5.1      BiocManager_1.30.26</span></span>
-<span><span class="co">#&gt;  [4] promises_1.3.3      Rcpp_1.1.0          tidyselect_1.2.1   </span></span>
-<span><span class="co">#&gt;  [7] tidyr_1.3.1         later_1.4.2         jquerylib_0.1.4    </span></span>
-<span><span class="co">#&gt; [10] systemfonts_1.2.3   textshaping_1.0.1   yaml_2.3.10        </span></span>
-<span><span class="co">#&gt; [13] fastmap_1.2.0       mime_0.13           R6_2.6.1           </span></span>
-<span><span class="co">#&gt; [16] rjsoncons_1.3.2     generics_0.1.4      curl_6.4.0         </span></span>
-<span><span class="co">#&gt; [19] knitr_1.50          htmlwidgets_1.6.4   tibble_3.3.0       </span></span>
-<span><span class="co">#&gt; [22] bookdown_0.43       desc_1.4.3          shiny_1.11.1       </span></span>
-<span><span class="co">#&gt; [25] bslib_0.9.0         pillar_1.11.0       rlang_1.1.6        </span></span>
-<span><span class="co">#&gt; [28] utf8_1.2.6          DT_0.33             cachem_1.1.0       </span></span>
-<span><span class="co">#&gt; [31] httpuv_1.6.16       xfun_0.52           fs_1.6.6           </span></span>
-<span><span class="co">#&gt; [34] sass_0.4.10         cli_3.6.5           withr_3.0.2        </span></span>
-<span><span class="co">#&gt; [37] pkgdown_2.1.3       magrittr_2.0.3      digest_0.6.37      </span></span>
-<span><span class="co">#&gt; [40] xtable_1.8-4        lifecycle_1.0.4     vctrs_0.6.5        </span></span>
-<span><span class="co">#&gt; [43] evaluate_1.0.4      glue_1.8.0          ragg_1.4.0         </span></span>
-<span><span class="co">#&gt; [46] purrr_1.0.4         rmarkdown_2.29      httr_1.4.7         </span></span>
-<span><span class="co">#&gt; [49] tools_4.5.1         pkgconfig_2.0.3     htmltools_0.5.8.1</span></span></code></pre>
+<span><span class="co">#&gt;  [1] sass_0.4.10         utf8_1.2.6          generics_0.1.4     </span></span>
+<span><span class="co">#&gt;  [4] tidyr_1.3.2         digest_0.6.39       magrittr_2.0.5     </span></span>
+<span><span class="co">#&gt;  [7] evaluate_1.0.5      bookdown_0.46       fastmap_1.2.0      </span></span>
+<span><span class="co">#&gt; [10] jsonlite_2.0.0      promises_1.5.0      BiocManager_1.30.27</span></span>
+<span><span class="co">#&gt; [13] httr_1.4.8          purrr_1.2.2         textshaping_1.0.5  </span></span>
+<span><span class="co">#&gt; [16] jquerylib_0.1.4     cli_3.6.6           shiny_1.13.0       </span></span>
+<span><span class="co">#&gt; [19] rlang_1.2.0         withr_3.0.2         cachem_1.1.0       </span></span>
+<span><span class="co">#&gt; [22] yaml_2.3.12         otel_0.2.0          tools_4.6.0        </span></span>
+<span><span class="co">#&gt; [25] httpuv_1.6.17       DT_0.34.0           curl_7.1.0         </span></span>
+<span><span class="co">#&gt; [28] vctrs_0.7.3         rjsoncons_1.3.3     R6_2.6.1           </span></span>
+<span><span class="co">#&gt; [31] mime_0.13           lifecycle_1.0.5     fs_2.1.0           </span></span>
+<span><span class="co">#&gt; [34] htmlwidgets_1.6.4   ragg_1.5.2          pkgconfig_2.0.3    </span></span>
+<span><span class="co">#&gt; [37] desc_1.4.3          pkgdown_2.2.0       pillar_1.11.1      </span></span>
+<span><span class="co">#&gt; [40] bslib_0.11.0        later_1.4.8         glue_1.8.1         </span></span>
+<span><span class="co">#&gt; [43] Rcpp_1.1.1-1.1      systemfonts_1.3.2   xfun_0.58          </span></span>
+<span><span class="co">#&gt; [46] tibble_3.3.1        tidyselect_1.2.1    knitr_1.51         </span></span>
+<span><span class="co">#&gt; [49] xtable_1.8-8        htmltools_0.5.9     rmarkdown_2.31     </span></span>
+<span><span class="co">#&gt; [52] compiler_4.6.0</span></span></code></pre>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
@@ -597,7 +599,7 @@ details.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer>

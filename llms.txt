@@ -1,0 +1,97 @@
+# Introduction to cellxgenedp
+
+The cellxgene data portal <https://cellxgene.cziscience.com/> provides a
+graphical user interface to collections of single-cell sequence data
+processed in standard ways to ‘count matrix’ summaries. The cellxgenedp
+package provides an alternative, R-based interface, allowing data
+discovery, viewing, and downloading.
+
+## Installation
+
+This package is available in *Bioconductor* version 3.15 and later. The
+following code installs
+[cellxgenedp](https://bioconductor.org/packages/cellxgenedp)
+
+``` r
+
+if (!"BiocManager" %in% rownames(installed.packages()))
+    install.packages("BiocManager", repos = "https://CRAN.R-project.org")
+BiocManager::install("cellxgenedp")
+```
+
+Alternatively, install the ‘development’ version from GitHub
+
+``` r
+
+if (!"remotes" %in% rownames(installed.packages()))
+    install.packages("remotes", repos = "https://CRAN.R-project.org")
+remotes::install_github("mtmorgan/cellxgenedp")
+```
+
+To also install additional packages required for this vignette, use
+
+``` r
+
+pkgs <- c("tidyr", "zellkonverter", "SingleCellExperiment", "HDF5Array")
+required_pkgs <- pkgs[!pkgs %in% rownames(installed.packages())]
+BiocManager::install(required_pkgs)
+```
+
+## Use
+
+Load the package into your current *R* session. We make extensive use of
+the dplyr packages, and at the end of the vignette use
+SingleCellExperiment and zellkonverter, so load those as well.
+
+``` r
+
+suppressPackageStartupMessages({
+    library(dplyr)
+    library(cellxgenedp)
+})
+```
+
+## Shiny
+
+[`cxg()`](https://mtmorgan.github.io/cellxgenedp/reference/cxg.md)
+provides a ‘shiny’ interface allowing discovery of collections and
+datasets, visualization of selected datasets in the cellxgene data
+portal, and download of datasets for use in R.
+
+## Next steps
+
+View the article [Discover and download datasets and files from the
+cellxgene data
+portal](https://mtmorgan.github.io/cellxgenedp/articles/using_cellxgenedp.html).
+
+# Package index
+
+## All functions
+
+- [`cxg()`](https://mtmorgan.github.io/cellxgenedp/reference/cxg.md) :
+  Shiny application for discovering, viewing, and downloading cellxgene
+  data
+- [`db()`](https://mtmorgan.github.io/cellxgenedp/reference/db.md) :
+  Retrieve updated cellxgene database metadata
+- [`FACETS`](https://mtmorgan.github.io/cellxgenedp/reference/facets.md)
+  [`facets()`](https://mtmorgan.github.io/cellxgenedp/reference/facets.md)
+  [`facets_filter()`](https://mtmorgan.github.io/cellxgenedp/reference/facets.md)
+  : Facets available for querying cellxgene data
+- [`collections()`](https://mtmorgan.github.io/cellxgenedp/reference/query.md)
+  [`datasets()`](https://mtmorgan.github.io/cellxgenedp/reference/query.md)
+  [`datasets_visualize()`](https://mtmorgan.github.io/cellxgenedp/reference/query.md)
+  [`files()`](https://mtmorgan.github.io/cellxgenedp/reference/query.md)
+  [`files_download()`](https://mtmorgan.github.io/cellxgenedp/reference/query.md)
+  [`links()`](https://mtmorgan.github.io/cellxgenedp/reference/query.md)
+  [`authors()`](https://mtmorgan.github.io/cellxgenedp/reference/query.md)
+  [`publisher_metadata()`](https://mtmorgan.github.io/cellxgenedp/reference/query.md)
+  : Query cellxgene collections, datasets, and files
+
+# Articles
+
+### All vignettes
+
+- [Discovery and
+  retrieval](https://mtmorgan.github.io/cellxgenedp/articles/a_using_cellxgenedp.md):
+- [Case
+  studies](https://mtmorgan.github.io/cellxgenedp/articles/b_case_studies.md):
