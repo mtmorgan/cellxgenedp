@@ -44,7 +44,7 @@ FACETS <- c(
 #' @param cellxgene_db an (optional) cellxgene_db object, as returned
 #'     by `db()`.
 #'
-#' @param facets a character() vector corersponding to one of the
+#' @param facets a character() vector corresponding to one of the
 #'     facets in `FACETS`.
 #'
 #' @return `facets()` returns a tibble with columns `facet`, `label`,
@@ -91,7 +91,7 @@ facets <-
 #'
 #' @param value character() value of the label or ontology term to
 #'     filter on. The value may be a vector with `length(value) > 0`
-#'     for exact matchs (`exact = TRUE`, default), or a `character(1)`
+#'     for exact matches (`exact = TRUE`, default), or a `character(1)`
 #'     regular expression.
 #'
 #' @param exact logical(1) whether values match exactly (default,

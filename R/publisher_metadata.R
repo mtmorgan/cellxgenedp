@@ -5,7 +5,7 @@
 #'     collections.
 #'
 #' @return `links()` returns a tibble of external links associated
-#'     with each collection. Common links includ DOI, raw data / data
+#'     with each collection. Common links include DOI, raw data / data
 #'     sources, and lab websites.
 #'
 #' @examples
@@ -75,7 +75,7 @@ authors <-
 #' @rdname query
 #'
 #' @return `publisher_metadata()` returns a tibble of publisher
-#'     metadata (journal, publicate date, doi) associated with each
+#'     metadata (journal, publication date, doi) associated with each
 #'     collection.
 #'
 #' @examples

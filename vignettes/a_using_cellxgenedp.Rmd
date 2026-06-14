@@ -11,7 +11,7 @@ abstract: |
     The CELLxGENE data portal (https://cellxgene.cziscience.com/) provides a
     graphical user interface to collections of single-cell sequence data
     processed in standard ways to 'count matrix' summaries. The cellxgenedp
-    package provides an alternative, R-based inteface, allowing flexible data
+    package provides an alternative, R-based interface, allowing flexible data
     discovery, viewing, and retrieval.
 vignette: |
     %\VignetteIndexEntry{Discovery and retrieval}
