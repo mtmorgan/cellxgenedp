@@ -302,7 +302,7 @@
 #' @title Shiny application for discovering, viewing, and downloading
 #'     cellxgene data
 #'
-#' @param as character(1) Return value when quiting the shiny
+#' @param as character(1) Return value when quitting the shiny
 #'     application. `"tibble"` returns a tibble describing selected
 #'     datasets (including the location on disk of the downloaded
 #'     file). `"sce"` returns a list of dataset files imported to R as

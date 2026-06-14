@@ -115,7 +115,7 @@ author_datasets |>
     )
 ```
 
-or more carefully by constructing at `data.frame` of family and given
+or more carefully by constructing a `data.frame` of family and given
 names, and performing a join with `author_datasets`
 
 ```{r authors-of-interest}
@@ -259,7 +259,8 @@ duplicate_authors <-
     filter(collection_id == "e5f58829-1a66-40b5-a624-9046778e74f5")
 duplicate_authors
 ```
- The author information comes from the `publisher_metadata` column
+
+The author information comes from the `publisher_metadata` column
  
 ```{r}
 publisher_metadata <-
@@ -330,7 +331,7 @@ approach.
 CELLxGENE dataset facets like 'disease' and 'cell type' use terms from
 ontologies. Ontologies arrange terms in directed acyclic graphs, and
 use of ontologies can be useful to identify related datasets. For
-instance, one might be interesed in cancer-related datasets (derived
+instance, one might be interested in cancer-related datasets (derived
 from the 'carcinoma' term in the corresponding ontology) in general,
 rather than, e.g., 'B-cell non-Hodgkins lymphoma'. 
 

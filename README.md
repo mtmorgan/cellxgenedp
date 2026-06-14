@@ -3,8 +3,8 @@
 The cellxgene data portal <https://cellxgene.cziscience.com/> provides
 a graphical user interface to collections of single-cell sequence data
 processed in standard ways to 'count matrix' summaries. The
-cellxgenedp package provides an alternative, R-based inteface,
-allowind data discovery, viewing, and downloading.
+cellxgenedp package provides an alternative, R-based interface,
+allowing data discovery, viewing, and downloading.
 
 ## Installation
 
@@ -55,7 +55,7 @@ portal, and download of datasets for use in R.
 
 ## Next steps
 
-View the artcle [Discover and download datasets and files from the
+View the article [Discover and download datasets and files from the
 cellxgene data portal][article].
 
 [article]: https://mtmorgan.github.io/cellxgenedp/articles/using_cellxgenedp.html
